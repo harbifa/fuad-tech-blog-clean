@@ -1,0 +1,112 @@
+---
+// لوحة تحكم التحليلات (للمطورين فقط)
+const isDev = import.meta.env.DEV;
+---
+
+{isDev && (
+  <div id="analytics-dashboard" class="fixed bottom-4 left-4 bg-gray-900 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+    <div class="flex items-center justify-between mb-3">
+      <h4 class="font-bold text-sm">📊 Analytics Dashboard</h4>
+      <button id="toggle-dashboard" class="text-gray-400 hover:text-white">
+        <i class="fas fa-minus"></i>
+      </button>
+    </div>
+    
+    <div id="dashboard-content" class="space-y-2 text-xs">
+      <div class="flex justify-between">
+        <span>Page Views:</span>
+        <span id="page-views">1</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Events Fired:</span>
+        <span id="events-count">0</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Scroll Depth:</span>
+        <span id="scroll-depth">0%</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Time on Page:</span>
+        <span id="time-on-page">0s</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Conversions:</span>
+        <span id="conversions-count">0</span>
+      </div>
+    </div>
+    
+    <div class="mt-3 pt-3 border-t border-gray-700">
+      <button id="clear-analytics" class="text-xs bg-red-600 hover:bg-red-700 px-2 py-1 rounded">
+        Clear Data
+      </button>
+    </div>
+  </div>
+)}
+
+{isDev && (
+  <script>
+    // لوحة تحكم التحليلات للتطوير
+    document.addEventListener('DOMContentLoaded', function() {
+      let eventsCount = 0;
+      let conversionsCount = 0;
+      let startTime = Date.now();
+      
+      const dashboard = document.getElementById('analytics-dashboard');
+      const toggleBtn = document.getElementById('toggle-dashboard');
+      const content = document.getElementById('dashboard-content');
+      const clearBtn = document.getElementById('clear-analytics');
+      
+      // تبديل عرض اللوحة
+      toggleBtn?.addEventListener('click', function() {
+        const isHidden = content.style.display === 'none';
+        content.style.display = isHidden ? 'block' : 'none';
+        this.innerHTML = isHidden ? '<i class="fas fa-minus"></i>' : '<i class="fas fa-plus"></i>';
+      });
+      
+      // مسح البيانات
+      clearBtn?.addEventListener('click', function() {
+        eventsCount = 0;
+        conversionsCount = 0;
+        startTime = Date.now();
+        updateDashboard();
+      });
+      
+      // تحديث اللوحة
+      function updateDashboard() {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        const scrollPercent = Math.round((window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100) || 0;
+        
+        document.getElementById('events-count').textContent = eventsCount;
+        document.getElementById('scroll-depth').textContent = scrollPercent + '%';
+        document.getElementById('time-on-page').textContent = timeOnPage + 's';
+        document.getElementById('conversions-count').textContent = conversionsCount;
+      }
+      
+      // اعتراض أحداث gtag
+      const originalGtag = window.gtag;
+      window.gtag = function() {
+        eventsCount++;
+        
+        // تحقق من التحويلات
+        if (arguments[0] === 'event' && 
+            (arguments[1] === 'conversion' || arguments[1].includes('conversion'))) {
+          conversionsCount++;
+        }
+        
+        updateDashboard();
+        
+        // استدعاء gtag الأصلي
+        if (originalGtag) {
+          originalGtag.apply(this, arguments);
+        }
+        
+        console.log('📊 [Dashboard] Analytics Event:', arguments);
+      };
+      
+      // تحديث دوري
+      setInterval(updateDashboard, 1000);
+      
+      console.log('📊 Analytics Dashboard: Initialized');
+    });
+  </script>
+)}

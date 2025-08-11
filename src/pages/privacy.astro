@@ -1,0 +1,591 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="سياسة الخصوصية - مدونة عزيز"
+  description="سياسة الخصوصية لمدونة عزيز - تعرف على كيفية جمع واستخدام وحماية معلوماتك الشخصية عند استخدام موقعنا."
+  type="website"
+>
+  <Header />
+  
+  <main class="py-16 bg-gradient-to-br from-slate-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-slate-900">
+    {/* خلفية ديكورية */}
+    <div class="absolute inset-0 opacity-5 dark:opacity-3 pointer-events-none">
+      <div class="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-green-400 to-blue-500 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-4xl mx-auto">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+          <div class="w-24 h-24 bg-gradient-to-br from-blue-500 via-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+            <i class="fas fa-shield-alt text-4xl text-white"></i>
+          </div>
+          
+          <div class="space-y-6">
+            <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 mb-6">
+              🛡️ سياسة الخصوصية
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto font-medium">
+              نحن نلتزم بحماية <span class="text-blue-600 dark:text-blue-400 font-bold">خصوصيتك</span> 
+              و<span class="text-green-600 dark:text-green-400 font-bold">أمان معلوماتك الشخصية</span>
+            </p>
+            <p class="text-xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+              آخر تحديث: {new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Contact Section -->
+        <div class="mb-12">
+          <div class="bg-gradient-to-r from-green-50 via-blue-50 to-purple-50 dark:from-green-900/20 dark:via-blue-900/20 dark:to-purple-900/20 rounded-3xl p-8 border border-green-200 dark:border-green-700 shadow-xl">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+              <i class="fas fa-headset text-blue-500 ml-2"></i>
+              تواصل معنا مباشرة
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Email -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-envelope text-blue-500 text-2xl"></i>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">البريد الإلكتروني</h3>
+                  <a href="mailto:info@fuad3ziz.com" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline text-lg">
+                    info@fuad3ziz.com
+                  </a>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">استجابة خلال 24 ساعة</p>
+                </div>
+              </div>
+
+              <!-- WhatsApp -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-whatsapp text-green-500 text-2xl"></i>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">واتساب</h3>
+                  <a href="https://wa.me/966547402101" target="_blank" rel="noopener noreferrer" class="text-green-600 dark:text-green-400 font-semibold hover:underline text-lg flex items-center justify-center">
+                    +966 54 740 2101
+                    <i class="fas fa-external-link-alt text-xs mr-2"></i>
+                  </a>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">استجابة فورية</p>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-phone text-purple-500 text-2xl"></i>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">الجوال</h3>
+                  <a href="tel:+966547402101" class="text-purple-600 dark:text-purple-400 font-semibold hover:underline text-lg">
+                    +966 54 740 2101
+                  </a>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">أيام العمل 9 ص - 6 م</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+              <div class="inline-flex items-center bg-blue-50 dark:bg-blue-900/20 rounded-full px-6 py-3 border border-blue-200 dark:border-blue-700">
+                <i class="fas fa-clock text-blue-500 ml-2"></i>
+                <span class="text-blue-700 dark:text-blue-300 font-medium">متاحون للرد على استفساراتك حول الخصوصية</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy Policy Content -->
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-gray-700">
+          
+          <!-- Introduction -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-info-circle text-blue-500 ml-3"></i>
+              مقدمة
+            </h2>
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                ترحب بك مدونة عزيز ("نحن"، "لنا"، أو "الموقع") وتلتزم بحماية خصوصيتك. تشرح سياسة الخصوصية هذه كيفية جمع واستخدام وحماية المعلومات التي تقدمها لنا عند استخدام موقعنا الإلكتروني.
+              </p>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                باستخدام موقعنا، فإنك توافق على جمع واستخدام المعلومات وفقاً لهذه السياسة. إذا كنت لا توافق على هذه السياسة، يرجى عدم استخدام موقعنا.
+              </p>
+            </div>
+          </div>
+
+          <!-- Information We Collect -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-database text-blue-500 ml-3"></i>
+              المعلومات التي نجمعها
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                  <i class="fas fa-user text-green-500 ml-2"></i>
+                  المعلومات الشخصية
+                </h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>الاسم الكامل</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>عنوان البريد الإلكتروني</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>رقم الهاتف (اختياري)</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>رسائل التواصل</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                  <i class="fas fa-chart-line text-blue-500 ml-2"></i>
+                  معلومات الاستخدام
+                </h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>عنوان IP</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>نوع المتصفح</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>صفحات الزيارة</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>وقت الزيارة</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- How We Use Information -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-cogs text-blue-500 ml-3"></i>
+              كيفية استخدام المعلومات
+            </h2>
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-700">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">الاستخدامات الأساسية</h3>
+                  <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>تقديم خدماتنا وتحسينها</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>الرد على استفساراتك ورسائلك</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>إرسال النشرات البريدية (بموافقتك)</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>تحليل استخدام الموقع</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">الاستخدامات التحليلية</h3>
+                  <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>تحسين تجربة المستخدم</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>تطوير المحتوى والخدمات</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>منع الاحتيال وإساءة الاستخدام</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                      <span>الامتثال للقوانين المعمول بها</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Information Sharing -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-share-alt text-blue-500 ml-3"></i>
+              مشاركة المعلومات
+            </h2>
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                <strong class="text-red-600 dark:text-red-400">لا نبيع أو نؤجر أو نشارك معلوماتك الشخصية مع أطراف ثالثة</strong> إلا في الحالات التالية:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-red-50 dark:bg-red-900/20 rounded-2xl p-6 border border-red-200 dark:border-red-700">
+                  <h3 class="text-lg font-bold text-red-800 dark:text-red-200 mb-3">الاستثناءات المحدودة</h3>
+                  <ul class="space-y-2 text-red-700 dark:text-red-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-exclamation-triangle mt-1 ml-2 flex-shrink-0"></i>
+                      <span>بموافقتك الصريحة</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-exclamation-triangle mt-1 ml-2 flex-shrink-0"></i>
+                      <span>للامتثال للقوانين والأنظمة</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-exclamation-triangle mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لحماية حقوقنا وممتلكاتنا</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-exclamation-triangle mt-1 ml-2 flex-shrink-0"></i>
+                      <span>في حالات الطوارئ</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="bg-green-50 dark:bg-green-900/20 rounded-2xl p-6 border border-green-200 dark:border-green-700">
+                  <h3 class="text-lg font-bold text-green-800 dark:text-green-200 mb-3">مقدمي الخدمات</h3>
+                  <ul class="space-y-2 text-green-700 dark:text-green-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-shield-alt mt-1 ml-2 flex-shrink-0"></i>
+                      <span>مقدمي خدمات الاستضافة</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-shield-alt mt-1 ml-2 flex-shrink-0"></i>
+                      <span>خدمات التحليل (Google Analytics)</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-shield-alt mt-1 ml-2 flex-shrink-0"></i>
+                      <span>خدمات البريد الإلكتروني</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-shield-alt mt-1 ml-2 flex-shrink-0"></i>
+                      <span>خدمات الأمان والحماية</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Security -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-lock text-blue-500 ml-3"></i>
+              أمان البيانات
+            </h2>
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-2xl p-8 border border-green-200 dark:border-green-700">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-encryption text-white text-2xl"></i>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">التشفير</h3>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    نستخدم تشفير SSL/TLS لحماية البيانات المنقولة
+                  </p>
+                </div>
+                
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-server text-white text-2xl"></i>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">الخوادم الآمنة</h3>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    بياناتك محفوظة على خوادم آمنة ومحمية
+                  </p>
+                </div>
+                
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-shield text-white text-2xl"></i>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">الوصول المحدود</h3>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    الوصول للمعلومات مقيد للموظفين المصرح لهم فقط
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cookies Policy -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-cookie-bite text-blue-500 ml-3"></i>
+              سياسة ملفات تعريف الارتباط (Cookies)
+            </h2>
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                نستخدم ملفات تعريف الارتباط لتحسين تجربتك على موقعنا. أنواع ملفات تعريف الارتباط التي نستخدمها:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-2xl p-6 border border-yellow-200 dark:border-yellow-700">
+                  <h3 class="text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-3">ملفات تعريف الارتباط الأساسية</h3>
+                  <ul class="space-y-2 text-yellow-700 dark:text-yellow-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-cog mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لضمان عمل الموقع بشكل صحيح</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-cog mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لحفظ تفضيلاتك</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-cog mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لتحسين الأداء</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-700">
+                  <h3 class="text-lg font-bold text-blue-800 dark:text-blue-200 mb-3">ملفات تعريف الارتباط التحليلية</h3>
+                  <ul class="space-y-2 text-blue-700 dark:text-blue-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-chart-bar mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لفهم كيفية استخدام الموقع</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-chart-bar mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لتحسين المحتوى والخدمات</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-chart-bar mt-1 ml-2 flex-shrink-0"></i>
+                      <span>لقياس فعالية الحملات</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Your Rights -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-user-check text-blue-500 ml-3"></i>
+              حقوقك
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-6 border border-purple-200 dark:border-purple-700">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">حقوق الوصول والتحكم</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-eye text-purple-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>الوصول إلى معلوماتك الشخصية</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-edit text-purple-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>تحديث أو تصحيح معلوماتك</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-trash text-purple-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>حذف معلوماتك الشخصية</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-download text-purple-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>تصدير بياناتك</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-2xl p-6 border border-green-200 dark:border-green-700">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">حقوق الخصوصية</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <i class="fas fa-ban text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>الانسحاب من النشرات البريدية</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-cog text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>إدارة تفضيلات ملفات تعريف الارتباط</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-shield-alt text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>تقييد معالجة البيانات</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                    <span>تقديم شكوى للجهات المختصة</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-envelope text-blue-500 ml-3"></i>
+              معلومات التواصل
+            </h2>
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-700">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">للاستفسارات حول الخصوصية</h3>
+                  <div class="space-y-4">
+                    <div class="flex items-center p-3 bg-white dark:bg-gray-700 rounded-xl shadow-sm">
+                      <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center ml-3">
+                        <i class="fas fa-envelope text-blue-500 text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">البريد الإلكتروني</p>
+                        <a href="mailto:info@fuad3ziz.com" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">info@fuad3ziz.com</a>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-white dark:bg-gray-700 rounded-xl shadow-sm">
+                      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center ml-3">
+                        <i class="fas fa-phone text-green-500 text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">رقم الجوال</p>
+                        <a href="tel:+966547402101" class="text-green-600 dark:text-green-400 font-semibold hover:underline">+966 54 740 2101</a>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-white dark:bg-gray-700 rounded-xl shadow-sm">
+                      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center ml-3">
+                        <i class="fab fa-whatsapp text-green-500 text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">واتساب</p>
+                        <a href="https://wa.me/966547402101" target="_blank" rel="noopener noreferrer" class="text-green-600 dark:text-green-400 font-semibold hover:underline flex items-center">
+                          +966 54 740 2101
+                          <i class="fas fa-external-link-alt text-xs mr-2"></i>
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-white dark:bg-gray-700 rounded-xl shadow-sm">
+                      <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center ml-3">
+                        <i class="fas fa-map-marker-alt text-purple-500 text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">العنوان</p>
+                        <span class="text-gray-900 dark:text-white font-semibold">الرياض، المملكة العربية السعودية</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">أوقات الاستجابة</h3>
+                  <div class="space-y-4">
+                    <div class="bg-white dark:bg-gray-700 rounded-xl p-4 shadow-sm">
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600 dark:text-gray-400">أيام العمل:</span>
+                        <span class="font-bold text-gray-900 dark:text-white">الأحد - الخميس</span>
+                      </div>
+                      <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 71%"></div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-700 rounded-xl p-4 shadow-sm">
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600 dark:text-gray-400">ساعات العمل:</span>
+                        <span class="font-bold text-gray-900 dark:text-white">9 ص - 6 م</span>
+                      </div>
+                      <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-700 rounded-xl p-4 shadow-sm">
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600 dark:text-gray-400">وقت الاستجابة:</span>
+                        <span class="font-bold text-gray-900 dark:text-white">24-48 ساعة</span>
+                      </div>
+                      <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div class="bg-purple-500 h-2 rounded-full" style="width: 50%"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-700">
+                    <h4 class="text-sm font-bold text-blue-800 dark:text-blue-200 mb-2">💡 نصيحة سريعة</h4>
+                    <p class="text-sm text-blue-700 dark:text-blue-300">
+                      للحصول على استجابة أسرع، يرجى تضمين "خصوصية" في عنوان رسالتك
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Updates to Policy -->
+          <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <i class="fas fa-sync-alt text-blue-500 ml-3"></i>
+              تحديثات سياسة الخصوصية
+            </h2>
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-2xl p-8 border border-yellow-200 dark:border-yellow-700">
+              <div class="flex items-start">
+                <i class="fas fa-exclamation-triangle text-yellow-500 text-2xl mt-1 ml-4 flex-shrink-0"></i>
+                <div>
+                  <h3 class="text-xl font-bold text-yellow-800 dark:text-yellow-200 mb-3">إشعار التحديثات</h3>
+                  <p class="text-yellow-700 dark:text-yellow-300 leading-relaxed">
+                    قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنقوم بإشعارك بأي تغييرات جوهرية عبر:
+                  </p>
+                  <ul class="mt-4 space-y-2 text-yellow-700 dark:text-yellow-300">
+                    <li class="flex items-start">
+                      <i class="fas fa-check mt-1 ml-2 flex-shrink-0"></i>
+                      <span>نشر الإشعار على موقعنا الإلكتروني</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check mt-1 ml-2 flex-shrink-0"></i>
+                      <span>إرسال إشعار عبر البريد الإلكتروني</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check mt-1 ml-2 flex-shrink-0"></i>
+                      <span>تحديث تاريخ "آخر تحديث" في أعلى هذه الصفحة</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Note -->
+          <div class="text-center bg-gray-50 dark:bg-gray-700 rounded-2xl p-8">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <i class="fas fa-heart text-red-500 ml-2"></i>
+              شكراً لثقتك بنا
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+              نحن ملتزمون بحماية خصوصيتك وتقديم تجربة آمنة وموثوقة. إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية هذه، لا تتردد في التواصل معنا.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+

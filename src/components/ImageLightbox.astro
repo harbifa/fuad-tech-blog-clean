@@ -1,0 +1,137 @@
+---
+---
+
+<!-- Image Lightbox Modal -->
+<div id="image-lightbox" class="fixed inset-0 z-50 hidden">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/90 backdrop-blur-sm" id="lightbox-backdrop"></div>
+  
+  <!-- Modal Content -->
+  <div class="fixed inset-0 flex items-center justify-center p-4">
+    <div class="relative max-w-7xl max-h-full">
+      <!-- Close Button -->
+      <button 
+        id="close-lightbox"
+        class="absolute -top-12 right-0 z-10 text-white hover:text-gray-300 transition-colors"
+        aria-label="إغلاق"
+      >
+        <i class="fas fa-times text-3xl"></i>
+      </button>
+      
+      <!-- Image Container -->
+      <div class="relative">
+        <img 
+          id="lightbox-image"
+          src=""
+          alt=""
+          class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+        />
+      </div>
+      
+      <!-- Navigation Arrows (for future use) -->
+      <button 
+        id="prev-image"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors hidden"
+        aria-label="الصورة السابقة"
+      >
+        <i class="fas fa-chevron-left text-3xl"></i>
+      </button>
+      
+      <button 
+        id="next-image"
+        class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors hidden"
+        aria-label="الصورة التالية"
+      >
+        <i class="fas fa-chevron-right text-3xl"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Lightbox Animations */
+  #image-lightbox {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #image-lightbox.show {
+    opacity: 1;
+  }
+  
+  #image-lightbox .max-w-7xl {
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  #image-lightbox.show .max-w-7xl {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement;
+    const closeLightbox = document.getElementById('close-lightbox');
+    const backdrop = document.getElementById('lightbox-backdrop');
+    
+    // Function to open lightbox
+    function openLightbox(imageSrc: string, imageAlt?: string) {
+      if (lightbox && lightboxImage) {
+        lightboxImage.src = imageSrc;
+        lightboxImage.alt = imageAlt || '';
+        lightbox.classList.remove('hidden');
+        setTimeout(() => {
+          lightbox.classList.add('show');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Function to close lightbox
+    function closeLightboxModal() {
+      if (lightbox) {
+        lightbox.classList.remove('show');
+        setTimeout(() => {
+          lightbox.classList.add('hidden');
+        }, 300);
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Close lightbox when clicking close button
+    if (closeLightbox) {
+      closeLightbox.addEventListener('click', closeLightboxModal);
+    }
+    
+    // Close lightbox when clicking backdrop
+    if (backdrop) {
+      backdrop.addEventListener('click', closeLightboxModal);
+    }
+    
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+        closeLightboxModal();
+      }
+    });
+    
+    // Event delegation for images with lightbox functionality
+    document.addEventListener('click', function(e) {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'IMG' && target.classList.contains('cursor-pointer')) {
+        e.preventDefault();
+        const src = target.getAttribute('src');
+        const alt = target.getAttribute('alt') || '';
+        if (src) {
+          openLightbox(src, alt);
+        }
+      }
+    });
+    
+    // Make openLightbox function globally available
+    (window as any).openLightbox = openLightbox;
+  });
+</script>

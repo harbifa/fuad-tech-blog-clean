@@ -1,0 +1,73 @@
+---
+export interface Props {
+  title: string;
+  url: string;
+  description?: string;
+}
+
+const { title, url, description = '' } = Astro.props;
+---
+
+<div class="social-share bg-gray-50 dark:bg-gray-800 rounded-xl p-6 my-8">
+  <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 text-center">
+    📢 شارك هذا المقال
+  </h3>
+  
+  <div class="flex flex-wrap justify-center gap-3">
+    <!-- Twitter -->
+    <a 
+      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}&via=aziz_tech_blog`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-300 hover:scale-105"
+      aria-label="شارك على تويتر"
+    >
+      <i class="fab fa-twitter ml-2"></i>
+      تويتر
+    </a>
+    
+    <!-- LinkedIn -->
+    <a 
+      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition-all duration-300 hover:scale-105"
+      aria-label="شارك على لينكد إن"
+    >
+      <i class="fab fa-linkedin ml-2"></i>
+      لينكد إن
+    </a>
+    
+    <!-- WhatsApp -->
+    <a 
+      href={`https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-all duration-300 hover:scale-105"
+      aria-label="شارك على واتساب"
+    >
+      <i class="fab fa-whatsapp ml-2"></i>
+      واتساب
+    </a>
+    
+    <!-- Copy Link -->
+    <button 
+      onclick={`navigator.clipboard.writeText('${url}').then(() => { this.innerHTML = '<i class=\"fas fa-check ml-2\"></i>تم النسخ!'; setTimeout(() => { this.innerHTML = '<i class=\"fas fa-link ml-2\"></i>نسخ الرابط'; }, 2000); })`}
+      class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-all duration-300 hover:scale-105"
+      aria-label="نسخ الرابط"
+    >
+      <i class="fas fa-link ml-2"></i>
+      نسخ الرابط
+    </button>
+  </div>
+</div>
+
+<style>
+  .social-share {
+    border: 1px solid #e5e7eb;
+  }
+  
+  .dark .social-share {
+    border-color: #374151;
+  }
+</style>

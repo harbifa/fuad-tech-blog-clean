@@ -1,0 +1,49 @@
+---
+export interface Props {
+  products: Array<{
+    name: string;
+    description: string;
+    price: string;
+    currency?: string;
+    image?: string;
+    brand?: string;
+    category?: string;
+    rating?: number;
+    reviewCount?: number;
+    availability?: 'InStock' | 'OutOfStock' | 'PreOrder';
+    url?: string;
+  }>;
+}
+
+const { products } = Astro.props;
+
+// Generate Product Schema.org markup
+const productSchema = products.map(product => ({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "description": product.description,
+  "image": product.image,
+  "brand": {
+    "@type": "Brand",
+    "name": product.brand || "Unknown Brand"
+  },
+  "category": product.category || "كاميرات المراقبة",
+  "offers": {
+    "@type": "Offer",
+    "price": product.price,
+    "priceCurrency": product.currency || "SAR",
+    "availability": `https://schema.org/${product.availability || 'InStock'}`,
+    "url": product.url
+  },
+  ...(product.rating && {
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": product.rating,
+      "reviewCount": product.reviewCount || 0
+    }
+  })
+}));
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(productSchema)} /> 

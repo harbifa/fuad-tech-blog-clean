@@ -1,0 +1,37 @@
+---
+// File: src/components/blog/ScenarioCard.astro
+// بطاقة سيناريو قابلة لإعادة الاستخدام (عنوان + أيقونة + محتوى).
+// • رأس رمادي فاتح، جسم أبيض (أو شبه شفاف في الوضع الداكن).
+// • ظلّ خفيف مع حركة ارتفاع عند الـ hover.
+// • لا <style> ولا @apply – Tailwind فقط.
+
+export interface Props {
+  /** العنوان داخل الرأس */
+  title: string;
+  /** أيقونة أو Emoji يُعرَض قبل العنوان (اختياري) */
+  icon?: string;
+}
+
+const { title, icon } = Astro.props;
+---
+
+<div
+  class="rounded-xl bg-white dark:bg-slate-900/40 overflow-hidden
+         shadow-sm transition-transform duration-300 ease-in-out
+         hover:shadow-lg hover:-translate-y-1"
+  style="direction: rtl;"
+>
+  <!-- Header -->
+  <h3
+    class="flex items-center gap-3 text-lg font-bold px-6 py-4
+           bg-slate-100 dark:bg-slate-800/40"
+  >
+    {icon && <span class="text-xl">{icon}</span>}
+    <span>{title}</span>
+  </h3>
+
+  <!-- Body -->
+  <div class="p-6 prose prose-slate dark:prose-invert max-w-none">
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,74 @@
+---
+// مكون التحقق من Google Search Console
+export interface Props {
+  verificationCode?: string;
+}
+
+const { verificationCode } = Astro.props;
+
+// يمكنك إضافة رمز التحقق هنا عندما تحصل عليه من Search Console
+const SEARCH_CONSOLE_VERIFICATION = verificationCode || 'YOUR_VERIFICATION_CODE_HERE';
+---
+
+<!-- Google Search Console Verification -->
+{SEARCH_CONSOLE_VERIFICATION !== 'YOUR_VERIFICATION_CODE_HERE' && (
+  <meta name="google-site-verification" content={SEARCH_CONSOLE_VERIFICATION} />
+)}
+
+<!-- Additional SEO Meta Tags for Search Console -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={Astro.url.toString()} />
+
+<!-- Hreflang for Arabic content -->
+<link rel="alternate" hreflang="ar" href={Astro.url.toString()} />
+<link rel="alternate" hreflang="x-default" href={Astro.url.toString()} />
+
+<!-- Open Graph for better social sharing -->
+<meta property="og:locale" content="ar_SA" />
+<meta property="og:site_name" content="مدونة عزيز" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@aziz_tech_blog" />
+
+<!-- Additional structured data for Search Console -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "مدونة عزيز",
+  "alternateName": "Aziz Tech Blog",
+  "url": "https://fuad3ziz.com",
+  "description": "مدونة متخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات التقنية",
+  "inLanguage": "ar",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://fuad3ziz.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "عزيز",
+    "jobTitle": "خبير أمن سيبراني",
+    "knowsAbout": ["كاميرات المراقبة", "الأنظمة الأمنية", "الأمن السيبراني", "مراجعات تقنية"],
+    "sameAs": [
+      "https://twitter.com/aziz_tech_blog",
+      "https://linkedin.com/in/fuad-aziz",
+      "https://wa.me/966547402101"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "مدونة عزيز",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fuad3ziz.com/logo.png",
+      "width": 512,
+      "height": 512
+    }
+  }
+}
+</script>

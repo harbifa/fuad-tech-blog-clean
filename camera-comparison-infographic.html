@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقارنة أنواع الكاميرات</title>
+    <!-- إضافة مكتبة html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .infographic-container {
+            width: 1200px;
+            height: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .content {
+            display: flex;
+            height: calc(100% - 120px);
+        }
+
+        .camera-section {
+            flex: 1;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .camera-section:nth-child(1) {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+
+        .camera-section:nth-child(2) {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+        }
+
+        .camera-section:nth-child(3) {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        }
+
+        .camera-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .camera-section:nth-child(1) .camera-icon {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+        }
+
+        .camera-section:nth-child(2) .camera-icon {
+            background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+        }
+
+        .camera-section:nth-child(3) .camera-icon {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+        }
+
+        .camera-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .features-list {
+            text-align: right;
+            list-style: none;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            margin-left: 15px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .download-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #666;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #333;
+            transform: scale(1.1);
+        }
+
+        .brand-logo {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: bold;
+        }
+
+        /* إضافة أنماط للتحكم */
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- أزرار التحكم -->
+    <div class="controls">
+        <button class="btn" onclick="downloadImage()">تحميل الصورة</button>
+        <button class="btn" onclick="printImage()">طباعة</button>
+    </div>
+
+    <div class="infographic-container" id="infographic">
+        <div class="download-btn">⬇</div>
+        <div class="header">مقارنة بين أنواع الكاميرات</div>
+        
+        <div class="content">
+            <div class="camera-section">
+                <div class="camera-icon">📹</div>
+                <div class="camera-title">كاميرا WiFi داخلية</div>
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">📶</div>
+                        استخدام داخلي
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        تحريك وتدوير
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">👤</div>
+                        كشف الحركة
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">☁️</div>
+                        تخزين سحابي/محلي 100GB
+                    </li>
+                </ul>
+            </div>
+
+            <div class="camera-section">
+                <div class="camera-icon">🌦️</div>
+                <div class="camera-title">كاميرا مقاومة للعوامل الجوية</div>
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">📶</div>
+                        اتصال لاسلكي
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">☁️</div>
+                        تخزين سحابي
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">🌙</div>
+                        رؤية ليلية
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">🔋</div>
+                        بطارية طويلة الأمد
+                    </li>
+                </ul>
+            </div>
+
+            <div class="camera-section">
+                <div class="camera-icon">☀️</div>
+                <div class="camera-title">كاميرا بالطاقة الشمسية</div>
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">📶</div>
+                        اتصال لاسلكي
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">☁️</div>
+                        تخزين سحابي/4G
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">👤</div>
+                        كشف الحركة
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        طاقة ذاتية
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="brand-logo">الصحة | Saudi</div>
+    </div>
+
+    <script>
+        // دالة تحميل الصورة
+        function downloadImage() {
+            const element = document.getElementById('infographic');
+            
+            html2canvas(element, {
+                scale: 2, // جودة عالية
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'camera-comparison-infographic.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        // دالة الطباعة
+        function printImage() {
+            window.print();
+        }
+
+        // إضافة وظيفة التحميل للزر الأصلي
+        document.querySelector('.download-btn').addEventListener('click', downloadImage);
+    </script>
+</body>
+</html> 

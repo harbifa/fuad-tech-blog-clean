@@ -1,0 +1,142 @@
+---
+// File: src/components/blog/SideBySide.astro
+// مكون يعرض محتويين جنبًا إلى جنب مع تخصيص كامل للألوان، الأيقونات، حجم العناوين والنصوص.
+
+export interface Props {
+  leftTitle: string;
+  rightTitle: string;
+  leftIcon?: string;
+  rightIcon?: string;
+
+  // حجم الأيقونة (ex: text-base, text-xl)
+  leftIconSize?: string;
+  rightIconSize?: string;
+
+  // محاذاة الأيقونة إلى الوسط
+  centerLeftIcon?: boolean;
+  centerRightIcon?: boolean;
+
+  // لون الأيقونة (ex: text-red-600)
+  leftIconColor?: string;
+  rightIconColor?: string;
+
+  // خصائص العنوان
+  leftTitleSize?: string;
+  rightTitleSize?: string;
+  leftTitleWeight?: string;
+  rightTitleWeight?: string;
+  leftTitleColor?: string;
+  rightTitleColor?: string;
+
+  // خصائص النصوص
+  leftTextSize?: string;
+  rightTextSize?: string;
+  leftTextWeight?: string;
+  rightTextWeight?: string;
+  leftTextColor?: string;
+  rightTextColor?: string;
+
+  // ألوان خلفية الجانبين
+  leftColor?: 'yellow' | 'blue' | 'green' | 'purple' | 'brown' | 'cyan' | 'red' | 'slate';
+  rightColor?: 'yellow' | 'blue' | 'green' | 'purple' | 'brown' | 'cyan' | 'red' | 'slate';
+}
+
+const {
+  leftTitle,
+  rightTitle,
+  leftIcon,
+  rightIcon,
+  leftIconSize = 'text-base',
+  rightIconSize = 'text-base',
+  centerLeftIcon = false,
+  centerRightIcon = false,
+  leftIconColor = '',
+  rightIconColor = '',
+  leftTitleSize = 'text-lg',
+  rightTitleSize = 'text-lg',
+  leftTitleWeight = 'font-extrabold',
+  rightTitleWeight = 'font-extrabold',
+  leftTitleColor = 'red',
+  rightTitleColor = '',
+  leftTextSize = 'text-base',
+  rightTextSize = 'text-base',
+  leftTextWeight = 'font-normal',
+  rightTextWeight = 'font-normal',
+  leftTextColor = '',
+  rightTextColor = '',
+  leftColor = 'blue',
+  rightColor = 'green',
+} = Astro.props;
+
+const palette = {
+  yellow: 'border-yellow-400 bg-yellow-50 text-yellow-800 dark:border-yellow-500 dark:bg-yellow-900/20 dark:text-yellow-200',
+  blue: 'border-blue-400 bg-blue-50 text-blue-800 dark:border-blue-500 dark:bg-blue-900/25 dark:text-blue-200',
+  green: 'border-green-400 bg-green-50 text-green-800 dark:border-green-500 dark:bg-green-900/25 dark:text-green-200',
+  purple: 'border-purple-400 bg-purple-50 text-purple-800 dark:border-purple-500 dark:bg-purple-900/25 dark:text-purple-200',
+  brown: 'border-amber-600 bg-amber-50 text-amber-800 dark:border-amber-600 dark:bg-amber-900/25 dark:text-amber-200',
+  cyan: 'border-cyan-400 bg-cyan-50 text-cyan-800 dark:border-cyan-500 dark:bg-cyan-900/25 dark:text-cyan-200',
+  red: 'border-red-400 bg-red-50 text-red-800 dark:border-red-500 dark:bg-red-900/25 dark:text-red-200',
+  slate: 'border-slate-400 bg-slate-50 text-slate-800 dark:border-slate-500 dark:bg-slate-800/40 dark:text-slate-200',
+};
+
+const leftClasses = palette[leftColor];
+const rightClasses = palette[rightColor];
+---
+
+<!-- ✅ الغلاف العام: صفّ مرن يتكدس عموديًا ثم أفقيًا -->
+<div class="flex flex-col md:flex-row gap-6 my-8">
+
+  <!-- 🔹 القسم الأيسر -->
+  <div
+    class:list={[
+      'flex-1 rounded-lg p-6 border-t-4 shadow-sm flex flex-col gap-4',
+      leftClasses,
+      'transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5',
+    ]}
+    style="direction: rtl;"
+  >
+    <!-- ✅ الأيقونة والعنوان -->
+    <div class="flex items-center gap-3">
+      {leftIcon && (
+        <div class:list={['w-9 h-9 flex justify-center items-center rounded-full bg-white/80 dark:bg-black/30 backdrop-blur-sm', centerLeftIcon && 'mx-auto']}>
+          <i class:list={['fas', leftIcon, leftIconSize, leftIconColor]}></i>
+        </div>
+      )}
+      <h3 class:list={[leftTitleSize, leftTitleWeight, leftTitleColor, 'm-0 leading-tight']}>
+        {leftTitle}
+      </h3>
+    </div>
+
+    <!-- ✅ محتوى النص -->
+    <div class:list={[leftTextSize, leftTextWeight, leftTextColor, 'flex-1 max-w-none leading-relaxed']}>
+      <slot name="left" />
+    </div>
+  </div>
+
+  <!-- 🔸 القسم الأيمن -->
+  <div
+    class:list={[
+      'flex-1 rounded-lg p-6 border-t-4 shadow-sm flex flex-col gap-4',
+      rightClasses,
+      'transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5',
+    ]}
+    style="direction: rtl;"
+  >
+    <!-- ✅ الأيقونة والعنوان -->
+    <div class="flex items-center gap-3">
+      {rightIcon && (
+        <div class:list={['w-9 h-9 flex justify-center items-center rounded-full bg-white/80 dark:bg-black/30 backdrop-blur-sm', centerRightIcon && 'mx-auto']}>
+          <i class:list={['fas', rightIcon, rightIconSize, rightIconColor]}></i>
+        </div>
+      )}
+      <h3 class:list={[rightTitleSize, rightTitleWeight, rightTitleColor, 'm-0 leading-tight']}>
+        {rightTitle}
+      </h3>
+    </div>
+
+    <!-- ✅ محتوى النص -->
+    <div class:list={[rightTextSize, rightTextWeight, rightTextColor, 'flex-1 max-w-none leading-relaxed']}>
+      <slot name="right" />
+    </div>
+  </div>
+</div>

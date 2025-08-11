@@ -1,0 +1,98 @@
+---
+export interface Props {
+  trackingId?: string;
+}
+
+const { trackingId = 'G-XXXXXXXXXX' } = Astro.props;
+
+// تحديد البيئة
+const isDev = import.meta.env.DEV;
+const isProduction = import.meta.env.PROD;
+---
+
+{!isDev && (
+  <>
+    <!-- Google Analytics 4 -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`}></script>
+    <script is:inline define:vars={{ trackingId, isProduction }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      // إعداد Google Analytics
+      gtag('js', new Date());
+      gtag('config', trackingId, {
+        // إعدادات الخصوصية
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        
+        // إعدادات التتبع
+        page_title: document.title,
+        page_location: window.location.href,
+        content_group1: 'مدونة عزيز',
+        content_group2: 'أمان وتقنية',
+        
+        // إعدادات التجارة الإلكترونية (للمنتجات التابعة)
+        send_page_view: true,
+        
+        // إعدادات مخصصة
+        custom_map: {
+          'custom_parameter_1': 'user_type',
+          'custom_parameter_2': 'content_category'
+        }
+      });
+      
+      // تتبع الأحداث المخصصة
+      window.trackEvent = function(action, category, label, value) {
+        gtag('event', action, {
+          event_category: category,
+          event_label: label,
+          value: value
+        });
+      };
+      
+      // تتبع الأخطاء
+      window.addEventListener('error', function(e) {
+        gtag('event', 'exception', {
+          description: e.error ? e.error.toString() : 'Unknown error',
+          fatal: false
+        });
+      });
+      
+      // تتبع الأداء
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          if (perfData) {
+            gtag('event', 'timing_complete', {
+              name: 'page_load_time',
+              value: Math.round(perfData.loadEventEnd - perfData.loadEventStart)
+            });
+            
+            gtag('event', 'timing_complete', {
+              name: 'dom_content_loaded',
+              value: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart)
+            });
+          }
+        }, 0);
+      });
+      
+      console.log('📊 Google Analytics initialized:', trackingId);
+    </script>
+  </>
+)}
+
+{isDev && (
+  <script is:inline>
+    // محاكي Google Analytics للتطوير
+    window.gtag = function() {
+      console.log('📊 [DEV] Analytics Event:', arguments);
+    };
+    
+    window.trackEvent = function(action, category, label, value) {
+      console.log('📊 [DEV] Custom Event:', { action, category, label, value });
+    };
+    
+    console.log('🔧 [DEV] Analytics in development mode');
+  </script>
+)}

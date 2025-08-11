@@ -1,0 +1,34 @@
+/*
+  File path: src/styles/blog.css
+  This file contains all the styles for our blog components.
+*/
+
+.section-header {
+  font-size: 1.875rem;          /* 30px */
+  line-height: 2.25rem;         /* 36px */
+  font-weight: 900;
+  color: #111827;               /* gray-900 */
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  text-align: right;
+  padding-bottom: 0.5rem;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  /* A default color */
+  border-color: #6B7280; /* gray-500 */
+}
+
+
+.section-header .icon {
+  margin-left: 0.5rem;
+}
+
+/* Predefined border colors */
+.section-header.yellow { border-color: #FBBF24; }
+.section-header.blue   { border-color: #60A5FA; }
+.section-header.green  { border-color: #22C55E; }
+.section-header.purple { border-color: #A855F7; }
+.section-header.brown  { border-color: #78350F; }
+.section-header.cyan   { border-color: #06B6D4; }
+.section-header.red    { border-color: #EF4444; }
+

@@ -1,0 +1,22 @@
+---
+export interface Props {
+  number: number;
+  title: string;
+  gradient: string;
+  icon: string;
+  children: any;
+}
+
+const { number, title, gradient, icon, children } = Astro.props;
+---
+
+<div class={`bg-gradient-to-br ${gradient} rounded-3xl p-8 shadow-md`}>
+  <div class="flex items-center mb-8">
+    <div class="w-16 h-16 bg-gradient-to-br from-gray-500 to-gray-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-md ml-4">
+      {number}
+    </div>
+    <h3 class="text-3xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
+  </div>
+  
+  <slot />
+</div> 

@@ -1,0 +1,143 @@
+---
+export interface Props {
+  number: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  badge?: {
+    text: string;
+    gradient: string;
+  };
+  rating?: {
+    stars: number;
+    score: number;
+  };
+  features: {
+    icon: string;
+    title: string;
+    description: string;
+    color: string;
+  }[];
+  suitableFor: {
+    title: string;
+    description: string;
+    gradient: string;
+    borderColor: string;
+  };
+  children?: any;
+}
+
+const { number, title, subtitle, description, image, imageAlt, badge, rating, features, suitableFor, children } = Astro.props;
+
+const colorClasses: Record<string, string> = {
+  blue: 'from-blue-400 to-blue-500',
+  green: 'from-green-400 to-green-500',
+  purple: 'from-purple-400 to-purple-500',
+  orange: 'from-orange-400 to-orange-500',
+  red: 'from-red-400 to-red-500',
+  teal: 'from-teal-400 to-teal-500',
+  indigo: 'from-indigo-400 to-indigo-500',
+  yellow: 'from-yellow-400 to-yellow-500',
+  pink: 'from-pink-400 to-pink-500',
+  gray: 'from-gray-400 to-gray-500'
+};
+
+const numberColors: Record<number, string> = {
+  1: 'from-red-500 to-pink-600',
+  2: 'from-blue-500 to-indigo-600',
+  3: 'from-green-500 to-emerald-600',
+  4: 'from-purple-500 to-pink-600',
+  5: 'from-orange-500 to-red-600'
+};
+---
+
+<div class="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+  <div class="grid lg:grid-cols-2 gap-8 items-start">
+    {/* صورة الكاميرا */}
+    <div class="order-2 lg:order-1">
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700">
+        <img
+          src={image}
+          alt={imageAlt}
+          title={title}
+          width="400"
+          height="300"
+          loading="lazy"
+          class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+          style="aspect-ratio: 4/3;"
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-300 rounded-2xl"></div>
+      </div>
+
+      {/* تقييم أو شارة */}
+      {rating && (
+        <div class="mt-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl p-4">
+          <div class="flex items-center justify-between">
+            <div class="text-right">
+              <div class="text-sm text-gray-600 dark:text-gray-400">التقييم العام</div>
+              <div class="text-2xl">{'⭐'.repeat(rating.stars)}</div>
+            </div>
+            <div class="text-3xl font-bold text-orange-600 dark:text-orange-400">{rating.score}</div>
+          </div>
+        </div>
+      )}
+
+      {badge && (
+        <div class={`mt-6 ${badge.gradient} rounded-xl p-4`}>
+          <div class="flex items-center justify-center">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+              {badge.text}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+
+    {/* معلومات الكاميرا */}
+    <div class="order-1 lg:order-2">
+      <div class="flex items-center mb-6">
+        <div class={`w-12 h-12 bg-gradient-to-br ${numberColors[number]} rounded-xl flex items-center justify-center text-white text-xl font-bold ml-4`}>
+          {number}
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
+          <div class="text-sm text-gray-600 dark:text-gray-400">{subtitle}</div>
+        </div>
+      </div>
+
+      <div class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+        {description}
+      </div>
+
+      {/* المواصفات */}
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        {features.map((feature) => (
+          <div class="flex items-start min-h-[70px] py-2">
+            <div class={`w-12 h-12 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center text-white text-lg font-bold ml-4 flex-shrink-0 mt-1 shadow-md`}>
+              {feature.icon}
+            </div>
+            <div class="flex-1">
+              <div class="font-semibold text-gray-900 dark:text-gray-100">{feature.title}</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{feature.description}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* مناسبة لمن */}
+      <div class={`${suitableFor.gradient} rounded-xl p-4 border-r-4 ${suitableFor.borderColor}`}>
+        <div class="flex items-center">
+          <span class="text-2xl ml-3">📝</span>
+          <div>
+            <div class="font-bold text-gray-800 dark:text-gray-200">{suitableFor.title}</div>
+            <div class="text-gray-700 dark:text-gray-300">{suitableFor.description}</div>
+          </div>
+        </div>
+      </div>
+
+      <slot />
+    </div>
+  </div>
+</div> 

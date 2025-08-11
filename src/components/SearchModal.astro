@@ -1,0 +1,398 @@
+---
+---
+
+<!-- Search Modal -->
+<div id="search-modal" class="fixed inset-0 z-50 hidden">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" id="search-backdrop"></div>
+  
+  <!-- Modal Content -->
+  <div class="fixed inset-0 flex items-start justify-center pt-16 px-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
+      <!-- Search Header -->
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="ابحث عن كاميرات، أنظمة أمان، مراجعات..."
+            class="w-full px-6 py-4 pr-12 text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            autocomplete="off"
+          />
+          <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+          <button 
+            id="close-search"
+            class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <!-- Search Stats -->
+        <div id="search-stats" class="mt-3 text-sm text-gray-500 dark:text-gray-400 hidden">
+          <span id="results-count">0</span> نتيجة
+        </div>
+      </div>
+      
+      <!-- Search Results -->
+      <div id="search-results" class="max-h-96 overflow-y-auto">
+        <!-- Default State -->
+        <div id="search-default" class="p-8 text-center">
+          <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-search text-2xl text-gray-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            ابحث عن المقالات والمراجعات
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">
+            اكتب اسم المنتج أو موضوع البحث للعثور على أفضل المراجعات والمقالات المتخصصة
+          </p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <span class="search-suggestion px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full cursor-pointer hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors">
+              Hikvision
+            </span>
+            <span class="search-suggestion px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full cursor-pointer hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors">
+              Dahua
+            </span>
+            <span class="search-suggestion px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full cursor-pointer hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors">
+              IP cameras
+            </span>
+            <span class="search-suggestion px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full cursor-pointer hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors">
+              مقارنة
+            </span>
+            <span class="search-suggestion px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full cursor-pointer hover:bg-primary-100 dark:hover:bg-primary-800 transition-colors">
+              مراجعات
+            </span>
+          </div>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="search-loading" class="hidden p-8 text-center">
+          <div class="animate-spin w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p class="text-gray-600 dark:text-gray-300">جاري البحث...</p>
+        </div>
+        
+        <!-- No Results -->
+        <div id="search-no-results" class="hidden p-8 text-center">
+          <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-search-minus text-2xl text-gray-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            لم يتم العثور على نتائج
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            جرب كلمات مختلفة أو تصفح الفئات
+          </p>
+        </div>
+        
+        <!-- Results Container -->
+        <div id="search-results-list" class="hidden">
+          <!-- Results will be inserted here -->
+        </div>
+      </div>
+      
+      <!-- Search Footer -->
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
+        <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+          <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <span class="flex items-center">
+              <kbd class="px-2 py-1 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded text-xs">Ctrl</kbd>
+              <span class="mx-1">+</span>
+              <kbd class="px-2 py-1 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded text-xs">/</kbd>
+              <span class="mr-2">للبحث</span>
+            </span>
+            <span class="flex items-center">
+              <kbd class="px-2 py-1 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded text-xs">Esc</kbd>
+              <span class="mr-2">للإغلاق</span>
+            </span>
+          </div>
+          <span>اضغط Enter للانتقال</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Search Modal Animations */
+  #search-modal {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  #search-modal.show {
+    opacity: 1;
+  }
+  
+  #search-modal .bg-white {
+    transform: translateY(-20px);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  #search-modal.show .bg-white {
+    transform: translateY(0);
+  }
+  
+  /* Search Result Item Styles */
+  .search-result-item {
+    transition: all 0.2s ease;
+  }
+  
+  .search-result-item:hover {
+    background-color: rgba(124, 58, 237, 0.05);
+    transform: translateX(-2px);
+  }
+  
+  .search-result-item.selected {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-right: 3px solid #7c3aed;
+  }
+  
+  /* Highlight matched text */
+  .search-highlight {
+    background-color: #fef3c7;
+    color: #92400e;
+    padding: 0 2px;
+    border-radius: 2px;
+  }
+  
+  .dark .search-highlight {
+    background-color: #451a03;
+    color: #fbbf24;
+  }
+</style>
+
+<script>
+  // Search functionality - Updated for security/surveillance focus
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchModal = document.getElementById('search-modal');
+    const searchInput = document.getElementById('search-input');
+    const searchBackdrop = document.getElementById('search-backdrop');
+    const closeSearchBtn = document.getElementById('close-search');
+    const searchDefault = document.getElementById('search-default');
+    const searchLoading = document.getElementById('search-loading');
+    const searchNoResults = document.getElementById('search-no-results');
+    const searchResultsList = document.getElementById('search-results-list');
+    const searchStats = document.getElementById('search-stats');
+    const resultsCount = document.getElementById('results-count');
+    const searchSuggestions = document.querySelectorAll('.search-suggestion');
+    
+    let searchData = [];
+    let currentResults = [];
+    let selectedIndex = -1;
+    let searchTimeout;
+    
+    // Load search data from API
+    async function loadSearchData() {
+      try {
+        const response = await fetch('/api/search.json');
+        if (response.ok) {
+          searchData = await response.json();
+        } else {
+          console.error('Failed to load search data:', response.status);
+          searchData = [];
+        }
+      } catch (error) {
+        console.error('Error loading search data:', error);
+        searchData = [];
+      }
+    }
+    
+    // Open search modal
+    function openSearch() {
+      searchModal.classList.remove('hidden');
+      setTimeout(() => {
+        searchModal.classList.add('show');
+        searchInput.focus();
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Close search modal
+    function closeSearch() {
+      searchModal.classList.remove('show');
+      setTimeout(() => {
+        searchModal.classList.add('hidden');
+        searchInput.value = '';
+        resetSearchState();
+      }, 200);
+      document.body.style.overflow = '';
+    }
+    
+    // Reset search state
+    function resetSearchState() {
+      searchDefault.classList.remove('hidden');
+      searchLoading.classList.add('hidden');
+      searchNoResults.classList.add('hidden');
+      searchResultsList.classList.add('hidden');
+      searchStats.classList.add('hidden');
+      currentResults = [];
+      selectedIndex = -1;
+    }
+    
+    // Highlight matched text
+    function highlightText(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<span class="search-highlight">$1</span>');
+    }
+    
+    // Perform search
+    function performSearch(query) {
+      if (!query.trim()) {
+        resetSearchState();
+        return;
+      }
+      
+      // Show loading
+      searchDefault.classList.add('hidden');
+      searchNoResults.classList.add('hidden');
+      searchResultsList.classList.add('hidden');
+      searchLoading.classList.remove('hidden');
+      searchStats.classList.add('hidden');
+      
+      // Simulate search delay
+      setTimeout(() => {
+        const results = searchData.filter(item => {
+          const searchText = `${item.title} ${item.description} ${item.tags.join(' ')} ${item.categoryName}`.toLowerCase();
+          return searchText.includes(query.toLowerCase());
+        });
+        
+        currentResults = results;
+        selectedIndex = -1;
+        
+        searchLoading.classList.add('hidden');
+        
+        if (results.length === 0) {
+          searchNoResults.classList.remove('hidden');
+          searchStats.classList.add('hidden');
+        } else {
+          displayResults(results, query);
+          searchStats.classList.remove('hidden');
+          resultsCount.textContent = results.length;
+        }
+      }, 300);
+    }
+    
+    // Display search results
+    function displayResults(results, query) {
+      const html = results.map((item, index) => `
+        <div class="search-result-item p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer" data-index="${index}" data-url="/posts/${item.slug}">
+          <div class="flex items-start space-x-4 rtl:space-x-reverse">
+            <img 
+              src="${item.image}" 
+              alt="${item.title}"
+              class="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+              loading="lazy"
+            />
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1 line-clamp-1">
+                ${highlightText(item.title, query)}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-2">
+                ${highlightText(item.description, query)}
+              </p>
+              <div class="flex items-center space-x-4 rtl:space-x-reverse text-xs text-gray-500 dark:text-gray-400">
+                <span class="inline-flex items-center px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full">
+                  ${item.categoryName}
+                </span>
+                <span>${item.date}</span>
+                <span>${item.readTime}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      searchResultsList.innerHTML = html;
+      searchResultsList.classList.remove('hidden');
+      
+      // Add click handlers
+      const resultItems = searchResultsList.querySelectorAll('.search-result-item');
+      resultItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const url = item.dataset.url;
+          window.location.href = url;
+        });
+      });
+    }
+    
+    // Handle keyboard navigation
+    function handleKeyNavigation(e) {
+      if (!currentResults.length) return;
+      
+      const resultItems = searchResultsList.querySelectorAll('.search-result-item');
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+        updateSelection(resultItems);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+        updateSelection(resultItems);
+      } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        e.preventDefault();
+        const selectedItem = resultItems[selectedIndex];
+        if (selectedItem) {
+          window.location.href = selectedItem.dataset.url;
+        }
+      }
+    }
+    
+    // Update visual selection
+    function updateSelection(resultItems) {
+      resultItems.forEach((item, index) => {
+        if (index === selectedIndex) {
+          item.classList.add('selected');
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.classList.remove('selected');
+        }
+      });
+    }
+    
+    // Event listeners
+    searchInput?.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        performSearch(e.target.value);
+      }, 300);
+    });
+    
+    searchInput?.addEventListener('keydown', handleKeyNavigation);
+    
+    searchBackdrop?.addEventListener('click', closeSearch);
+    closeSearchBtn?.addEventListener('click', closeSearch);
+    
+    // Search suggestions
+    searchSuggestions.forEach(suggestion => {
+      suggestion.addEventListener('click', () => {
+        searchInput.value = suggestion.textContent;
+        performSearch(suggestion.textContent);
+      });
+    });
+    
+    // Global keyboard shortcuts - استخدام Ctrl+/ بدلاً من Ctrl+K
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd + / to open search (تجنب تداخل مع بحث المتصفح)
+      if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+        e.preventDefault();
+        openSearch();
+      }
+      
+      // Escape to close search
+      if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+        closeSearch();
+      }
+    });
+    
+    // Make openSearch globally available
+    window.openSearch = openSearch;
+    
+    // Load search data on page load
+    loadSearchData();
+  });
+</script>

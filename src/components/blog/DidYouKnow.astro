@@ -1,0 +1,80 @@
+---
+// File: src/components/blog/DidYouKnow.astro
+// كتلة «هل تعلم؟» لإبراز معلومات شيّقة داخل المقال.
+// – تستخدم Tailwind مباشرة (لا @apply ولا <style>).
+// – تدعم وضعي Light/Dark تلقائياً.
+// – الأيقونة والخلفية الدائرية اختياريتان، واللون كذلك.
+
+export interface Props {
+  /** عنوان مخصَّص. الافتراضي: "هل تعلم؟" */
+  title?: string;
+  /** كلاس أيقونة Font Awesome (اختياري) مثال: "fa-lightbulb" */
+  icon?: string;
+  /** اللون العام – الافتراضي "yellow" */
+  color?:
+    | 'yellow'
+    | 'blue'
+    | 'green'
+    | 'purple'
+    | 'brown'
+    | 'cyan'
+    | 'red'
+    | 'slate';
+}
+
+const {
+  title = 'هل تعلم؟',
+  icon,
+  color = 'yellow',
+} = Astro.props;
+
+const hasIcon = Boolean(icon);
+
+// خريطة الألوان مع دعم dark:
+const palette = {
+  yellow:
+    'border-yellow-400 bg-yellow-50 text-yellow-800  dark:border-yellow-500 dark:bg-yellow-900/20 dark:text-yellow-200',
+  blue:
+    'border-blue-400  bg-blue-50  text-blue-800   dark:border-blue-500  dark:bg-blue-900/25  dark:text-blue-200',
+  green:
+    'border-green-400 bg-green-50 text-green-800  dark:border-green-500 dark:bg-green-900/25 dark:text-green-200',
+  purple:
+    'border-purple-400 bg-purple-50 text-purple-800 dark:border-purple-500 dark:bg-purple-900/25 dark:text-purple-200',
+  brown:
+    'border-amber-600 bg-amber-50 text-amber-800 dark:border-amber-600 dark:bg-amber-900/25 dark:text-amber-200',
+  cyan:
+    'border-cyan-400  bg-cyan-50  text-cyan-800   dark:border-cyan-500  dark:bg-cyan-900/25  dark:text-cyan-200',
+  red:
+    'border-red-400   bg-red-50   text-red-800    dark:border-red-500   dark:bg-red-900/25   dark:text-red-200',
+  slate:
+    'border-slate-400 bg-slate-50 text-slate-800  dark:border-slate-500 dark:bg-slate-800/40 dark:text-slate-200',
+};
+
+const colors = palette[color] || palette.yellow;
+---
+
+<!-- Container -->
+<div
+  class:list={[
+    'w-full rounded-lg p-6 mb-6 border-r-4 shadow-sm flex flex-col gap-4',
+    colors,
+    'transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5',
+  ]}
+  style="direction: rtl;"
+>
+  <!-- Header row -->
+  <div class="flex items-center gap-3">
+    {hasIcon && (
+      <div class="w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-full bg-white/80 dark:bg-black/30 backdrop-blur-sm">
+        <i class:list={['fas', icon!, 'text-base']}></i>
+      </div>
+    )}
+
+    <h3 class="m-0 text-lg font-extrabold leading-none">{title}</h3>
+  </div>
+
+  <!-- Body -->
+  <div class="flex-1 prose dark:prose-invert max-w-none leading-relaxed">
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,204 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  
+  // Define all available categories - this ensures pages are created even without posts
+  const allCategories = ['surveillance-cameras', 'security-systems', 'reviews'];
+  
+  return allCategories.map(category => ({
+    params: { category },
+    props: { 
+      category,
+      posts: posts.filter(post => post.data.category === category)
+    }
+  }));
+}
+
+const { category, posts } = Astro.props;
+
+// Category configuration - Updated for focused categories only
+const categoryConfig: Record<string, { name: string; description: string; icon: string; color: string; }> = {
+  'surveillance-cameras': { 
+    name: 'كاميرات المراقبة', 
+    description: 'أحدث كاميرات المراقبة وتقنيات الرصد المتطورة للمنازل والشركات مع مراجعات شاملة وتوصيات الشراء',
+    icon: 'fa-video',
+    color: 'from-blue-500 to-blue-700'
+  },
+  'security-systems': { 
+    name: 'الأنظمة الأمنية',
+    description: 'أنظمة الحماية والأمان المتكاملة مع أحدث التقنيات الذكية ومراجعات المنتجات الأمنية',
+    icon: 'fa-shield-alt',
+    color: 'from-red-500 to-red-700'
+  },
+  'reviews': { 
+    name: 'المراجعات والتقييمات',
+    description: 'مراجعات شاملة ومفصلة للمنتجات والأنظمة الأمنية مع توصيات الشراء وروابط موثوقة',
+    icon: 'fa-star',
+    color: 'from-green-500 to-green-700'
+  }
+};
+
+const config = categoryConfig[category] || { 
+  name: category, 
+  description: 'مقالات متخصصة',
+  icon: 'fa-file-alt',
+  color: 'from-gray-500 to-gray-700'
+};
+
+// Sort posts by date
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Convert posts to the format expected by BlogCard
+const formattedPosts = sortedPosts.map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description,
+  category: post.data.category,
+  date: post.data.date.toLocaleDateString('ar-SA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }),
+  readTime: post.data.readTime,
+  image: post.data.image,
+  slug: post.slug,
+  tags: post.data.tags,
+  featured: post.data.featured,
+  affiliate: post.data.affiliate
+}));
+
+const pageTitle = `${config.name} | مدونة عزيز`;
+const pageDescription = `${config.description}. اكتشف مجموعة شاملة من المقالات المتخصصة في ${config.name}.`;
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  type="website"
+>
+  <Header />
+  
+  <main class="py-16">
+    <div class="container mx-auto px-4">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 rtl:space-x-reverse text-sm text-gray-500 dark:text-gray-400">
+          <li>
+            <a href="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              الرئيسية
+            </a>
+          </li>
+          <li>
+            <i class="fas fa-chevron-left text-xs"></i>
+          </li>
+          <li>
+            <span class="text-gray-700 dark:text-gray-300">الفئات</span>
+          </li>
+          <li>
+            <i class="fas fa-chevron-left text-xs"></i>
+          </li>
+          <li class="text-gray-700 dark:text-gray-300" aria-current="page">
+            {config.name}
+          </li>
+        </ol>
+      </nav>
+      
+      <!-- Category Header -->
+      <div class="text-center mb-12">
+        <div class={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${config.color} text-white mb-6`}>
+          <i class={`fas ${config.icon} text-3xl`}></i>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          {config.name}
+        </h1>
+        
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4">
+          {config.description}
+        </p>
+        
+        <div class="text-gray-500 dark:text-gray-400">
+          {formattedPosts.length} مقال متاح
+        </div>
+        
+        <!-- Special CTA for Reviews Category -->
+        {category === 'reviews' && (
+          <div class="mt-6 inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full text-sm font-semibold">
+            <i class="fas fa-shopping-cart ml-2"></i>
+            توصيات شراء موثوقة
+          </div>
+        )}
+      </div>
+      
+      <!-- Posts Grid -->
+      {formattedPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {formattedPosts.map(post => (
+            <BlogCard {...post} />
+          ))}
+        </div>
+      ) : (
+        <!-- Empty State -->
+        <div class="text-center py-16">
+          <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class={`fas ${config.icon} text-3xl text-gray-400`}></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            لا توجد مقالات في هذه الفئة حالياً
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-8">
+            نعمل على إضافة محتوى جديد ومفيد في {config.name}. تابعنا للحصول على آخر التحديثات.
+          </p>
+          <a 
+            href="/"
+            class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            <i class="fas fa-home ml-2"></i>
+            العودة للرئيسية
+          </a>
+        </div>
+      )}
+      
+      <!-- Category-specific CTA -->
+      {formattedPosts.length > 0 && (
+        <div class="mt-16 text-center">
+          <div class={`bg-gradient-to-r ${config.color} rounded-2xl p-8 text-white`}>
+            <h3 class="text-2xl font-bold mb-4">
+              {category === 'reviews' ? '🛒 هل تبحث عن منتج معين؟' :
+               category === 'surveillance-cameras' ? '📹 تحتاج مساعدة في اختيار الكاميرا؟' :
+               '🔒 تريد استشارة أمنية مخصصة؟'}
+            </h3>
+            <p class="text-white/90 mb-6">
+              {category === 'reviews' ? 'تصفح مراجعاتنا الشاملة واحصل على أفضل العروض والتوصيات' :
+               category === 'surveillance-cameras' ? 'اكتشف أحدث كاميرات المراقبة مع مراجعات مفصلة وتوصيات الخبراء' :
+               'احصل على نصائح متخصصة لحماية منزلك أو مكتبك بأفضل الأنظمة الأمنية'}
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <button
+                onclick="openSearch()"
+                class="inline-flex items-center px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <i class="fas fa-search ml-2"></i>
+                ابحث عن منتج
+              </button>
+              <a 
+                href="mailto:info@fuad3ziz.com"
+                class="inline-flex items-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-colors"
+              >
+                <i class="fas fa-envelope ml-2"></i>
+                استشارة مجانية
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

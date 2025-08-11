@@ -1,0 +1,241 @@
+---
+import SEO from '../components/SEO.astro';
+import SearchModal from '../components/SearchModal.astro';
+import ImageLightbox from '../components/ImageLightbox.astro';
+import PWAInstaller from '../components/PWAInstaller.astro';
+import PerformanceOptimizer from '../components/PerformanceOptimizer.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import AdvancedAnalytics from '../components/AdvancedAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+import BackToTop from '../components/BackToTop.astro';
+import "../../src/styles/prose.css";
+import "../styles/blog.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  tags?: string[];
+  canonicalURL?: string;
+  noindex?: boolean;
+}
+
+const { 
+  title, 
+  description = "مدونة عزيز المتخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات. محتوى عربي عالي الجودة ودروس متخصصة للمحترفين والمبتدئين.",
+  image,
+  type,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags,
+  canonicalURL,
+  noindex
+} = Astro.props;
+
+// معرف Google Analytics الخاص بك
+const GA_TRACKING_ID = 'G-FJHH1S3PRE';
+---
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- PWA Meta Tags -->
+  <meta name="application-name" content="مدونة عزيز" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="مدونة عزيز" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+  <meta name="msapplication-TileColor" content="#7c3aed" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- SEO Component -->
+  <SEO 
+    title={title}
+    description={description}
+    image={image}
+    type={type}
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
+    author={author}
+    tags={tags}
+    canonicalURL={canonicalURL}
+    noindex={noindex}
+  />
+  
+  <!-- Local Business Schema -->
+  <LocalBusinessSchema />
+  
+  <!-- Performance Optimizer -->
+  <PerformanceOptimizer />
+  
+  <!-- Google Analytics -->
+  <GoogleAnalytics trackingId={GA_TRACKING_ID} />
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.pexels.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  
+  <!-- Google Fonts with display=swap for performance -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
+  
+  <!-- Sitemap -->
+  <link rel="sitemap" href="/sitemap-index.xml" />
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-arabic transition-colors duration-300">
+  <slot />
+  
+  <!-- Search Modal -->
+  <SearchModal />
+  
+  <!-- Image Lightbox Modal -->
+  <ImageLightbox />
+  
+  <!-- PWA Installer -->
+  <PWAInstaller />
+  
+  <!-- Advanced Analytics -->
+  <AdvancedAnalytics />
+  
+  <!-- Conversion Tracking -->
+  <ConversionTracking />
+  
+  <script>
+    // تعريف gtag لـ TypeScript حتى لا تظهر أخطاء
+    // @ts-ignore
+    declare var gtag: any;
+
+    // Theme toggle functionality
+    function initTheme() {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      
+      // تتبع تفضيل الوضع
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'theme_preference', {
+          event_category: 'user_preference',
+          event_label: theme
+        });
+      }
+    }
+    
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      const newTheme = isDark ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      
+      // تتبع تغيير الوضع
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'theme_toggle', {
+          event_category: 'user_interaction',
+          event_label: newTheme
+        });
+      }
+    }
+    
+    // Initialize theme
+    initTheme();
+    
+    // Make toggle function globally available
+    // @ts-ignore
+    window.toggleTheme = toggleTheme;
+    
+    // تتبع الأداء الأساسي
+    if ('performance' in window) {
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          // تأكد أن perfData من نوع PerformanceNavigationTiming
+          if (perfData && 'loadEventEnd' in perfData && typeof gtag !== 'undefined') {
+            const nav = perfData as PerformanceNavigationTiming;
+            gtag('event', 'timing_complete', {
+              name: 'page_load_time',
+              value: Math.round(nav.loadEventEnd - nav.loadEventStart),
+              event_category: 'performance'
+            });
+            
+            gtag('event', 'timing_complete', {
+              name: 'dom_interactive',
+              value: Math.round(nav.domInteractive - performance.timeOrigin),
+              event_category: 'performance'
+            });
+            
+            gtag('event', 'timing_complete', {
+              name: 'first_contentful_paint',
+              value: Math.round(nav.loadEventStart - performance.timeOrigin),
+              event_category: 'performance'
+            });
+          }
+        }, 0);
+      });
+    }
+    
+    // PWA Detection
+    window.addEventListener('load', function() {
+      if (window.matchMedia('(display-mode: standalone)').matches && typeof gtag !== 'undefined') {
+        gtag('event', 'pwa_launch', {
+          display_mode: 'standalone',
+          event_category: 'app_behavior'
+        });
+      }
+    });
+    
+    // تتبع الأخطاء العامة
+    window.addEventListener('error', function(e) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'exception', {
+          description: e.message || 'Unknown error',
+          fatal: false,
+          event_category: 'javascript_error'
+        });
+      }
+    });
+    
+    // تتبع حالة الاتصال
+    window.addEventListener('online', function() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'connection_restored', {
+          event_category: 'connectivity'
+        });
+      }
+    });
+    
+    window.addEventListener('offline', function() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'connection_lost', {
+          event_category: 'connectivity'
+        });
+      }
+    });
+    
+    console.log('✅ Layout Analytics: Initialized with tracking ID: G-FJHH1S3PRE');
+  </script>
+  
+  <!-- زر العودة للأعلى -->
+  <BackToTop />
+</body>
+</html>

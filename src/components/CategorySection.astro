@@ -1,0 +1,102 @@
+---
+import { calculateSiteStatistics } from '../utils/statistics';
+
+const stats = await calculateSiteStatistics();
+const categories = stats.categoriesWithCounts;
+---
+
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        مجالات التخصص
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        محتوى متخصص ومراجعات شاملة في عالم كاميرات المراقبة والأنظمة الأمنية مع توصيات الشراء الأفضل - المزيد من المحتوى قريباً
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {categories.map(category => (
+        <div class="group">
+          <a href={`/categories/${category.slug}`} class="block">
+            <div class="bg-white dark:bg-gray-900 rounded-card shadow-card hover:shadow-card-hover transition-all duration-300 p-8 text-center group-hover:-translate-y-2 relative overflow-hidden">
+              <!-- Background Pattern -->
+              <div class="absolute inset-0 opacity-5">
+                <div class={`w-full h-full bg-gradient-to-br ${category.color}`}></div>
+              </div>
+              
+              <!-- Icon -->
+              <div class={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} text-white mb-6 relative z-10`}>
+                <i class={`fas ${category.icon} text-2xl`}></i>
+              </div>
+              
+              <!-- Content -->
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 relative z-10">
+                {category.name}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 relative z-10">
+                {category.description}
+              </p>
+              
+              <!-- Stats -->
+              <div class="flex items-center justify-center space-x-2 rtl:space-x-reverse text-primary-600 dark:text-primary-400 relative z-10">
+                {category.count > 0 ? (
+                  <>
+                    <span class="font-semibold">{category.count}</span>
+                    <span>مقال</span>
+                  </>
+                ) : (
+                  <span class="text-sm text-gray-500 dark:text-gray-400">
+                    قريباً...
+                  </span>
+                )}
+                <i class="fas fa-arrow-left text-sm group-hover:translate-x-1 transition-transform ml-2"></i>
+              </div>
+              
+              <!-- Special Badges -->
+              {category.slug === 'reviews' && category.count > 0 && (
+                <div class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  توصيات شراء
+                </div>
+              )}
+              {category.count === 0 && (
+                <div class="absolute top-4 right-4 bg-gradient-to-r from-blue-400 to-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  قريباً
+                </div>
+              )}
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="text-center mt-12">
+      <div class="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 text-white">
+        <h3 class="text-2xl font-bold mb-4">
+          🎯 هدفنا مساعدتك في اختيار الأفضل
+        </h3>
+        <p class="text-white/90 mb-6 max-w-2xl mx-auto">
+          نقدم مراجعات صادقة ومفصلة مع روابط شراء موثوقة لأفضل المنتجات في السوق. نعمل على إضافة المزيد من المحتوى المتخصص في كاميرات المراقبة والأنظمة الأمنية قريباً
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a 
+            href="/categories/reviews"
+            class="inline-flex items-center px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <i class="fas fa-star ml-2"></i>
+            تصفح المراجعات
+          </a>
+          <a 
+            href="/categories/surveillance-cameras"
+            class="inline-flex items-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary-600 transition-colors"
+          >
+            <i class="fas fa-video ml-2"></i>
+            كاميرات المراقبة
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

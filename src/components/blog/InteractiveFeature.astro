@@ -1,0 +1,29 @@
+---
+export interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  color: 'green' | 'blue' | 'purple' | 'pink';
+}
+
+const { icon, title, description, color } = Astro.props;
+
+const colorClasses = {
+  green: 'from-green-400 to-green-500',
+  blue: 'from-blue-400 to-blue-500',
+  purple: 'from-purple-400 to-purple-500',
+  pink: 'from-pink-400 to-pink-500'
+};
+
+const bgColor = colorClasses[color];
+---
+
+<div class="flex items-start">
+  <div class={`w-8 h-8 bg-gradient-to-br ${bgColor} rounded-lg flex items-center justify-center text-white text-xs font-bold ml-3 mt-1`}>
+    {icon}
+  </div>
+  <div>
+    <div class="font-semibold text-gray-900 dark:text-gray-100 mb-1">{title}</div>
+    <div class="text-sm text-gray-600 dark:text-gray-400">{description}</div>
+  </div>
+</div> 

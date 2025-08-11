@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد المحتوى التلقائي - مدونة عزيز</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-shadow { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-robot text-2xl"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">🤖 مولد المحتوى التلقائي</h1>
+                <p class="text-white/90 text-lg">أنشئ مقالات احترافية في دقائق معدودة</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Quick Start Guide -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
+            <h2 class="text-xl font-bold text-blue-900 mb-4 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>
+                كيفية الاستخدام
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="flex items-start">
+                    <span class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">1</span>
+                    <div>
+                        <strong>اختر نوع المحتوى</strong>
+                        <p class="text-gray-600">مراجعة منتج، دليل شراء، أو مقارنة</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <span class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">2</span>
+                    <div>
+                        <strong>أدخل التفاصيل</strong>
+                        <p class="text-gray-600">اسم المنتج والمعلومات الأساسية</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <span class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3 mt-0.5">3</span>
+                    <div>
+                        <strong>أنشئ المقال</strong>
+                        <p class="text-gray-600">انسخ الكود والصقه في ملف جديد</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Generator Form -->
+        <div class="bg-white rounded-2xl card-shadow p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <i class="fas fa-magic mr-3 text-purple-600"></i>
+                مولد المحتوى
+            </h2>
+
+            <form id="contentForm" class="space-y-6">
+                <!-- Content Type -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-3">نوع المحتوى</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-purple-300 transition-colors">
+                            <input type="radio" name="contentType" value="review" class="mr-3" checked>
+                            <div>
+                                <div class="font-semibold text-gray-900">مراجعة منتج</div>
+                                <div class="text-sm text-gray-600">مراجعة شاملة لمنتج واحد</div>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-purple-300 transition-colors">
+                            <input type="radio" name="contentType" value="comparison" class="mr-3">
+                            <div>
+                                <div class="font-semibold text-gray-900">مقارنة منتجات</div>
+                                <div class="text-sm text-gray-600">مقارنة بين عدة منتجات</div>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-purple-300 transition-colors">
+                            <input type="radio" name="contentType" value="guide" class="mr-3">
+                            <div>
+                                <div class="font-semibold text-gray-900">دليل شراء</div>
+                                <div class="text-sm text-gray-600">دليل شامل للاختيار</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Category -->
+                <div>
+                    <label for="category" class="block text-sm font-bold text-gray-700 mb-2">الفئة</label>
+                    <select id="category" name="category" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="surveillance-cameras">كاميرات المراقبة</option>
+                        <option value="security-systems">الأنظمة الأمنية</option>
+                        <option value="reviews">المراجعات</option>
+                    </select>
+                </div>
+
+                <!-- Product Name -->
+                <div>
+                    <label for="productName" class="block text-sm font-bold text-gray-700 mb-2">اسم المنتج/الموضوع</label>
+                    <input type="text" id="productName" name="productName" 
+                           placeholder="مثال: كاميرا Hikvision DS-2CD2143G0-IS"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                </div>
+
+                <!-- Key Features -->
+                <div>
+                    <label for="features" class="block text-sm font-bold text-gray-700 mb-2">الميزات الرئيسية (اختياري)</label>
+                    <textarea id="features" name="features" rows="3" 
+                              placeholder="مثال: دقة 4MP، رؤية ليلية 30 متر، مقاومة للماء IP67"
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+                </div>
+
+                <!-- Price Range -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="priceRange" class="block text-sm font-bold text-gray-700 mb-2">النطاق السعري</label>
+                        <select id="priceRange" name="priceRange" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <option value="budget">اقتصادي (أقل من 500 ريال)</option>
+                            <option value="mid-range">متوسط (500-1500 ريال)</option>
+                            <option value="premium">مميز (1500-3000 ريال)</option>
+                            <option value="luxury">فاخر (أكثر من 3000 ريال)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="targetAudience" class="block text-sm font-bold text-gray-700 mb-2">الجمهور المستهدف</label>
+                        <select id="targetAudience" name="targetAudience" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <option value="beginners">المبتدئين</option>
+                            <option value="homeowners">أصحاب المنازل</option>
+                            <option value="businesses">الشركات</option>
+                            <option value="professionals">المحترفين</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Affiliate Products -->
+                <div>
+                    <label class="flex items-center mb-4">
+                        <input type="checkbox" id="includeAffiliate" name="includeAffiliate" class="mr-2">
+                        <span class="text-sm font-bold text-gray-700">تضمين روابط الشراء (Affiliate)</span>
+                    </label>
+                    <div id="affiliateSection" class="hidden space-y-4">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-800 mb-2">معلومات المنتج للشراء</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="affiliateProductName" placeholder="اسم المنتج"
+                                       class="p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                                <input type="text" id="affiliateLink" placeholder="رابط الشراء"
+                                       class="p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                                <input type="text" id="affiliatePrice" placeholder="السعر (مثال: 1,200 ريال)"
+                                       class="p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                                <input type="number" id="affiliateRating" placeholder="التقييم (1-5)" min="1" max="5" step="0.1"
+                                       class="p-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div class="text-center">
+                    <button type="submit" id="generateBtn" 
+                            class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-magic mr-2"></i>
+                        أنشئ المقال الآن
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Generated Content -->
+        <div id="generatedContent" class="hidden">
+            <div class="bg-white rounded-2xl card-shadow p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                        <i class="fas fa-file-code mr-3 text-green-600"></i>
+                        المحتوى المُولد
+                    </h2>
+                    <button id="copyBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-copy mr-2"></i>
+                        نسخ الكود
+                    </button>
+                </div>
+                
+                <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                    <pre id="generatedCode" class="text-green-400 text-sm font-mono whitespace-pre-wrap"></pre>
+                </div>
+                
+                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h3 class="font-bold text-blue-900 mb-2">📝 خطوات الحفظ:</h3>
+                    <ol class="text-sm text-blue-800 space-y-1">
+                        <li>1. انسخ الكود أعلاه</li>
+                        <li>2. أنشئ ملف جديد في: <code class="bg-blue-200 px-1 rounded">src/content/posts/[اسم-المقال]/index.mdx</code></li>
+                        <li>3. الصق الكود في الملف</li>
+                        <li>4. احفظ الملف وسيظهر المقال تلقائياً في الموقع</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden text-center py-12">
+            <div class="animate-pulse-slow">
+                <i class="fas fa-robot text-6xl text-purple-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">جاري إنشاء المحتوى...</h3>
+                <p class="text-gray-600">يرجى الانتظار بينما نقوم بإنشاء مقال احترافي لك</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Toggle affiliate section
+        document.getElementById('includeAffiliate').addEventListener('change', function() {
+            const affiliateSection = document.getElementById('affiliateSection');
+            if (this.checked) {
+                affiliateSection.classList.remove('hidden');
+            } else {
+                affiliateSection.classList.add('hidden');
+            }
+        });
+
+        // Form submission
+        document.getElementById('contentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateContent();
+        });
+
+        // Copy button
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const code = document.getElementById('generatedCode').textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                // Show success message
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i>تم النسخ!';
+                btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                btn.classList.add('bg-green-800');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-800');
+                    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                }, 2000);
+            });
+        });
+
+        function generateContent() {
+            // Show loading state
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('generatedContent').classList.add('hidden');
+            
+            // Get form data
+            const formData = new FormData(document.getElementById('contentForm'));
+            const data = Object.fromEntries(formData);
+            
+            // Simulate generation delay
+            setTimeout(() => {
+                const content = createMDXContent(data);
+                document.getElementById('generatedCode').textContent = content;
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('generatedContent').classList.remove('hidden');
+                
+                // Scroll to generated content
+                document.getElementById('generatedContent').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 2000);
+        }
+
+        function createMDXContent(data) {
+            const today = new Date().toISOString().split('T')[0];
+            const slug = data.productName.toLowerCase()
+                .replace(/[^\u0600-\u06FF\w\s-]/g, '') // Keep Arabic, English, numbers, spaces, hyphens
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+
+            // Generate title based on content type
+            let title = '';
+            if (data.contentType === 'review') {
+                title = `مراجعة شاملة لـ ${data.productName} - المزايا والعيوب والسعر`;
+            } else if (data.contentType === 'comparison') {
+                title = `مقارنة شاملة: أفضل ${data.productName} لعام 2024`;
+            } else {
+                title = `دليل شراء شامل: كيفية اختيار ${data.productName} المناسب`;
+            }
+
+            // Generate description
+            const description = `${data.contentType === 'review' ? 'مراجعة مفصلة' : 'دليل شامل'} لـ ${data.productName} مع التقييمات والأسعار وتوصيات الشراء الأفضل`;
+
+            // Generate affiliate section if enabled
+            let affiliateSection = '';
+            if (data.includeAffiliate === 'on') {
+                const productName = document.getElementById('affiliateProductName').value || data.productName;
+                const link = document.getElementById('affiliateLink').value || 'https://example.com';
+                const price = document.getElementById('affiliatePrice').value || '999 ريال';
+                const rating = document.getElementById('affiliateRating').value || '4.5';
+                
+                affiliateSection = `
+affiliate:
+  enabled: true
+  products:
+    - name: "${productName}"
+      link: "${link}"
+      price: "${price}"
+      rating: ${rating}`;
+            }
+
+            // Generate content based on type
+            let mainContent = '';
+            if (data.contentType === 'review') {
+                mainContent = generateReviewContent(data);
+            } else if (data.contentType === 'comparison') {
+                mainContent = generateComparisonContent(data);
+            } else {
+                mainContent = generateGuideContent(data);
+            }
+
+            return `---
+title: "${title}"
+description: "${description}"
+category: "${data.category}"
+tags: ["${data.productName}", "${getCategoryTags(data.category)}", "مراجعة", "2024"]
+date: ${today}
+readTime: "12 دقيقة"
+image: "https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop"
+featured: true${affiliateSection}
+---
+
+${mainContent}`;
+        }
+
+        function generateReviewContent(data) {
+            const features = data.features || 'ميزات متقدمة وجودة عالية';
+            const priceText = getPriceText(data.priceRange);
+            const audienceText = getAudienceText(data.targetAudience);
+
+            return `# ${data.productName} - مراجعة شاملة ومفصلة
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 1rem; color: white; margin: 2rem 0; text-align: center;">
+  <h3 style="margin: 0 0 1rem 0; font-size: 1.5rem;">🏆 تقييم المحرر</h3>
+  <p style="margin: 0; opacity: 0.9;">مراجعة شاملة ومفصلة بناءً على اختبار عملي</p>
+</div>
+
+في عالم ${getCategoryName(data.category)} المتطور، يبرز ${data.productName} كأحد الخيارات المميزة التي تستحق الاهتمام. في هذه المراجعة الشاملة، سنستكشف جميع جوانب هذا المنتج بناءً على اختبار عملي مفصل.
+
+![${data.productName}](https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop)
+
+## 📋 نظرة عامة على المنتج
+
+**${data.productName}** هو ${getCategoryDescription(data.category)} يتميز بـ ${features}. تم تصميم هذا المنتج خصيصاً لـ ${audienceText} ويقع في الفئة ${priceText}.
+
+### المواصفات الرئيسية:
+- **الفئة:** ${getCategoryName(data.category)}
+- **النطاق السعري:** ${priceText}
+- **الجمهور المستهدف:** ${audienceText}
+- **الميزات:** ${features}
+
+## ⭐ التقييم الشامل
+
+<div style="background: #f9fafb; padding: 1.5rem; border-radius: 0.75rem; margin: 2rem 0;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+    <div style="text-align: center;">
+      <div style="font-size: 2rem; color: #fbbf24;">★★★★☆</div>
+      <div style="font-weight: bold; color: #1f2937;">الجودة العامة</div>
+      <div style="color: #6b7280;">8.5/10</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 2rem; color: #10b981;">💰</div>
+      <div style="font-weight: bold; color: #1f2937;">القيمة مقابل السعر</div>
+      <div style="color: #6b7280;">9/10</div>
+    </div>
+    <div style="text-align: center;">
+      <div style="font-size: 2rem; color: #3b82f6;">🛠️</div>
+      <div style="font-weight: bold; color: #1f2937;">سهولة الاستخدام</div>
+      <div style="color: #6b7280;">8/10</div>
+    </div>
+  </div>
+</div>
+
+## ✅ المزايا
+
+<div style="background: linear-gradient(135deg, #ecfdf5, #10b981); padding: 1.5rem; border-radius: 1rem; margin: 1.5rem 0; color: white;">
+  <h3 style="margin: 0 0 1rem 0;">🎯 نقاط القوة</h3>
+  <ul style="margin: 0; padding-right: 1.5rem;">
+    <li><strong>جودة البناء الممتازة:</strong> مواد عالية الجودة ومتانة فائقة</li>
+    <li><strong>سهولة التركيب:</strong> يمكن تركيبه في دقائق معدودة</li>
+    <li><strong>الأداء الموثوق:</strong> يعمل بكفاءة عالية في جميع الظروف</li>
+    <li><strong>القيمة الممتازة:</strong> سعر مناسب مقارنة بالميزات المقدمة</li>
+    <li><strong>الدعم الفني:</strong> خدمة عملاء ممتازة ودعم تقني شامل</li>
+  </ul>
+</div>
+
+## ❌ العيوب
+
+<div style="background: linear-gradient(135deg, #fef2f2, #dc2626); padding: 1.5rem; border-radius: 1rem; margin: 1.5rem 0; color: white;">
+  <h3 style="margin: 0 0 1rem 0;">⚠️ نقاط الضعف</h3>
+  <ul style="margin: 0; padding-right: 1.5rem;">
+    <li><strong>السعر المرتفع نسبياً:</strong> قد يكون مكلفاً للميزانيات المحدودة</li>
+    <li><strong>التعقيد للمبتدئين:</strong> قد يحتاج وقت للتعود عليه</li>
+    <li><strong>الحجم:</strong> أكبر من بعض البدائل في السوق</li>
+  </ul>
+</div>
+
+## 💰 السعر والقيمة
+
+${data.productName} يقع في الفئة ${priceText}، مما يجعله خياراً ${getPriceRecommendation(data.priceRange)} لمن يبحث عن ${getCategoryName(data.category)} موثوق.
+
+### مقارنة الأسعار:
+- **السعر الحالي:** يتراوح بين ${getPriceRange(data.priceRange)}
+- **القيمة مقابل السعر:** ممتازة ⭐⭐⭐⭐⭐
+- **التوفر:** متوفر في معظم المتاجر الإلكترونية
+
+## 🎯 من يناسبه هذا المنتج؟
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;">
+  <div style="background: #dbeafe; padding: 1.5rem; border-radius: 1rem;">
+    <h4 style="color: #1e40af; margin: 0 0 1rem 0;">✅ مناسب لك إذا كنت:</h4>
+    <ul style="margin: 0; padding-right: 1.5rem; color: #1e3a8a;">
+      <li>تبحث عن جودة عالية</li>
+      <li>لديك ميزانية ${priceText}</li>
+      <li>تقدر الموثوقية</li>
+      <li>تريد استثمار طويل المدى</li>
+    </ul>
+  </div>
+  <div style="background: #fef2f2; padding: 1.5rem; border-radius: 1rem;">
+    <h4 style="color: #dc2626; margin: 0 0 1rem 0;">❌ قد لا يناسبك إذا كنت:</h4>
+    <ul style="margin: 0; padding-right: 1.5rem; color: #991b1b;">
+      <li>تبحث عن أرخص الخيارات</li>
+      <li>تحتاج حل سريع ومؤقت</li>
+      <li>لا تهتم بالميزات المتقدمة</li>
+      <li>مبتدئ تماماً في المجال</li>
+    </ul>
+  </div>
+</div>
+
+## 🔧 التركيب والاستخدام
+
+### خطوات التركيب:
+1. **التحضير:** تأكد من توفر جميع الأدوات المطلوبة
+2. **القراءة:** اقرأ دليل المستخدم بعناية
+3. **التركيب:** اتبع الخطوات المرقمة بدقة
+4. **الاختبار:** تأكد من عمل جميع الوظائف
+5. **التحسين:** اضبط الإعدادات حسب احتياجاتك
+
+### نصائح الاستخدام:
+- ابدأ بالإعدادات الافتراضية
+- اقرأ الدليل كاملاً قبل البدء
+- لا تتردد في الاتصال بالدعم الفني
+- احتفظ بالضمان في مكان آمن
+
+## 🏆 الخلاصة والتوصية
+
+بعد اختبار شامل لـ ${data.productName}، يمكنني القول أنه خيار ممتاز لمن يبحث عن ${getCategoryName(data.category)} موثوق وعالي الجودة. رغم السعر المرتفع نسبياً، إلا أن الجودة والميزات المقدمة تبرر الاستثمار.
+
+<div style="background: linear-gradient(135deg, #f0f9ff, #0ea5e9); padding: 2rem; border-radius: 1rem; margin: 2rem 0; color: white; text-align: center;">
+  <h3 style="margin: 0 0 1rem 0;">🎯 التوصية النهائية</h3>
+  <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">
+    ⭐⭐⭐⭐☆ (8.5/10)
+  </div>
+  <p style="margin: 0; opacity: 0.9;">
+    ${getRecommendationText(data.priceRange, data.targetAudience)}
+  </p>
+</div>
+
+---
+
+*هذه المراجعة مبنية على اختبار عملي مفصل. الآراء المذكورة شخصية ومستقلة.*`;
+        }
+
+        function generateComparisonContent(data) {
+            return `# مقارنة شاملة: أفضل ${data.productName} لعام 2024
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 1rem; color: white; margin: 2rem 0; text-align: center;">
+  <h3 style="margin: 0 0 1rem 0; font-size: 1.5rem;">🏆 مقارنة شاملة</h3>
+  <p style="margin: 0; opacity: 0.9;">اختبرنا أفضل المنتجات في السوق لنساعدك في الاختيار</p>
+</div>
+
+في عالم ${getCategoryName(data.category)} المتنوع، قد يكون اختيار المنتج المناسب تحدياً حقيقياً. لذلك قمنا بمقارنة شاملة لأفضل ${data.productName} المتاحة في السوق لعام 2024.
+
+## 📊 جدول المقارنة السريعة
+
+<div style="overflow-x: auto; margin: 2rem 0;">
+  <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <thead style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+      <tr>
+        <th style="padding: 1rem; text-align: right;">المنتج</th>
+        <th style="padding: 1rem; text-align: center;">التقييم</th>
+        <th style="padding: 1rem; text-align: center;">السعر</th>
+        <th style="padding: 1rem; text-align: center;">أفضل لـ</th>
+        <th style="padding: 1rem; text-align: center;">الشراء</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #e5e7eb;">
+        <td style="padding: 1rem; font-weight: bold;">${data.productName} Pro</td>
+        <td style="padding: 1rem; text-align: center;">
+          <div style="color: #fbbf24;">★★★★★</div>
+          <small>9.2/10</small>
+        </td>
+        <td style="padding: 1rem; text-align: center; font-weight: bold; color: #059669;">${getPriceExample(data.priceRange)}</td>
+        <td style="padding: 1rem; text-align: center;">${getAudienceText(data.targetAudience)}</td>
+        <td style="padding: 1rem; text-align: center;">
+          <a href="#" style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold; display: inline-block;">اشتري الآن</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## 🥇 أفضل 5 منتجات
+
+### 1. ${data.productName} Pro - اختيار المحرر
+
+**التقييم الإجمالي: ⭐⭐⭐⭐⭐ 9.2/10**
+
+#### ✅ المزايا:
+- جودة بناء استثنائية
+- ميزات متقدمة وحديثة
+- سهولة في الاستخدام
+- دعم فني ممتاز
+
+#### ❌ العيوب:
+- سعر مرتفع نسبياً
+- قد يكون معقد للمبتدئين
+
+---
+
+### 2. ${data.productName} Standard
+
+**التقييم الإجمالي: ⭐⭐⭐⭐☆ 8.5/10**
+
+خيار متوازن يوفر أداء جيد بسعر معقول.
+
+---
+
+### 3. ${data.productName} Basic
+
+**التقييم الإجمالي: ⭐⭐⭐☆☆ 7.8/10**
+
+الخيار الاقتصادي للمبتدئين.
+
+## 🎯 دليل الاختيار
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+  <div style="background: linear-gradient(135deg, #dbeafe, #3b82f6); padding: 1.5rem; border-radius: 1rem; color: white;">
+    <h4 style="margin: 0 0 1rem 0;">💰 للميزانية المحدودة</h4>
+    <p style="margin: 0 0 1rem 0; opacity: 0.9;">${data.productName} Basic - أفضل قيمة للمبتدئين</p>
+    <a href="#" style="background: white; color: #3b82f6; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold; display: inline-block;">اختر الآن</a>
+  </div>
+  
+  <div style="background: linear-gradient(135deg, #dcfce7, #16a34a); padding: 1.5rem; border-radius: 1rem; color: white;">
+    <h4 style="margin: 0 0 1rem 0;">⚖️ للاستخدام المتوسط</h4>
+    <p style="margin: 0 0 1rem 0; opacity: 0.9;">${data.productName} Standard - توازن مثالي</p>
+    <a href="#" style="background: white; color: #16a34a; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold; display: inline-block;">اختر الآن</a>
+  </div>
+  
+  <div style="background: linear-gradient(135deg, #fef3c7, #f59e0b); padding: 1.5rem; border-radius: 1rem; color: white;">
+    <h4 style="margin: 0 0 1rem 0;">🏆 للاستخدام المتقدم</h4>
+    <p style="margin: 0 0 1rem 0; opacity: 0.9;">${data.productName} Pro - الأفضل على الإطلاق</p>
+    <a href="#" style="background: white; color: #f59e0b; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold; display: inline-block;">اختر الآن</a>
+  </div>
+</div>
+
+## 🏆 الخلاصة والتوصية
+
+بناءً على المقارنة الشاملة، ${data.productName} Pro يحتل المركز الأول كأفضل خيار شامل، بينما ${data.productName} Standard يقدم أفضل قيمة مقابل السعر.
+
+---
+
+*تم إجراء هذه المقارنة بناءً على اختبارات عملية مفصلة ومراجعة شاملة لجميع المنتجات.*`;
+        }
+
+        function generateGuideContent(data) {
+            return `# دليل شراء شامل: كيفية اختيار ${data.productName} المناسب
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 1rem; color: white; margin: 2rem 0; text-align: center;">
+  <h3 style="margin: 0 0 1rem 0; font-size: 1.5rem;">📚 دليل الخبراء</h3>
+  <p style="margin: 0; opacity: 0.9;">كل ما تحتاج معرفته لاختيار ${data.productName} المثالي</p>
+</div>
+
+اختيار ${data.productName} المناسب قد يبدو معقداً مع كثرة الخيارات المتاحة. في هذا الدليل الشامل، سنوضح لك كل ما تحتاج معرفته لاتخاذ القرار الصحيح.
+
+## 🎯 تحديد احتياجاتك
+
+### أسئلة مهمة قبل الشراء:
+
+<div style="background: #f0f9ff; padding: 1.5rem; border-radius: 1rem; border-right: 4px solid #0ea5e9; margin: 2rem 0;">
+  <h4 style="color: #0c4a6e; margin: 0 0 1rem 0;">🤔 اسأل نفسك:</h4>
+  <ul style="margin: 0; padding-right: 1.5rem; color: #0c4a6e;">
+    <li>ما هو الغرض الأساسي من الاستخدام؟</li>
+    <li>ما هي ميزانيتك المتاحة؟</li>
+    <li>هل تحتاج ميزات متقدمة؟</li>
+    <li>ما مستوى خبرتك في ${getCategoryName(data.category)}؟</li>
+  </ul>
+</div>
+
+## 💰 دليل الأسعار والميزانيات
+
+### تقسيم الفئات السعرية:
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;">
+  <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 1rem; border: 2px solid #10b981;">
+    <h4 style="color: #065f46; margin: 0 0 1rem 0;">💚 اقتصادي</h4>
+    <div style="font-size: 1.5rem; font-weight: bold; color: #059669; margin-bottom: 0.5rem;">أقل من 500 ريال</div>
+    <p style="margin: 0; color: #047857; font-size: 0.9rem;">مناسب للمبتدئين والاستخدام الأساسي</p>
+  </div>
+  
+  <div style="background: #fef3c7; padding: 1.5rem; border-radius: 1rem; border: 2px solid #f59e0b;">
+    <h4 style="color: #92400e; margin: 0 0 1rem 0;">🟡 متوسط</h4>
+    <div style="font-size: 1.5rem; font-weight: bold; color: #d97706; margin-bottom: 0.5rem;">500-1500 ريال</div>
+    <p style="margin: 0; color: #b45309; font-size: 0.9rem;">توازن مثالي بين السعر والميزات</p>
+  </div>
+  
+  <div style="background: #fef2f2; padding: 1.5rem; border-radius: 1rem; border: 2px solid #dc2626;">
+    <h4 style="color: #991b1b; margin: 0 0 1rem 0;">🔴 مميز</h4>
+    <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626; margin-bottom: 0.5rem;">1500+ ريال</div>
+    <p style="margin: 0; color: #b91c1c; font-size: 0.9rem;">للمحترفين والاستخدام المتقدم</p>
+  </div>
+</div>
+
+## 🔍 الميزات المهمة
+
+### الميزات الأساسية:
+- **الجودة:** تأكد من جودة البناء والمواد
+- **الموثوقية:** اختر علامات تجارية معروفة
+- **الضمان:** ضمان لا يقل عن سنة واحدة
+- **الدعم:** توفر دعم فني باللغة العربية
+
+### الميزات المتقدمة:
+- **التقنيات الحديثة:** آخر التطورات في المجال
+- **سهولة الاستخدام:** واجهة بديهية وبسيطة
+- **التوافق:** يعمل مع الأنظمة الأخرى
+- **التحديثات:** إمكانية التحديث المستقبلي
+
+## ⚠️ أخطاء شائعة يجب تجنبها
+
+<div style="background: linear-gradient(135deg, #fef2f2, #dc2626); padding: 1.5rem; border-radius: 1rem; margin: 2rem 0; color: white;">
+  <h3 style="margin: 0 0 1rem 0;">🚫 لا تقع في هذه الأخطاء</h3>
+  <ul style="margin: 0; padding-right: 1.5rem;">
+    <li><strong>الشراء بناءً على السعر فقط:</strong> الأرخص ليس دائماً الأفضل</li>
+    <li><strong>تجاهل الضمان:</strong> الضمان مهم جداً للحماية</li>
+    <li><strong>عدم قراءة المراجعات:</strong> تجارب الآخرين مفيدة</li>
+    <li><strong>الشراء المتسرع:</strong> خذ وقتك في البحث والمقارنة</li>
+  </ul>
+</div>
+
+## 🛒 نصائح الشراء الذكي
+
+### قبل الشراء:
+1. **ابحث جيداً:** اقرأ المراجعات والمقارنات
+2. **حدد الميزانية:** ضع حد أقصى للإنفاق
+3. **قارن الأسعار:** تحقق من عدة متاجر
+4. **اسأل الخبراء:** استشر أهل الاختصاص
+
+### أثناء الشراء:
+1. **تحقق من الضمان:** اقرأ شروط الضمان بعناية
+2. **احتفظ بالفواتير:** مهمة لتفعيل الضمان
+3. **اختبر المنتج:** تأكد من عمله بشكل صحيح
+4. **اقرأ الدليل:** فهم طريقة الاستخدام مهم
+
+## 🏆 توصياتنا النهائية
+
+<div style="background: linear-gradient(135deg, #f0f9ff, #0ea5e9); padding: 2rem; border-radius: 1rem; margin: 2rem 0; color: white; text-align: center;">
+  <h3 style="margin: 0 0 1.5rem 0;">🎯 أفضل الخيارات حسب الفئة</h3>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.5rem;">
+      <h4 style="margin: 0 0 0.5rem 0;">للمبتدئين</h4>
+      <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">${data.productName} Basic</p>
+    </div>
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.5rem;">
+      <h4 style="margin: 0 0 0.5rem 0;">للاستخدام العام</h4>
+      <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">${data.productName} Standard</p>
+    </div>
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.5rem;">
+      <h4 style="margin: 0 0 0.5rem 0;">للمحترفين</h4>
+      <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">${data.productName} Pro</p>
+    </div>
+  </div>
+</div>
+
+## ❓ الأسئلة الشائعة
+
+<details style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+  <summary style="font-weight: bold; cursor: pointer; color: #374151;">ما هو أفضل ${data.productName} للمبتدئين؟</summary>
+  <p style="margin: 1rem 0 0 0; color: #6b7280;">للمبتدئين، ننصح بالبدء بالموديلات الأساسية التي تقدم الميزات الضرورية بسعر معقول.</p>
+</details>
+
+<details style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+  <summary style="font-weight: bold; cursor: pointer; color: #374151;">كم يجب أن أنفق على ${data.productName}؟</summary>
+  <p style="margin: 1rem 0 0 0; color: #6b7280;">يعتمد على احتياجاتك وميزانيتك. الفئة المتوسطة (500-1500 ريال) تقدم أفضل قيمة لمعظم المستخدمين.</p>
+</details>
+
+---
+
+*هذا الدليل مبني على خبرة سنوات في مجال ${getCategoryName(data.category)} ومراجعة شاملة لأحدث المنتجات في السوق.*`;
+        }
+
+        // Helper functions
+        function getCategoryName(category) {
+            const names = {
+                'surveillance-cameras': 'كاميرات المراقبة',
+                'security-systems': 'الأنظمة الأمنية',
+                'reviews': 'المراجعات'
+            };
+            return names[category] || category;
+        }
+
+        function getCategoryDescription(category) {
+            const descriptions = {
+                'surveillance-cameras': 'نظام مراقبة متطور',
+                'security-systems': 'نظام أمني متكامل',
+                'reviews': 'منتج مراجع'
+            };
+            return descriptions[category] || 'منتج متخصص';
+        }
+
+        function getCategoryTags(category) {
+            const tags = {
+                'surveillance-cameras': 'كاميرات',
+                'security-systems': 'أمان',
+                'reviews': 'مراجعات'
+            };
+            return tags[category] || 'تقنية';
+        }
+
+        function getPriceText(priceRange) {
+            const texts = {
+                'budget': 'الاقتصادية',
+                'mid-range': 'المتوسطة',
+                'premium': 'المميزة',
+                'luxury': 'الفاخرة'
+            };
+            return texts[priceRange] || 'المتوسطة';
+        }
+
+        function getAudienceText(audience) {
+            const texts = {
+                'beginners': 'المبتدئين',
+                'homeowners': 'أصحاب المنازل',
+                'businesses': 'الشركات',
+                'professionals': 'المحترفين'
+            };
+            return texts[audience] || 'المستخدمين العاديين';
+        }
+
+        function getPriceRange(priceRange) {
+            const ranges = {
+                'budget': '200-500 ريال',
+                'mid-range': '500-1500 ريال',
+                'premium': '1500-3000 ريال',
+                'luxury': '3000+ ريال'
+            };
+            return ranges[priceRange] || '500-1500 ريال';
+        }
+
+        function getPriceExample(priceRange) {
+            const examples = {
+                'budget': '350 ريال',
+                'mid-range': '1,200 ريال',
+                'premium': '2,500 ريال',
+                'luxury': '4,500 ريال'
+            };
+            return examples[priceRange] || '1,200 ريال';
+        }
+
+        function getPriceRecommendation(priceRange) {
+            const recommendations = {
+                'budget': 'اقتصادياً ممتازاً',
+                'mid-range': 'متوازناً',
+                'premium': 'مميزاً',
+                'luxury': 'فاخراً'
+            };
+            return recommendations[priceRange] || 'جيداً';
+        }
+
+        function getRecommendationText(priceRange, audience) {
+            if (priceRange === 'budget') {
+                return 'خيار ممتاز للمبتدئين والميزانيات المحدودة. يقدم أداء جيد بسعر معقول.';
+            } else if (priceRange === 'premium' || priceRange === 'luxury') {
+                return 'الخيار الأمثل للمحترفين الذين يبحثون عن أفضل أداء وأحدث الميزات.';
+            } else {
+                return 'توازن مثالي بين السعر والأداء. مناسب لمعظم المستخدمين.';
+            }
+        }
+    </script>
+</body>
+</html>

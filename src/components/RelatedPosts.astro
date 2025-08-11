@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+export interface Props {
+  currentSlug: string;
+  category: string;
+  tags: string[];
+  limit?: number;
+}
+
+const { currentSlug, category, tags, limit = 3 } = Astro.props;
+
+// Get all posts
+const allPosts = await getCollection('posts');
+
+// Filter and score related posts
+const relatedPosts = allPosts
+  .filter(post => post.slug !== currentSlug)
+  .map(post => {
+    let score = 0;
+    
+    // Same category gets high score
+    if (post.data.category === category) score += 10;
+    
+    // Shared tags get points
+    const sharedTags = post.data.tags?.filter(tag => tags.includes(tag)) || [];
+    score += sharedTags.length * 3;
+    
+    // Recent posts get slight boost
+    const daysDiff = Math.abs(new Date().getTime() - post.data.date.getTime()) / (1000 * 3600 * 24);
+    if (daysDiff < 30) score += 2;
+    
+    return { post, score };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit)
+  .map(item => ({
+    title: item.post.data.title,
+    excerpt: item.post.data.description,
+    category: item.post.data.category,
+    date: item.post.data.date.toLocaleDateString('ar-SA', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }),
+    readTime: item.post.data.readTime,
+    image: item.post.data.image,
+    slug: item.post.slug,
+    tags: item.post.data.tags,
+    featured: item.post.data.featured,
+    affiliate: item.post.data.affiliate
+  }));
+---
+
+{relatedPosts.length > 0 && (
+  <section class="related-posts mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        📚 مقالات ذات صلة
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300">
+        اكتشف المزيد من المحتوى المفيد في نفس المجال
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {relatedPosts.map(post => (
+        <BlogCard {...post} />
+      ))}
+    </div>
+    
+    <div class="text-center mt-8">
+      <a 
+        href={`/categories/${category}`}
+        class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+      >
+        عرض جميع مقالات هذه الفئة
+        <i class="fas fa-arrow-left ml-2"></i>
+      </a>
+    </div>
+  </section>
+)}

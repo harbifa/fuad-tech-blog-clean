@@ -1,0 +1,102 @@
+---
+// مكون زر العودة للأعلى
+---
+
+<!-- زر العودة للأعلى -->
+<button
+  id="back-to-top"
+  class="fixed bottom-8 left-8 z-50 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 opacity-0 invisible group"
+  aria-label="العودة للأعلى"
+  title="العودة للأعلى"
+>
+  <!-- أيقونة السهم -->
+  <svg 
+    class="w-6 h-6 transform transition-transform duration-300 group-hover:-translate-y-1" 
+    fill="none" 
+    stroke="currentColor" 
+    viewBox="0 0 24 24"
+  >
+    <path 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      d="M5 10l7-7m0 0l7 7m-7-7v18"
+    />
+  </svg>
+  
+  <!-- تأثير النبض -->
+  <div class="absolute inset-0 bg-white/20 rounded-full animate-ping"></div>
+</button>
+
+<style>
+  #back-to-top {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  #back-to-top:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* تأثير الظهور والاختفاء */
+  #back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  #back-to-top.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* تأثير النبض */
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  .animate-ping {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (!backToTopButton) return;
+    
+    // عتبة ظهور الزر (بكسل)
+    const scrollThreshold = 300;
+    
+    // دالة التحقق من موضع التمرير
+    function checkScrollPosition() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > scrollThreshold && backToTopButton) {
+        backToTopButton.classList.remove('hide');
+        backToTopButton.classList.add('show');
+      } else if (backToTopButton) {
+        backToTopButton.classList.remove('show');
+        backToTopButton.classList.add('hide');
+      }
+    }
+    
+    // دالة العودة للأعلى بسلاسة
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // إضافة مستمعي الأحداث
+    window.addEventListener('scroll', checkScrollPosition, { passive: true });
+    backToTopButton.addEventListener('click', scrollToTop);
+    
+    // التحقق من الموضع الأولي
+    checkScrollPosition();
+  });
+</script> 

@@ -1,0 +1,67 @@
+/* src/styles/prose.css */
+/* 
+ * تم تعديل هذا الملف لحل تعارض التنسيقات مع عناصر HTML في MDX
+ * تم تعطيل خصائص revert !important التي كانت تلغي تنسيقات Tailwind المخصصة
+ * التحديث: استخدام :not([class]) للعناصر بدون كلاسات فقط + دعم div
+ * التحديث الأخير: تم تعطيل font-size و line-height inherit لتمكين Tailwind text-* و leading-* 
+ * التاريخ: 2025-01-15
+ */
+.prose p:not([class]),
+.prose h1:not([class]),
+.prose h2:not([class]),
+.prose h3:not([class]),
+.prose h4:not([class]),
+.prose h5:not([class]),
+.prose h6:not([class]),
+.prose ul:not([class]),
+.prose ol:not([class]),
+.prose li:not([class]),
+.prose pre:not([class]),
+.prose blockquote:not([class]) {
+  margin: revert !important;
+  padding: revert !important;
+  /* line-height: revert !important; ← تم تعطيله أيضاً */
+  font-weight: revert !important;
+  /* font-size: revert !important; ← محافظ على تعطيله */
+  /* color: revert !important; ← تم تعطيل هذا السطر */
+  /* background-color: revert !important; ← تم تعطيل هذا أيضاً */ 
+  /* border-radius: revert !important; ← تم تعطيل هذا أيضاً */
+  /* border: revert !important; ← تم تعطيل هذا أيضاً */
+  /* border-width: revert !important; ← تم تعطيل هذا أيضاً */
+
+}
+
+/* استثناء للعناصر p و div التي تحتوي على كلاسات Tailwind مخصصة */
+.prose p[class*="text-"],
+.prose p[class*="bg-"],
+.prose p[class*="border-"],
+.prose p[class*="rounded-"],
+.prose div[class*="text-"],
+.prose div[class*="bg-"],
+.prose div[class*="border-"],
+.prose div[class*="rounded-"] {
+  /* color: inherit; */
+  /* background-color: inherit; */
+  border: inherit;
+  border-radius: inherit;
+  /* font-size: inherit; ← تم تعطيل هذا السطر لتمكين Tailwind text-* classes */
+  /* line-height: inherit; ← تم تعطيل هذا أيضاً لتمكين Tailwind leading-* classes */
+}
+.prose p {
+    /* color: red !important ; */
+
+  }
+
+.prose blockquote {
+    font-weight: 700 !important;
+    font-style: italic;
+    /* color: #454545 !important; */
+    border-right-width: 0.25rem;
+    border-right-color: var(--tw-prose-quote-borders);
+    border-left-width: 0;
+    quotes: "\201C""\201D""\2018""\2019";
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+    padding-right: 1em;
+    padding-left: 0;
+  }

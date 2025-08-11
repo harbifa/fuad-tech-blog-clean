@@ -1,0 +1,30 @@
+---
+// File: src/components/blog/ComparisonGrid.astro
+// شبكة بطاقات مرنة: توضَع البطاقات بداخلها كأطفال <slot/>.
+// • تتكدّس تلقائياً بعمود واحد على الشاشات الضيّقة
+// • من md فأعلى: تتكرر الأعمدة تلقائياً بعرض لا يقل عن 20rem (≈ 320px)
+// • قابلة للتخصيص بخيار gap و margin
+
+export interface Props {
+  /** المسافة بين البطاقات (صنف Tailwind) – الافتراضي gap-6 */
+  gap?: string;
+  /** الهامش السفلي للشبكة (صنف Tailwind) – الافتراضي mb-12 */
+  marginBottom?: string;
+}
+
+const {
+  gap = 'gap-6',
+  marginBottom = 'mb-12',
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'grid',
+    gap,
+    marginBottom,
+  ]}
+  style="grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); direction: rtl;"
+>
+  <slot />
+</div>

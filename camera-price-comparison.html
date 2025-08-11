@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Price Comparison</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .table-container {
+            width: 1400px;
+            height: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            position: relative;
+            padding: 40px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+        }
+
+        .table-header th {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+        }
+
+        .table-row:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .table-row:nth-child(odd) {
+            background: white;
+        }
+
+        .table-row:hover {
+            background: #e3f2fd;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+
+        .table-row td {
+            padding: 15px;
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .camera-name {
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        .resolution {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .feature-yes {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .feature-no {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .price {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .brand-logo {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .best-value {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="btn" onclick="downloadImage()">Download Image</button>
+        <button class="btn" onclick="printImage()">Print</button>
+    </div>
+
+    <div class="table-container" id="comparison">
+        <div class="header">Camera Price & Features Comparison</div>
+        
+        <table class="comparison-table">
+            <thead class="table-header">
+                <tr>
+                    <th>Camera Model</th>
+                    <th>Resolution</th>
+                    <th>WiFi</th>
+                    <th>Night Vision</th>
+                    <th>Motion Detection</th>
+                    <th>Price (SAR)</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-row">
+                    <td class="camera-name">EZVIZ C6N</td>
+                    <td><span class="resolution">1080p</span></td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td><span class="price">299-399</span></td>
+                    <td class="rating">★★★★★</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="camera-name">Eufy C220</td>
+                    <td><span class="resolution">2K</span></td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Color</td>
+                    <td class="feature-yes">Yes</td>
+                    <td><span class="price">399-499</span></td>
+                    <td class="rating">★★★★☆</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="camera-name">TP-Link C200</td>
+                    <td><span class="resolution">1080p</span></td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td><span class="price">199-299</span><br><span class="best-value">Best Value</span></td>
+                    <td class="rating">★★★★☆</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="camera-name">Reolink 811A</td>
+                    <td><span class="resolution">5MP</span></td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td><span class="price">599-699</span></td>
+                    <td class="rating">★★★★★</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="camera-name">Imou S41FP</td>
+                    <td><span class="resolution">4MP</span></td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td class="feature-yes">Yes</td>
+                    <td><span class="price">349-449</span></td>
+                    <td class="rating">★★★★☆</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="brand-logo">Health | Saudi</div>
+    </div>
+
+    <script>
+        function downloadImage() {
+            const element = document.getElementById('comparison');
+            
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'camera-price-comparison.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function printImage() {
+            window.print();
+        }
+    </script>
+</body>
+</html> 

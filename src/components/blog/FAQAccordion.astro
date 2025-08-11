@@ -1,0 +1,47 @@
+---
+export interface FAQItem {
+  question: string;
+  answer: string;             // يمكن أن يحوي HTML
+}
+
+export interface Props {
+  intro?: string;
+  items: FAQItem[];
+}
+
+const { intro, items } = Astro.props;
+---
+
+{intro && (
+  <p
+    class="not-prose text-lg leading-8 mb-10"
+    style="direction: rtl;"
+    set:html={intro}           
+  ></p>
+)}
+
+<div class="flex flex-col gap-4">
+  {items.map(({ question, answer }) => (
+    <div
+      class="faq-item rounded-xl bg-white dark:bg-slate-900/40 shadow-sm overflow-hidden"
+      style="direction: rtl;"
+    >
+      <button
+        class="faq-question w-full flex justify-between items-center text-right p-6
+               text-base md:text-lg font-bold cursor-pointer bg-transparent border-none
+               outline-none transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/40"
+      >
+        <span>{question}</span>
+        <span class="faq-icon text-xl transition-transform duration-300">+</span>
+      </button>
+
+      <!-- صندوق الجواب يتمدّد بالسكربت -->
+      <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out">
+        <div
+          class="prose prose-slate dark:prose-invert max-w-none p-6 pt-2"
+          set:html={answer}     
+        ></div>
+      </div>
+    </div>
+  ))}
+</div>

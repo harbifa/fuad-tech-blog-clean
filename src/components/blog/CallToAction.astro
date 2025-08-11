@@ -1,0 +1,20 @@
+---
+export interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  gradient?: string;
+}
+
+const { icon, title, description, gradient = "from-blue-600 to-purple-600" } = Astro.props;
+---
+
+<div class={`bg-gradient-to-r ${gradient} text-white p-6 rounded-2xl shadow-lg`}>
+  <div class="flex items-center">
+    <span class="text-3xl ml-4 flex-shrink-0">{icon}</span>
+    <div>
+      <div class="font-bold text-xl mb-2">{title}</div>
+      <div class="text-lg">{description}</div>
+    </div>
+  </div>
+</div> 

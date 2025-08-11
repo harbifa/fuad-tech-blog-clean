@@ -1,0 +1,355 @@
+---
+---
+
+<!-- PWA Installation Prompt -->
+<div id="pwa-install-banner" class="hidden fixed bottom-4 left-4 right-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white p-4 rounded-lg shadow-lg z-50 max-w-md mx-auto">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center ml-3">
+        <i class="fas fa-mobile-alt text-lg"></i>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm">📱 تثبيت التطبيق</h4>
+        <p class="text-xs text-white/90">للوصول السريع والقراءة بدون إنترنت</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+      <button id="pwa-install-btn" class="bg-white text-primary-600 px-3 py-1 rounded text-sm font-semibold hover:bg-gray-100 transition-colors">
+        تثبيت
+      </button>
+      <button id="pwa-dismiss-btn" class="text-white/80 hover:text-white p-1">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PWA Manual Install Instructions -->
+<div id="pwa-manual-install" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-download text-2xl text-white"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+        تثبيت مدونة عزيز
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        اتبع الخطوات التالية لتثبيت التطبيق
+      </p>
+    </div>
+    
+    <div class="space-y-4 mb-6">
+      <!-- Chrome Instructions -->
+      <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+        <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center">
+          <i class="fab fa-chrome mr-2"></i>
+          في متصفح Chrome:
+        </h4>
+        <ol class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+          <li>1. اضغط على القائمة <strong>⋮</strong> في أعلى اليمين</li>
+          <li>2. اختر <strong>"تثبيت مدونة عزيز"</strong></li>
+          <li>3. أو ابحث عن أيقونة <strong>📱</strong> في شريط العنوان</li>
+        </ol>
+      </div>
+      
+      <!-- Safari Instructions -->
+      <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2 flex items-center">
+          <i class="fab fa-safari mr-2"></i>
+          في متصفح Safari:
+        </h4>
+        <ol class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+          <li>1. اضغط على زر <strong>المشاركة</strong> 📤</li>
+          <li>2. اختر <strong>"إضافة إلى الشاشة الرئيسية"</strong></li>
+          <li>3. اضغط <strong>"إضافة"</strong></li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="flex gap-3">
+      <button id="close-manual-install" class="flex-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-lg font-semibold">
+        إغلاق
+      </button>
+      <button id="try-auto-install" class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-semibold">
+        جرب التثبيت التلقائي
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PWA Update Available -->
+<div id="pwa-update-banner" class="hidden fixed top-20 left-4 right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg z-50 max-w-md mx-auto">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center ml-3">
+        <i class="fas fa-sync-alt text-lg"></i>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm">🔄 تحديث متاح</h4>
+        <p class="text-xs text-white/90">إصدار جديد من المدونة متوفر</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+      <button id="pwa-update-btn" class="bg-white text-blue-600 px-3 py-1 rounded text-sm font-semibold hover:bg-gray-100 transition-colors">
+        تحديث
+      </button>
+      <button id="pwa-update-dismiss-btn" class="text-white/80 hover:text-white p-1">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PWA Status Indicator -->
+<div id="pwa-status" class="fixed bottom-4 right-4 z-40">
+  <div id="connection-status" class="mb-2 px-3 py-1 rounded-full text-xs font-semibold transition-all duration-300 bg-green-500 text-white">
+    <i id="connection-icon" class="fas fa-wifi ml-1"></i>
+    <span id="connection-text">متصل</span>
+  </div>
+</div>
+
+<script>
+  // PWA Installation and Management
+  document.addEventListener('DOMContentLoaded', function() {
+    let deferredPrompt;
+    const installBanner = document.getElementById('pwa-install-banner');
+    const installBtn = document.getElementById('pwa-install-btn');
+    const dismissBtn = document.getElementById('pwa-dismiss-btn');
+    const manualInstall = document.getElementById('pwa-manual-install');
+    const closeManualInstall = document.getElementById('close-manual-install');
+    const tryAutoInstall = document.getElementById('try-auto-install');
+    const updateBanner = document.getElementById('pwa-update-banner');
+    const updateBtn = document.getElementById('pwa-update-btn');
+    const updateDismissBtn = document.getElementById('pwa-update-dismiss-btn');
+    const connectionStatus = document.getElementById('connection-status');
+    const connectionIcon = document.getElementById('connection-icon');
+    const connectionText = document.getElementById('connection-text');
+    
+    console.log('🔧 PWA Installer: Initializing...');
+    
+    // Check if we're in a supported environment
+    const isStackBlitz = window.location.hostname.includes('stackblitz') || 
+                        window.location.hostname.includes('webcontainer') ||
+                        window.location.hostname.includes('localhost');
+    
+    // Check if already installed
+    const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
+                       window.navigator.standalone === true;
+    
+    console.log('📱 PWA Status:', {
+      isStackBlitz,
+      isInstalled,
+      hasServiceWorker: 'serviceWorker' in navigator,
+      isOnline: navigator.onLine,
+      userAgent: navigator.userAgent
+    });
+    
+    // Force show install banner for testing
+    function showInstallBanner() {
+      if (!isInstalled && !localStorage.getItem('pwa-install-dismissed')) {
+        console.log('📢 Showing install banner...');
+        installBanner?.classList.remove('hidden');
+        
+        // Analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pwa_install_prompt_shown');
+        }
+      }
+    }
+    
+    // PWA Install Prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('🎯 beforeinstallprompt event fired');
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Show install banner
+      setTimeout(showInstallBanner, 2000);
+    });
+    
+    // For browsers that don't support beforeinstallprompt
+    if (!isInstalled && !localStorage.getItem('pwa-install-dismissed')) {
+      console.log('🧪 Showing install banner (fallback)...');
+      setTimeout(showInstallBanner, 3000);
+    }
+    
+    // Install button click
+    installBtn?.addEventListener('click', async () => {
+      console.log('🔘 Install button clicked');
+      
+      if (deferredPrompt) {
+        console.log('📱 Showing native install prompt...');
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        console.log('📊 Install outcome:', outcome);
+        
+        if (outcome === 'accepted') {
+          console.log('✅ PWA installed successfully');
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'pwa_install', { outcome: 'accepted' });
+          }
+        } else {
+          console.log('❌ PWA installation dismissed');
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'pwa_install', { outcome: 'dismissed' });
+          }
+        }
+        
+        installBanner?.classList.add('hidden');
+        deferredPrompt = null;
+      } else {
+        console.log('ℹ️ No deferred prompt available, showing manual instructions');
+        installBanner?.classList.add('hidden');
+        manualInstall?.classList.remove('hidden');
+        
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pwa_manual_install_shown');
+        }
+      }
+    });
+    
+    // Dismiss install banner
+    dismissBtn?.addEventListener('click', () => {
+      console.log('❌ Install banner dismissed');
+      installBanner?.classList.add('hidden');
+      localStorage.setItem('pwa-install-dismissed', 'true');
+      
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'pwa_install_dismissed');
+      }
+    });
+    
+    // Close manual install modal
+    closeManualInstall?.addEventListener('click', () => {
+      manualInstall?.classList.add('hidden');
+    });
+    
+    // Try auto install from manual modal
+    tryAutoInstall?.addEventListener('click', () => {
+      manualInstall?.classList.add('hidden');
+      if (deferredPrompt) {
+        installBtn?.click();
+      } else {
+        // Show browser-specific instructions
+        const isChrome = /Chrome/.test(navigator.userAgent);
+        const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+        
+        let message = 'لتثبيت التطبيق:\n\n';
+        
+        if (isChrome) {
+          message += '1. اضغط على القائمة ⋮ في أعلى اليمين\n';
+          message += '2. اختر "تثبيت مدونة عزيز"\n';
+          message += '3. أو ابحث عن أيقونة 📱 في شريط العنوان';
+        } else if (isSafari) {
+          message += '1. اضغط على زر المشاركة 📤\n';
+          message += '2. اختر "إضافة إلى الشاشة الرئيسية"\n';
+          message += '3. اضغط "إضافة"';
+        } else {
+          message += '1. ابحث عن خيار "تثبيت" أو "إضافة إلى الشاشة الرئيسية"\n';
+          message += '2. في قائمة المتصفح أو شريط العنوان';
+        }
+        
+        alert(message);
+      }
+    });
+    
+    // Service Worker Registration
+    if ('serviceWorker' in navigator && !isStackBlitz) {
+      console.log('🔧 Registering Service Worker...');
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('✅ Service Worker registered successfully:', registration);
+          
+          // Check for updates
+          registration.addEventListener('updatefound', () => {
+            console.log('🔄 Service Worker update found');
+            const newWorker = registration.installing;
+            
+            newWorker?.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('📢 New update available');
+                updateBanner?.classList.remove('hidden');
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.error('❌ Service Worker registration failed:', error);
+        });
+      
+      // Handle service worker updates
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('🔄 Service Worker controller changed, reloading...');
+        window.location.reload();
+      });
+    } else {
+      console.log('ℹ️ Service Worker not supported or in development environment');
+    }
+    
+    // Update button click
+    updateBtn?.addEventListener('click', () => {
+      console.log('🔄 Update button clicked');
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+      }
+      updateBanner?.classList.add('hidden');
+    });
+    
+    // Dismiss update banner
+    updateDismissBtn?.addEventListener('click', () => {
+      console.log('❌ Update banner dismissed');
+      updateBanner?.classList.add('hidden');
+    });
+    
+    // Connection Status
+    function updateConnectionStatus() {
+      if (navigator.onLine) {
+        connectionStatus.className = 'mb-2 px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white transition-all duration-300';
+        connectionIcon.className = 'fas fa-wifi ml-1';
+        connectionText.textContent = 'متصل';
+      } else {
+        connectionStatus.className = 'mb-2 px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white transition-all duration-300';
+        connectionIcon.className = 'fas fa-wifi-slash ml-1';
+        connectionText.textContent = 'غير متصل';
+      }
+    }
+    
+    // Initial connection status
+    updateConnectionStatus();
+    
+    // Listen for connection changes
+    window.addEventListener('online', () => {
+      console.log('🌐 Connection restored');
+      updateConnectionStatus();
+    });
+    
+    window.addEventListener('offline', () => {
+      console.log('📡 Connection lost');
+      updateConnectionStatus();
+    });
+    
+    // Hide connection status after 5 seconds if online
+    setTimeout(() => {
+      if (navigator.onLine) {
+        connectionStatus.style.opacity = '0';
+        setTimeout(() => {
+          connectionStatus.style.display = 'none';
+        }, 300);
+      }
+    }, 5000);
+    
+    // PWA Detection
+    if (isInstalled) {
+      console.log('📱 Running as PWA');
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'pwa_launch', {
+          display_mode: 'standalone'
+        });
+      }
+    }
+    
+    console.log('✅ PWA Installer: Initialized successfully');
+  });
+</script>

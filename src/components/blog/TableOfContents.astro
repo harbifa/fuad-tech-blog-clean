@@ -1,0 +1,141 @@
+---
+export interface Props {
+  items: Array<{
+    id: string;
+    text: string;
+    level?: number;
+  }>;
+  title?: string;
+}
+
+const { items, title = "فهرس المحتويات" } = Astro.props;
+---
+
+<!-- زر التحكم في عرض/إخفاء الفهرس -->
+<div class="toc-toggle-container mb-6 text-right">
+  <button 
+    id="toggle-toc"
+    class="bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-200 px-4 py-2 rounded-lg font-semibold transition hover:bg-blue-200 dark:hover:bg-blue-700"
+  >
+    عرض الفهرس
+  </button>
+</div>
+
+<!-- محتوى الفهرس (مخفي افتراضيًا) -->
+<div 
+  id="toc-container" 
+  class="table-of-contents bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mb-8 border border-blue-200 dark:border-blue-800 transition-all"
+  style="display: none;"
+>
+  <h3 class="text-lg font-bold text-blue-900 dark:text-blue-100 mb-4 flex items-center">
+    📋 {title}
+  </h3>
+
+  <nav class="toc-nav">
+    <ul class="space-y-2">
+      {items.map((item, index) => (
+        <li class={`toc-item ${item.level ? `depth-${item.level}` : ''}`}>
+          <a 
+            href={`#${item.id}`}
+            class="toc-link flex items-center text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100 transition-colors p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-800/50"
+            data-heading={item.id}
+          >
+            <span class="toc-number text-xs bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded-full w-6 h-6 flex items-center justify-center ml-2 font-bold">
+              {index + 1}
+            </span>
+            <span class="toc-text">{item.text}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .toc-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc-item.depth-2 {
+    padding-right: 0;
+  }
+
+  .toc-item.depth-3 {
+    padding-right: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .toc-link.active {
+    color: #1d4ed8;
+    font-weight: 600;
+  }
+
+  .dark .toc-link.active {
+    color: #60a5fa;
+  }
+
+  .toc-link.active .toc-number {
+    background-color: #1d4ed8;
+    color: white;
+  }
+
+  .dark .toc-link.active .toc-number {
+    background-color: #60a5fa;
+    color: #1e3a8a;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('toggle-toc');
+    const toc = document.getElementById('toc-container');
+    let isOpen = false;
+
+    if (btn && toc) {
+      btn.addEventListener('click', function() {
+        isOpen = !isOpen;
+        toc.style.display = isOpen ? 'block' : 'none';
+        btn.textContent = isOpen ? 'إخفاء الفهرس' : 'عرض الفهرس';
+      });
+    }
+
+    // تفعيل الروابط مع التمرير الناعم وتحديث الحالة النشطة
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('h2, h3');
+
+    tocLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          tocLinks.forEach(function(l) { l.classList.remove('active'); });
+          this.classList.add('active');
+        }
+      });
+    });
+
+    const observerOptions = {
+      rootMargin: '-100px 0px -66%',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const activeLink = document.querySelector('[data-heading="' + id + '"]');
+          tocLinks.forEach(function(link) { link.classList.remove('active'); });
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        }
+      });
+    }, observerOptions);
+
+    headings.forEach(function(heading) { observer.observe(heading); });
+  });
+</script> 

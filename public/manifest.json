@@ -1,0 +1,93 @@
+{
+  "name": "مدونة عزيز - كاميرات المراقبة والأنظمة الأمنية",
+  "short_name": "مدونة عزيز",
+  "description": "مدونة متخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات التقنية",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["security", "surveillance", "reviews", "technology"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik05NiA0OEM4MS45MDY2IDQ4IDcwLjUgNTkuNDA2NiA3MC41IDczLjVWMTE4LjVDNzAuNSAxMzIuNTkzIDgxLjkwNjYgMTQ0IDk2IDE0NEMxMTAuMDkzIDE0NCAxMjEuNSAxMzIuNTkzIDEyMS41IDExOC41VjczLjVDMTIxLjUgNTkuNDA2NiAxMTAuMDkzIDQ4IDk2IDQ4WiIgZmlsbD0id2hpdGUiLz4KPHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxOTIiIHkyPSIxOTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzdDM0FFRCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0QzFEOTUiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4KPC9zdmc+",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik0yNTYgMTI4QzIxOC4xNTUgMTI4IDE4OCAxNTguMTU1IDE4OCAxOTZWMzE2QzE4OCAzNTMuODQ1IDIxOC4xNTUgMzg0IDI1NiAzODRDMjkzLjg0NSAzODQgMzI0IDM1My44NDUgMzI0IDMxNlYxOTZDMzI0IDE1OC4xNTUgMjkzLjg0NSAxMjggMjU2IDEyOFoiIGZpbGw9IndoaXRlIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSI1MTIiIHkyPSI1MTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzdDM0FFRCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0QzFEOTUiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0IiBoZWlnaHQ9IjE0NCIgdmlld0JveD0iMCAwIDE0NCAxNDQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDQiIGhlaWdodD0iMTQ0IiByeD0iMTgiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik03MiAzNkM2MS40MzE1IDM2IDUyLjggNDQuNjMxNSA1Mi44IDU1LjJWODguOEM1Mi44IDk5LjM2ODUgNjEuNDMxNSAxMDggNzIgMTA4QzgyLjU2ODUgMTA4IDkxLjIgOTkuMzY4NSA5MS4yIDg4LjhWNTUuMkM5MS4yIDQ0LjYzMTUgODIuNTY4NSAzNiA3MiAzNloiIGZpbGw9IndoaXRlIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxNDQiIHkyPSIxNDQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzdDM0FFRCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0QzFEOTUiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik00OCAyNEM0MC45NzMzIDI0IDM1LjIgMjkuNjczMyAzNS4yIDM2LjhWNTkuMkMzNS4yIDY2LjMyNjcgNDAuOTczMyA3MiA0OCA3MkM1NS4wMjY3IDcyIDYwLjggNjYuMzI2NyA2MC44IDU5LjJWMzYuOEM2MC44IDI5LjY3MzMgNTUuMDI2NyAyNCA0OCAyNFoiIGZpbGw9IndoaXRlIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSI5NiIgeTI9Ijk2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM3QzNBRUQiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNEMxRDk1Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzIiIGhlaWdodD0iNzIiIHZpZXdCb3g9IjAgMCA3MiA3MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjcyIiBoZWlnaHQ9IjcyIiByeD0iOSIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPHBhdGggZD0iTTM2IDE4QzMwLjczIDMwIDI2LjQgMjIuMjcgMjYuNCAyNy42VjQ0LjRDMjYuNCA0OS43MyAzMC43MyA1NCAzNiA1NEM0MS4yNyA1NCA0NS42IDQ5LjczIDQ1LjYgNDQuNFYyNy42QzQ1LjYgMjIuMjcgNDEuMjcgMTggMzYgMThaIiBmaWxsPSJ3aGl0ZSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iNzIiIHkyPSI3MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjN0MzQUVEIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzRDMUQ5NSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPg==",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iNiIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPHBhdGggZD0iTTI0IDEyQzIwLjQ4NjUgMTIgMTcuNiAxNC44ODY1IDE3LjYgMTguNFYyOS42QzE3LjYgMzMuMTEzNSAyMC40ODY1IDM2IDI0IDM2QzI3LjUxMzUgMzYgMzAuNCAzMy4xMTM1IDMwLjQgMjkuNlYxOC40QzMwLjQgMTQuODg2NSAyNy41MTM1IDEyIDI0IDEyWiIgZmlsbD0id2hpdGUiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwX2xpbmVhcl8xXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjQ4IiB5Mj0iNDgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzdDM0FFRCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0QzFEOTUiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=",
+      "sizes": "48x48",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "كاميرات المراقبة",
+      "short_name": "كاميرات",
+      "description": "تصفح مقالات كاميرات المراقبة",
+      "url": "/categories/surveillance-cameras",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9IiMzQjgyRjYiLz4KPHBhdGggZD0iTTQ4IDI0QzQwLjk3MzMgMjQgMzUuMiAyOS42NzMzIDM1LjIgMzYuOFY1OS4yQzM1LjIgNjYuMzI2NyA0MC45NzMzIDcyIDQ4IDcyQzU1LjAyNjcgNzIgNjAuOCA2Ni4zMjY3IDYwLjggNTkuMlYzNi44QzYwLjggMjkuNjczMyA1NS4wMjY3IDI0IDQ4IDI0WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "الأنظمة الأمنية",
+      "short_name": "أمان",
+      "description": "تصفح مقالات الأنظمة الأمنية",
+      "url": "/categories/security-systems",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9IiNEQzI2MjYiLz4KPHBhdGggZD0iTTQ4IDI0QzQwLjk3MzMgMjQgMzUuMiAyOS42NzMzIDM1LjIgMzYuOFY1OS4yQzM1LjIgNjYuMzI2NyA0MC45NzMzIDcyIDQ4IDcyQzU1LjAyNjcgNzIgNjAuOCA2Ni4zMjY3IDYwLjggNTkuMlYzNi44QzYwLjggMjkuNjczMyA1NS4wMjY3IDI0IDQ4IDI0WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "المراجعات",
+      "short_name": "مراجعات",
+      "description": "تصفح المراجعات والتقييمات",
+      "url": "/categories/reviews",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9IiMxNkE5NEEiLz4KPHBhdGggZD0iTTQ4IDI0QzQwLjk3MzMgMjQgMzUuMiAyOS42NzMzIDM1LjIgMzYuOFY1OS4yQzM1LjIgNjYuMzI2NyA0MC45NzMzIDcyIDQ4IDcyQzU1LjAyNjcgNzIgNjAuOCA2Ni4zMjY3IDYwLjggNTkuMlYzNi44QzYwLjggMjkuNjczMyA1NS4wMjY3IDI0IDQ4IDI0WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

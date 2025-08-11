@@ -1,0 +1,676 @@
+---
+import { getCollection } from 'astro:content';
+import { calculateSiteStatistics, formatNumberArabic } from '../../utils/statistics';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+// Get all posts and sort by date
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Get dynamic statistics
+const stats = await calculateSiteStatistics();
+
+// Convert posts to the format expected by BlogCard
+const posts = sortedPosts.map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description,
+  category: post.data.category,
+  date: post.data.date.toLocaleDateString('ar-SA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }),
+  readTime: post.data.readTime,
+  image: post.data.image,
+  slug: post.slug,
+  tags: post.data.tags
+}));
+
+// Get featured posts
+const featuredPosts = posts.filter(post => 
+  sortedPosts.find(p => p.slug === post.slug)?.data.featured
+);
+
+// Get recent posts (non-featured)
+const recentPosts = posts.filter(post => 
+  !sortedPosts.find(p => p.slug === post.slug)?.data.featured
+);
+
+// Get all unique tags
+const allTags = [...new Set(posts.flatMap(post => post.tags || []))];
+const popularTags = allTags.slice(0, 8); // Show top 8 tags
+---
+
+<Layout 
+  title="جميع المقالات - مدونة عزيز للأمان والمراقبة"
+  description="اكتشف مجموعة شاملة من المقالات المتخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات التقنية. محتوى عربي عالي الجودة للمحترفين والمبتدئين."
+  type="website"
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white overflow-hidden">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')]"></div>
+      </div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <!-- Breadcrumb -->
+          <nav class="mb-8" aria-label="Breadcrumb">
+            <ol class="flex items-center justify-center space-x-2 rtl:space-x-reverse text-sm text-white/80">
+              <li>
+                <a href="/" class="hover:text-white transition-colors">
+                  الرئيسية
+                </a>
+              </li>
+              <li>
+                <i class="fas fa-chevron-left text-xs"></i>
+              </li>
+              <li class="text-white" aria-current="page">
+                المقالات
+              </li>
+            </ol>
+          </nav>
+          
+          <div class="mb-6">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
+              <i class="fas fa-newspaper text-3xl"></i>
+            </div>
+          </div>
+          
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            مكتبة
+            <span class="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+              المقالات
+            </span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed">
+            اكتشف أحدث المقالات والمراجعات في عالم <span class="font-semibold">كاميرات المراقبة</span> و
+            <span class="font-semibold">الأنظمة الأمنية</span>
+          </p>
+          
+          <!-- Dynamic Stats -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+            <div class="text-center">
+              <div class="text-2xl font-bold">{stats.totalPosts}+</div>
+              <div class="text-white/80">مقال متخصص</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold">{stats.totalCategories}</div>
+              <div class="text-white/80">فئة رئيسية</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold">{stats.totalTags}+</div>
+              <div class="text-white/80">موضوع متنوع</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter and Search Section -->
+    <section class="py-12 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div class="container mx-auto px-4">
+        <!-- Categories Filter -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+            تصفح حسب الفئة
+          </h2>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a 
+              href="/posts"
+              class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              <i class="fas fa-th-large ml-2"></i>
+              جميع المقالات
+              <span class="mr-2 bg-white/20 px-2 py-1 rounded-full text-xs">{stats.totalPosts}</span>
+            </a>
+            {stats.categoriesWithCounts.map(category => (
+              <a 
+                href={`/categories/${category.slug}`}
+                class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg border border-gray-200 dark:border-gray-600"
+              >
+                <i class={`fas ${category.icon} ml-2`}></i>
+                {category.name}
+                <span class="mr-2 bg-gray-100 dark:bg-gray-600 px-2 py-1 rounded-full text-xs">{category.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto">
+          <div class="relative">
+            <input 
+              type="text" 
+              id="search-posts"
+              placeholder="ابحث في المقالات..."
+              class="w-full px-6 py-4 pr-12 text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            />
+            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular Tags -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">
+            المواضيع الشائعة
+          </h3>
+          <div class="flex flex-wrap justify-center gap-2">
+            {popularTags.map(tag => (
+              <button 
+                class="tag-filter inline-block px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-primary-100 dark:hover:bg-primary-800 hover:text-primary-700 dark:hover:text-primary-300 transition-colors cursor-pointer"
+                data-tag={tag}
+              >
+                #{tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Posts -->
+    {featuredPosts.length > 0 && (
+      <section class="py-16">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              المقالات المميزة
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300">
+              أفضل المحتوى المختار بعناية لك ({stats.featuredPosts} مقال مميز)
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredPosts.map(post => (
+              <div class="featured-post">
+                <BlogCard {...post} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- All Posts -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            {featuredPosts.length > 0 ? 'جميع المقالات' : 'أحدث المقالات'}
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">
+            استكشف مكتبتنا الشاملة من المحتوى المتخصص ({formatNumberArabic(stats.totalWords)} كلمة)
+          </p>
+        </div>
+        
+        <!-- Posts Grid -->
+        <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {(featuredPosts.length > 0 ? recentPosts : posts).map(post => (
+            <article class="post-item" data-category={post.category} data-tags={post.tags?.join(' ') || ''}>
+              <BlogCard {...post} />
+            </article>
+          ))}
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+          <button 
+            id="load-more"
+            class="inline-flex items-center px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
+          >
+            <i class="fas fa-plus ml-2"></i>
+            عرض المزيد
+          </button>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-16">
+          <div class="w-24 h-24 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-search text-3xl text-gray-400"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            لم يتم العثور على نتائج
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-8">
+            جرب تغيير كلمات البحث أو تصفح الفئات المختلفة
+          </p>
+          <button 
+            id="clear-search"
+            class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            <i class="fas fa-times ml-2"></i>
+            مسح البحث
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 md:p-12 text-white text-center">
+          <div class="max-w-3xl mx-auto">
+            <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-envelope text-2xl"></i>
+            </div>
+            <h3 class="text-3xl font-bold mb-4">
+              لا تفوت أي جديد
+            </h3>
+            <p class="text-xl text-white/90 mb-8">
+              اشترك في نشرتنا البريدية للحصول على أحدث المقالات والمراجعات والنصائح الأمنية
+              <br>
+              <span class="text-sm opacity-75">ننشر {stats.recentPostsCount} مقال جديد شهرياً</span>
+            </p>
+            
+            <form class="max-w-md mx-auto flex gap-4" id="newsletter-form-posts" action="/api/newsletter" method="POST">
+              <input 
+                type="email" 
+                name="email"
+                placeholder="بريدك الإلكتروني"
+                class="flex-1 px-4 py-3 rounded-lg border-0 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white/50"
+                required
+              />
+              <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <button 
+                type="submit"
+                class="px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-md hover:shadow-lg"
+              >
+                اشتراك
+              </button>
+            </form>
+            <div id="newsletter-message-posts" class="mt-4 text-center text-sm" style="display: none;"></div>
+            
+            <p class="text-sm text-white/70 mt-4">
+              نحترم خصوصيتك. يمكنك إلغاء الاشتراك في أي وقت.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  const form = document.getElementById('newsletter-form-posts');
+  const message = document.getElementById('newsletter-message-posts');
+  
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const button = form.querySelector('button');
+    const originalText = button.innerHTML;
+    const formData = new FormData(form);
+    
+    // Show loading state
+    button.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i>جاري الاشتراك...';
+    button.disabled = true;
+    message.style.display = 'none';
+    
+    try {
+      const response = await fetch(form.action, { 
+        method: 'POST', 
+        body: formData 
+      });
+      
+      const data = await response.json();
+      
+      // Show message
+      message.textContent = data.message || (data.ok ? "تم الاشتراك" : "تعذّر الاشتراك");
+      message.style.display = 'block';
+      message.className = `mt-4 text-center text-sm ${data.ok ? 'text-green-200' : 'text-red-200'}`;
+      
+      if (data.ok) {
+        // Success state
+        button.innerHTML = '<i class="fas fa-check ml-2"></i>تم الإرسال';
+        button.classList.remove('bg-white', 'text-primary-600');
+        button.classList.add('bg-green-500', 'text-white');
+        
+        // Analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'newsletter_signup', {
+            email: formData.get('email'),
+            source: 'posts_page'
+          });
+        }
+        
+        form.reset();
+        
+        // Reset button after 4 seconds
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+          button.classList.remove('bg-green-500', 'text-white');
+          button.classList.add('bg-white', 'text-primary-600');
+        }, 4000);
+        
+      } else {
+        // Error state
+        button.innerHTML = '<i class="fas fa-exclamation-triangle ml-2"></i>خطأ';
+        button.classList.remove('bg-white', 'text-primary-600');
+        button.classList.add('bg-red-500', 'text-white');
+        
+        // Reset button after 4 seconds
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+          button.classList.remove('bg-red-500', 'text-white');
+          button.classList.add('bg-white', 'text-primary-600');
+        }, 4000);
+      }
+      
+    } catch (error) {
+      console.error('Newsletter signup error:', error);
+      
+      // Error state
+      message.textContent = "تعذّر الاشتراك. حاول لاحقًا.";
+      message.style.display = 'block';
+      message.className = 'mt-4 text-center text-sm text-red-200';
+      
+      button.innerHTML = '<i class="fas fa-exclamation-triangle ml-2"></i>خطأ في الاتصال';
+      button.classList.remove('bg-white', 'text-primary-600');
+      button.classList.add('bg-red-500', 'text-white');
+      
+      // Reset button after 4 seconds
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+        button.classList.remove('bg-red-500', 'text-white');
+        button.classList.add('bg-white', 'text-primary-600');
+      }, 4000);
+    }
+  });
+</script>
+
+<style>
+  /* Enhanced animations and transitions */
+  .post-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+  }
+  
+  .post-item.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  
+  .featured-post {
+    position: relative;
+  }
+  
+  .featured-post::before {
+    content: "مميز";
+    position: absolute;
+    top: -8px;
+    right: 16px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  }
+  
+  /* Search and filter animations */
+  #search-posts:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tag-filter:hover {
+    transform: translateY(-1px);
+  }
+  
+  /* Loading animation */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  
+  .loading {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  /* Responsive grid improvements */
+  @media (min-width: 1280px) {
+    #posts-container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // Enhanced search and filter functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-posts');
+    const postsContainer = document.getElementById('posts-container');
+    const noResults = document.getElementById('no-results');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const tagFilters = document.querySelectorAll('.tag-filter');
+    const loadMoreBtn = document.getElementById('load-more');
+    
+    let currentFilter = '';
+    let currentTag = '';
+    let visiblePosts = 9; // Initial number of posts to show
+    const postsPerLoad = 6; // Number of posts to load each time
+    
+    const allPosts = Array.from(document.querySelectorAll('.post-item'));
+    
+    // Initialize - show only first batch of posts
+    showPosts();
+    
+    function showPosts() {
+      let filteredPosts = allPosts;
+      
+      // Apply search filter
+      if (currentFilter) {
+        filteredPosts = filteredPosts.filter(post => {
+          const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
+          const excerpt = post.querySelector('p')?.textContent.toLowerCase() || '';
+          const tags = post.dataset.tags?.toLowerCase() || '';
+          return title.includes(currentFilter) || 
+                 excerpt.includes(currentFilter) || 
+                 tags.includes(currentFilter);
+        });
+      }
+      
+      // Apply tag filter
+      if (currentTag) {
+        filteredPosts = filteredPosts.filter(post => {
+          const tags = post.dataset.tags?.toLowerCase() || '';
+          return tags.includes(currentTag.toLowerCase());
+        });
+      }
+      
+      // Hide all posts first
+      allPosts.forEach(post => {
+        post.classList.add('hidden');
+      });
+      
+      // Show filtered posts up to visible limit
+      filteredPosts.slice(0, visiblePosts).forEach(post => {
+        post.classList.remove('hidden');
+      });
+      
+      // Show/hide no results message
+      if (filteredPosts.length === 0) {
+        noResults.classList.remove('hidden');
+        postsContainer.style.display = 'none';
+        loadMoreBtn.style.display = 'none';
+      } else {
+        noResults.classList.add('hidden');
+        postsContainer.style.display = 'grid';
+        
+        // Show/hide load more button
+        if (filteredPosts.length > visiblePosts) {
+          loadMoreBtn.style.display = 'inline-flex';
+        } else {
+          loadMoreBtn.style.display = 'none';
+        }
+      }
+      
+      // Update load more button text
+      const remainingPosts = Math.max(0, filteredPosts.length - visiblePosts);
+      if (remainingPosts > 0) {
+        loadMoreBtn.innerHTML = `<i class="fas fa-plus ml-2"></i>عرض ${Math.min(postsPerLoad, remainingPosts)} مقال إضافي`;
+      }
+    }
+    
+    // Search functionality with debounce
+    let searchTimeout;
+    searchInput?.addEventListener('input', function(e) {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        currentFilter = e.target.value.toLowerCase().trim();
+        visiblePosts = 9; // Reset visible posts count
+        showPosts();
+        
+        // Add search analytics
+        if (currentFilter && typeof gtag !== 'undefined') {
+          gtag('event', 'search', {
+            search_term: currentFilter
+          });
+        }
+      }, 300);
+    });
+    
+    // Tag filter functionality
+    tagFilters.forEach(tag => {
+      tag.addEventListener('click', function() {
+        // Remove active class from all tags
+        tagFilters.forEach(t => t.classList.remove('bg-primary-600', 'text-white'));
+        
+        const tagValue = this.dataset.tag;
+        
+        if (currentTag === tagValue) {
+          // Deselect current tag
+          currentTag = '';
+          this.classList.remove('bg-primary-600', 'text-white');
+        } else {
+          // Select new tag
+          currentTag = tagValue;
+          this.classList.add('bg-primary-600', 'text-white');
+        }
+        
+        visiblePosts = 9; // Reset visible posts count
+        showPosts();
+        
+        // Add tag analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'filter_by_tag', {
+            tag_name: currentTag
+          });
+        }
+      });
+    });
+    
+    // Load more functionality
+    loadMoreBtn?.addEventListener('click', function() {
+      visiblePosts += postsPerLoad;
+      showPosts();
+      
+      // Smooth scroll to new content
+      setTimeout(() => {
+        const newlyVisible = document.querySelectorAll('.post-item:not(.hidden)');
+        if (newlyVisible.length > visiblePosts - postsPerLoad) {
+          newlyVisible[visiblePosts - postsPerLoad]?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+      
+      // Add load more analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'load_more_posts', {
+          posts_loaded: postsPerLoad
+        });
+      }
+    });
+    
+    // Clear search functionality
+    clearSearchBtn?.addEventListener('click', function() {
+      searchInput.value = '';
+      currentFilter = '';
+      currentTag = '';
+      visiblePosts = 9;
+      
+      // Remove active classes from tags
+      tagFilters.forEach(t => t.classList.remove('bg-primary-600', 'text-white'));
+      
+      showPosts();
+      searchInput.focus();
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + / to focus search
+      if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+        e.preventDefault();
+        searchInput?.focus();
+      }
+      
+      // Escape to clear search
+      if (e.key === 'Escape' && document.activeElement === searchInput) {
+        clearSearchBtn?.click();
+      }
+    });
+    
+    // Intersection Observer for lazy loading and animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '50px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all post items
+    allPosts.forEach(post => {
+      observer.observe(post);
+    });
+  });
+  
+  // Performance monitoring
+  if ('performance' in window) {
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData && typeof gtag !== 'undefined') {
+          gtag('event', 'page_load_time', {
+            value: Math.round(perfData.loadEventEnd - perfData.loadEventStart),
+            page_title: 'Posts Page'
+          });
+        }
+      }, 0);
+    });
+  }
+</script>

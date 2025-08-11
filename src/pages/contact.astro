@@ -1,0 +1,469 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="اتصل بنا - مدونة عزيز"
+  description="تواصل معنا للحصول على استشارات أمنية، أسئلة تقنية، أو اقتراحات. نحن هنا لمساعدتك في اختيار أفضل أنظمة المراقبة والحماية."
+  type="website"
+>
+  <Header />
+  
+  <main class="py-16 bg-gradient-to-br from-slate-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-slate-900">
+    {/* خلفية ديكورية */}
+    <div class="absolute inset-0 opacity-5 dark:opacity-3 pointer-events-none">
+      <div class="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-green-400 to-blue-500 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <!-- Hero Section -->
+        <div class="text-center mb-20">
+          <div class="w-24 h-24 bg-gradient-to-br from-blue-500 via-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+            <i class="fas fa-envelope text-4xl text-white"></i>
+          </div>
+          
+          <div class="space-y-6">
+            <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 mb-6">
+              📞 اتصل بنا
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto font-medium">
+              نحن هنا لمساعدتك في <span class="text-blue-600 dark:text-blue-400 font-bold">اختيار أفضل الأنظمة الأمنية</span> 
+              و<span class="text-green-600 dark:text-green-400 font-bold">الإجابة على استفساراتك التقنية</span>
+            </p>
+            <p class="text-xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+              سواء كنت تبحث عن استشارة أمنية، لديك سؤال تقني، أو تريد اقتراح موضوع لمقال جديد
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Methods Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+          <!-- Email Contact Form -->
+          <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center mb-8">
+              <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl ml-4 flex-shrink-0">
+                ✉️
+              </div>
+              <div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">راسلنا عبر الإيميل</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">أرسل رسالة مباشرة وسنرد عليك خلال 24 ساعة</p>
+              </div>
+            </div>
+            
+            <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    الاسم الكامل *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                    placeholder="أدخل اسمك الكامل"
+                  />
+                </div>
+                
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    البريد الإلكتروني *
+                  </label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                    placeholder="example@email.com"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label for="subject" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  الموضوع *
+                </label>
+                <select 
+                  id="subject" 
+                  name="subject" 
+                  required
+                  class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                >
+                  <option value="">اختر موضوع الرسالة</option>
+                  <option value="استشارة أمنية">استشارة أمنية</option>
+                  <option value="سؤال تقني">سؤال تقني</option>
+                  <option value="اقتراح موضوع">اقتراح موضوع لمقال</option>
+                  <option value="تعاون تجاري">تعاون تجاري</option>
+                  <option value="شكوى أو اقتراح">شكوى أو اقتراح</option>
+                  <option value="أخرى">أخرى</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  الرسالة *
+                </label>
+                                 <textarea 
+                   id="message" 
+                   name="message" 
+                   rows="6" 
+                   required
+                   minlength="30"
+                   class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-vertical"
+                   placeholder="اكتب رسالتك هنا... (الحد الأدنى 30 حرف)"
+                 ></textarea>
+                 <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                   <span id="char-count">0</span> / 30 حرف (الحد الأدنى)
+                 </div>
+              </div>
+              
+              <!-- Hidden fields for Web3Forms -->
+              <input type="hidden" name="access_key" value="b0ff6f49-5211-4254-ac3e-ac5dc6df32ea" />
+              <input type="hidden" name="subject" value="رسالة جديدة من موقع مدونة عزيز" />
+              <input type="hidden" name="from_name" value="مدونة عزيز" />
+              
+              <button 
+                type="submit"
+                id="submit-btn"
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 px-8 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <i class="fas fa-paper-plane ml-2"></i>
+                إرسال الرسالة
+              </button>
+            </form>
+            
+            <!-- Success Message -->
+            <div id="success-message" class="hidden mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-xl">
+              <div class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 text-xl ml-3"></i>
+                <div>
+                  <h4 class="text-green-800 dark:text-green-200 font-bold">تم إرسال الرسالة بنجاح!</h4>
+                  <p class="text-green-700 dark:text-green-300 text-sm">سنرد عليك خلال 24 ساعة عمل</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Error Message -->
+            <div id="error-message" class="hidden mt-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-xl">
+              <div class="flex items-center">
+                <i class="fas fa-exclamation-circle text-red-500 text-xl ml-3"></i>
+                <div>
+                  <h4 class="text-red-800 dark:text-red-200 font-bold">حدث خطأ في الإرسال</h4>
+                  <p class="text-red-700 dark:text-red-300 text-sm">يرجى المحاولة مرة أخرى أو التواصل عبر الواتساب</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media & Quick Contact -->
+          <div class="space-y-8">
+            <!-- WhatsApp Contact -->
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-8 text-white shadow-2xl">
+              <div class="flex items-center mb-6">
+                <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center text-white text-3xl ml-4 flex-shrink-0">
+                  <i class="fab fa-whatsapp"></i>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-white">واتساب مباشر</h3>
+                  <p class="text-white/90">للتواصل السريع والاستفسارات العاجلة</p>
+                </div>
+              </div>
+              
+              <a 
+                href="https://wa.me/966547402101?text=مرحباً، أريد استشارة حول الأنظمة الأمنية"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center w-full bg-white text-green-600 font-bold py-4 px-8 rounded-2xl hover:bg-gray-100 transition-all duration-300 hover:transform hover:scale-105 shadow-lg"
+              >
+                <i class="fab fa-whatsapp ml-2 text-2xl"></i>
+                تواصل عبر واتساب
+              </a>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-100 dark:border-gray-700">
+              <div class="flex items-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl ml-4 flex-shrink-0">
+                  <i class="fas fa-share-alt"></i>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900 dark:text-white">وسائل التواصل الاجتماعي</h3>
+                  <p class="text-gray-600 dark:text-gray-400">تابعنا على منصات التواصل الاجتماعي</p>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <a 
+                  href="https://x.com/fuad3ziz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center px-6 py-4 bg-blue-500 text-white rounded-2xl hover:bg-blue-600 transition-all duration-300 hover:transform hover:scale-105"
+                >
+                  <i class="fab fa-twitter ml-2 text-xl"></i>
+                  تويتر
+                </a>
+                
+                <a 
+                  href="https://www.linkedin.com/in/fuad-alharbi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center px-6 py-4 bg-blue-700 text-white rounded-2xl hover:bg-blue-800 transition-all duration-300 hover:transform hover:scale-105"
+                >
+                  <i class="fab fa-linkedin ml-2 text-xl"></i>
+                  لينكد إن
+                </a>
+                
+                <a 
+                  href="https://t.me/FuadAzizg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center px-6 py-4 bg-blue-400 text-white rounded-2xl hover:bg-blue-500 transition-all duration-300 hover:transform hover:scale-105"
+                >
+                  <i class="fab fa-telegram ml-2 text-xl"></i>
+                  تليجرام
+                </a>
+                
+                <a 
+                  href="https://youtube.com/@aziz_tech_blog"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center px-6 py-4 bg-red-600 text-white rounded-2xl hover:bg-red-700 transition-all duration-300 hover:transform hover:scale-105"
+                >
+                  <i class="fab fa-youtube ml-2 text-xl"></i>
+                  يوتيوب
+                </a>
+              </div>
+            </div>
+
+            <!-- Quick Info -->
+            <div class="bg-gradient-to-r from-purple-500 to-pink-600 rounded-3xl p-8 text-white shadow-2xl">
+              <div class="flex items-center mb-6">
+                <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center text-white text-3xl ml-4 flex-shrink-0">
+                  <i class="fas fa-info-circle"></i>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-white">معلومات سريعة</h3>
+                  <p class="text-white/90">أوقات الاستجابة والتواصل</p>
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-white/90">وقت الاستجابة:</span>
+                  <span class="font-bold">24 ساعة</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-white/90">أيام العمل:</span>
+                  <span class="font-bold">الأحد - الخميس</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-white/90">ساعات العمل:</span>
+                  <span class="font-bold">9 ص - 6 م</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-white/90">المنطقة الزمنية:</span>
+                  <span class="font-bold">GMT+3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-gray-700 mb-16">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">أسئلة شائعة</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">إجابات على أكثر الأسئلة شيوعاً</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  <i class="fas fa-question-circle text-blue-500 ml-2"></i>
+                  كم يستغرق وقت الرد على الرسائل؟
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  نرد على جميع الرسائل خلال 24 ساعة عمل، وفي معظم الحالات نرد خلال ساعات قليلة.
+                </p>
+              </div>
+              
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  <i class="fas fa-question-circle text-blue-500 ml-2"></i>
+                  هل تقدمون استشارات أمنية مجانية؟
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  نعم، نقدم استشارات أولية مجانية عبر الإيميل والواتساب. للاستشارات المتقدمة نقدم خدمات مدفوعة.
+                </p>
+              </div>
+            </div>
+            
+            <div class="space-y-6">
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  <i class="fas fa-question-circle text-blue-500 ml-2"></i>
+                  هل يمكنني اقتراح مواضيع للمقالات؟
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  بالتأكيد! نحن نرحب بجميع الاقتراحات ونأخذها بعين الاعتبار عند تخطيط المحتوى المستقبلي.
+                </p>
+              </div>
+              
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  <i class="fas fa-question-circle text-blue-500 ml-2"></i>
+                  هل تتعاونون مع الشركات والمؤسسات؟
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  نعم، نتعاون مع الشركات والمؤسسات في مجال المحتوى التقني والاستشارات الأمنية.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  // Contact form handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const successMessage = document.getElementById('success-message') as HTMLDivElement;
+    const errorMessage = document.getElementById('error-message') as HTMLDivElement;
+    const charCount = document.getElementById('char-count') as HTMLSpanElement;
+    
+    if (!contactForm) return;
+
+    // Check for success parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      showSuccessMessage();
+    }
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (!submitBtn) return;
+      
+      const originalText = submitBtn.innerHTML;
+      
+      // Show loading state
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i>جاري الإرسال...';
+      submitBtn.disabled = true;
+      
+      // Hide any existing messages
+      hideMessages();
+      
+             // Submit form to Web3Forms
+       const formData = new FormData(this);
+       
+       fetch(this.action, {
+         method: 'POST',
+         body: formData,
+         headers: {
+           'Accept': 'application/json'
+         }
+       })
+      .then(response => {
+        if (response.ok) {
+          showSuccessMessage();
+          this.reset();
+          updateCharCount(0);
+          
+          // Analytics tracking
+          if (typeof (window as any).gtag !== 'undefined') {
+            (window as any).gtag('event', 'contact_form_submit', {
+              event_category: 'engagement',
+              event_label: 'contact_page'
+            });
+          }
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showErrorMessage();
+      })
+      .finally(() => {
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      });
+    });
+    
+    // Character counter for message
+    const messageTextarea = document.getElementById('message') as HTMLTextAreaElement;
+    if (messageTextarea && charCount) {
+             messageTextarea.addEventListener('input', function() {
+         const charCountValue = this.value.length;
+         const minChars = 30;
+         
+         updateCharCount(charCountValue);
+         
+         if (charCountValue < minChars) {
+           this.classList.add('border-red-300');
+           this.classList.remove('border-gray-300');
+         } else {
+           this.classList.remove('border-red-300');
+           this.classList.add('border-gray-300');
+         }
+       });
+    }
+    
+         function updateCharCount(count: number) {
+       if (charCount) {
+         charCount.textContent = count.toString();
+         if (count < 30) {
+           charCount.classList.add('text-red-500');
+           charCount.classList.remove('text-gray-500');
+         } else {
+           charCount.classList.remove('text-red-500');
+           charCount.classList.add('text-gray-500');
+         }
+       }
+     }
+    
+    function showSuccessMessage() {
+      if (successMessage) {
+        successMessage.classList.remove('hidden');
+        errorMessage?.classList.add('hidden');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.add('hidden');
+        }, 5000);
+      }
+    }
+    
+    function showErrorMessage() {
+      if (errorMessage) {
+        errorMessage.classList.remove('hidden');
+        successMessage?.classList.add('hidden');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          errorMessage.classList.add('hidden');
+        }, 5000);
+      }
+    }
+    
+    function hideMessages() {
+      successMessage?.classList.add('hidden');
+      errorMessage?.classList.add('hidden');
+    }
+  });
+</script>

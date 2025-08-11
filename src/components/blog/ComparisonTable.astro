@@ -1,0 +1,37 @@
+---
+// File: src/components/blog/ComparisonTable.astro
+// جدول مقارنة مرن مع عنوان في الأعلى.
+// • يدعم الوضعين Light/Dark.
+// • يتكيّف على الشاشات الصغيرة (تمرير أفقي).
+// • يستقبل صفوف <tr> عبر <slot/>.
+
+export interface Props {
+  /** عنوان الجدول (يُعرض فوقه) */
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="not-prose my-12">
+  <h3 class="text-center text-2xl font-bold mb-6">{title}</h3>
+
+  <div class="overflow-x-auto">
+    <table
+      class="w-full min-w-[38rem] border-collapse bg-white dark:bg-slate-900/40
+             rounded-xl shadow-sm overflow-hidden"
+    >
+      <thead class="bg-slate-700 text-white text-right">
+        <tr>
+          <th class="p-4 font-bold">الجانب</th>
+          <th class="p-4 font-bold">كاميرات IP</th>
+          <th class="p-4 font-bold">كاميرات HD Analog</th>
+        </tr>
+      </thead>
+
+      <tbody class="text-slate-700 dark:text-slate-200 text-right">
+        <slot />
+      </tbody>
+    </table>
+  </div>
+</div>

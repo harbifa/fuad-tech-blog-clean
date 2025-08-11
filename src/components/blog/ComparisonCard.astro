@@ -1,0 +1,66 @@
+---
+export interface Props {
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  color: 'green' | 'blue' | 'purple' | 'orange' | 'red' | 'teal' | 'indigo' | 'yellow';
+  items?: string[];
+  type?: 'simple' | 'with-items';
+}
+
+const { icon, title, subtitle, description, color, items = [], type = 'simple' } = Astro.props;
+
+const colorClasses = {
+  green: 'from-green-400 to-green-500',
+  blue: 'from-blue-400 to-blue-500',
+  purple: 'from-purple-400 to-purple-500',
+  orange: 'from-orange-400 to-orange-500',
+  red: 'from-red-400 to-red-500',
+  teal: 'from-teal-400 to-teal-500',
+  indigo: 'from-indigo-400 to-indigo-500',
+  yellow: 'from-yellow-400 to-yellow-500'
+};
+
+const bgColor = colorClasses[color];
+---
+
+<div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-gray-800/50 shadow-md">
+  {type === 'simple' ? (
+    <div class="text-center mb-4">
+      <div class={`w-16 h-16 bg-gradient-to-br ${bgColor} rounded-2xl flex items-center justify-center text-white text-lg font-bold mx-auto mb-3`}>
+        {icon}
+      </div>
+      <h4 class="text-lg font-bold text-gray-800 dark:text-gray-200">{title}</h4>
+    </div>
+  ) : (
+    <div class="flex items-center mb-6">
+      <div class={`w-12 h-12 bg-gradient-to-br ${bgColor} rounded-xl flex items-center justify-center text-white text-lg font-bold ml-4`}>
+        {icon}
+      </div>
+      <div>
+        <h4 class="text-xl font-bold text-gray-800 dark:text-gray-200">{title}</h4>
+        <div class="text-sm text-gray-600 dark:text-gray-400">{subtitle}</div>
+      </div>
+    </div>
+  )}
+  
+  {type === 'simple' ? (
+    <p class="text-gray-700 dark:text-gray-300 text-center">{description}</p>
+  ) : (
+    <div>
+      {items.length > 0 ? (
+        <div class="space-y-3">
+          {items.map((item) => (
+            <div class="flex items-start">
+              <span class="w-2 h-2 bg-green-400 rounded-full mt-2 ml-3 flex-shrink-0"></span>
+              <span class="text-gray-800 dark:text-gray-200">{item}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-800 dark:text-gray-200">{description}</p>
+      )}
+    </div>
+  )}
+</div> 

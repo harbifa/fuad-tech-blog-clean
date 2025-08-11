@@ -1,0 +1,54 @@
+---
+// File: src/components/blog/InfoBoxHeader.astro
+
+export interface Props {
+  number?: number | string;
+  title: string;
+  color?: 'yellow' | 'blue' | 'red' | 'green' | 'purple' | 'orange' | 'slate';
+}
+
+const { number = '1', title, color = 'yellow' } = Astro.props;
+
+const colorMap = {
+  yellow: {
+    ring: 'border-yellow-500',
+    icon: 'bg-yellow-400 dark:bg-yellow-500',
+  },
+  blue: {
+    ring: 'border-blue-500',
+    icon: 'bg-blue-400 dark:bg-blue-500',
+  },
+  red: {
+    ring: 'border-red-500',
+    icon: 'bg-red-400 dark:bg-red-500',
+  },
+  green: {
+    ring: 'border-green-500',
+    icon: 'bg-green-400 dark:bg-green-500',
+  },
+  purple: {
+    ring: 'border-purple-500',
+    icon: 'bg-purple-400 dark:bg-purple-500',
+  },
+  orange: {
+    ring: 'border-orange-500',
+    icon: 'bg-orange-400 dark:bg-orange-500',
+  },
+  slate: {
+    ring: 'border-slate-500',
+    icon: 'bg-slate-400 dark:bg-slate-500',
+  },
+};
+
+const styles = colorMap[color] || colorMap.yellow;
+---
+
+<div class="mb-6">
+  <h2
+    class={`text-3xl md:text-4xl font-black text-gray-900 dark:text-gray-100 border-b-4 pb-10 ${styles.ring} flex items-center gap-2`}
+    style="direction: rtl;"
+  >
+    <span class={`inline-block w-9 h-9 rounded ${styles.icon} flex-shrink-0`}></span>
+    {number}. {title}
+  </h2>
+</div>

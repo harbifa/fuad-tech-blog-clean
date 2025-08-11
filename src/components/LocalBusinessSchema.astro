@@ -1,0 +1,97 @@
+---
+export interface Props {
+  name?: string;
+  description?: string;
+  address?: {
+    streetAddress?: string;
+    addressLocality?: string;
+    addressRegion?: string;
+    postalCode?: string;
+    addressCountry?: string;
+  };
+  geo?: {
+    latitude?: number;
+    longitude?: number;
+  };
+  telephone?: string;
+  email?: string;
+  url?: string;
+  sameAs?: string[];
+}
+
+const {
+  name = "مدونة عزيز",
+  description = "مدونة متخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات التقنية",
+  address = {
+    addressLocality: "الرياض",
+    addressRegion: "الرياض",
+    addressCountry: "SA"
+  },
+  geo = {
+    latitude: 24.7136,
+    longitude: 46.6753
+  },
+  telephone = "+966 54 740 2101",
+  email = "info@fuad3ziz.com",
+  url = "https://fuad3ziz.com",
+  sameAs = [
+    "https://twitter.com/aziz_tech_blog",
+    "https://linkedin.com/in/fuad-aziz",
+    "https://wa.me/966547402101"
+  ]
+} = Astro.props;
+
+// Generate Local Business Schema.org markup
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": name,
+  "description": description,
+  "url": url,
+  "telephone": telephone,
+  "email": email,
+  "address": {
+    "@type": "PostalAddress",
+    ...address
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    ...geo
+  },
+  "sameAs": sameAs,
+  "areaServed": {
+    "@type": "Country",
+    "name": "Saudi Arabia"
+  },
+  "serviceType": [
+    "مراجعات تقنية",
+    "أدلة شراء",
+    "استشارات أمنية",
+    "محتوى تعليمي"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "خدمات المدونة",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "مراجعات كاميرات المراقبة",
+          "description": "مراجعات شاملة ومفصلة لأفضل كاميرات المراقبة في السوق السعودي"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "أدلة الشراء",
+          "description": "دلائل عملية لاختيار أفضل المنتجات الأمنية"
+        }
+      }
+    ]
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} /> 

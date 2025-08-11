@@ -1,0 +1,308 @@
+---
+// مكون التحليلات المتقدمة
+---
+
+<script>
+  // نظام التحليلات المتقدم لمدونة عزيز
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('📈 Advanced Analytics: Initializing...');
+    
+    // متغيرات التتبع
+    let scrollDepth = 0;
+    let maxScrollDepth = 0;
+    let timeOnPage = Date.now();
+    let isReturningVisitor = localStorage.getItem('visited_before') === 'true';
+    let sessionStartTime = Date.now();
+    let engagementEvents = 0;
+    
+    // تحديد نوع المستخدم
+    const userType = isReturningVisitor ? 'returning' : 'new';
+    localStorage.setItem('visited_before', 'true');
+    
+    // تتبع عمق التمرير
+    function trackScrollDepth() {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+      
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent;
+        
+        // تتبع معالم التمرير
+        if (scrollPercent >= 25 && scrollDepth < 25) {
+          gtag('event', 'scroll', {
+            event_category: 'engagement',
+            event_label: '25%',
+            value: 25
+          });
+        }
+        if (scrollPercent >= 50 && scrollDepth < 50) {
+          gtag('event', 'scroll', {
+            event_category: 'engagement',
+            event_label: '50%',
+            value: 50
+          });
+        }
+        if (scrollPercent >= 75 && scrollDepth < 75) {
+          gtag('event', 'scroll', {
+            event_category: 'engagement',
+            event_label: '75%',
+            value: 75
+          });
+        }
+        if (scrollPercent >= 90 && scrollDepth < 90) {
+          gtag('event', 'scroll', {
+            event_category: 'engagement',
+            event_label: '90%',
+            value: 90
+          });
+        }
+        
+        scrollDepth = scrollPercent;
+      }
+    }
+    
+    // تتبع الوقت المقضي في القراءة
+    function trackReadingTime() {
+      const timeSpent = Math.round((Date.now() - timeOnPage) / 1000);
+      
+      // تتبع معالم الوقت
+      if (timeSpent >= 30 && !window.tracked_30s) {
+        gtag('event', 'timing_complete', {
+          name: 'reading_time',
+          value: 30,
+          event_category: 'engagement'
+        });
+        window.tracked_30s = true;
+      }
+      
+      if (timeSpent >= 60 && !window.tracked_60s) {
+        gtag('event', 'timing_complete', {
+          name: 'reading_time',
+          value: 60,
+          event_category: 'engagement'
+        });
+        window.tracked_60s = true;
+      }
+      
+      if (timeSpent >= 180 && !window.tracked_180s) {
+        gtag('event', 'timing_complete', {
+          name: 'reading_time',
+          value: 180,
+          event_category: 'engagement'
+        });
+        window.tracked_180s = true;
+      }
+    }
+    
+    // تتبع التفاعل مع المحتوى
+    function trackContentInteraction(element, action) {
+      engagementEvents++;
+      
+      gtag('event', action, {
+        event_category: 'content_interaction',
+        event_label: element,
+        value: engagementEvents
+      });
+    }
+    
+    // تتبع النقرات على الروابط الخارجية
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.href) {
+        const url = new URL(link.href, window.location.href);
+        
+        // رابط خارجي
+        if (url.hostname !== window.location.hostname) {
+          gtag('event', 'click', {
+            event_category: 'outbound_link',
+            event_label: url.hostname,
+            transport_type: 'beacon'
+          });
+        }
+        
+        // روابط التابعة (Affiliate)
+        if (link.classList.contains('affiliate-link') || 
+            link.href.includes('amazon.com') || 
+            link.href.includes('affiliate')) {
+          gtag('event', 'click', {
+            event_category: 'affiliate_link',
+            event_label: link.textContent.trim(),
+            transport_type: 'beacon'
+          });
+        }
+        
+        // روابط التواصل الاجتماعي
+        if (url.hostname.includes('twitter.com') || 
+            url.hostname.includes('linkedin.com') || 
+            url.hostname.includes('whatsapp.com')) {
+          gtag('event', 'share', {
+            method: url.hostname.split('.')[0],
+            content_type: 'article',
+            item_id: window.location.pathname
+          });
+        }
+      }
+    });
+    
+    // تتبع البحث
+    const searchInput = document.querySelector('#search-input, [type="search"]');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        if (this.value.length >= 3) {
+          gtag('event', 'search', {
+            search_term: this.value,
+            event_category: 'site_search'
+          });
+        }
+      });
+    }
+    
+    // تتبع تفاعل النشرة البريدية
+    const newsletterForm = document.querySelector('#newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function() {
+        gtag('event', 'sign_up', {
+          method: 'newsletter',
+          event_category: 'engagement'
+        });
+      });
+    }
+    
+    // تتبع تحميل الصور
+    const images = document.querySelectorAll('img[data-src]');
+    if (images.length > 0) {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            gtag('event', 'view_item', {
+              event_category: 'image_load',
+              event_label: entry.target.alt || 'unnamed_image'
+            });
+          }
+        });
+      });
+      
+      images.forEach(img => imageObserver.observe(img));
+    }
+    
+    // تتبع مشاهدة الفيديو (إذا وجد)
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      video.addEventListener('play', function() {
+        gtag('event', 'video_start', {
+          event_category: 'video',
+          event_label: this.src || 'embedded_video'
+        });
+      });
+      
+      video.addEventListener('ended', function() {
+        gtag('event', 'video_complete', {
+          event_category: 'video',
+          event_label: this.src || 'embedded_video'
+        });
+      });
+    });
+    
+    // تتبع أخطاء JavaScript
+    window.addEventListener('error', function(e) {
+      gtag('event', 'exception', {
+        description: `${e.filename}:${e.lineno} - ${e.message}`,
+        fatal: false,
+        event_category: 'javascript_error'
+      });
+    });
+    
+    // تتبع الأخطاء غير المعالجة
+    window.addEventListener('unhandledrejection', function(e) {
+      gtag('event', 'exception', {
+        description: `Unhandled Promise Rejection: ${e.reason}`,
+        fatal: false,
+        event_category: 'promise_error'
+      });
+    });
+    
+    // تتبع سرعة الاتصال
+    if ('connection' in navigator) {
+      const connection = navigator.connection;
+      gtag('event', 'connection_type', {
+        event_category: 'performance',
+        event_label: connection.effectiveType,
+        value: Math.round(connection.downlink)
+      });
+    }
+    
+    // تتبع نوع الجهاز
+    const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+    gtag('event', 'device_type', {
+      event_category: 'user_info',
+      event_label: deviceType
+    });
+    
+    // تتبع اللغة
+    gtag('event', 'language', {
+      event_category: 'user_info',
+      event_label: navigator.language || 'unknown'
+    });
+    
+    // تتبع المنطقة الزمنية
+    gtag('event', 'timezone', {
+      event_category: 'user_info',
+      event_label: Intl.DateTimeFormat().resolvedOptions().timeZone
+    });
+    
+    // Event Listeners
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(trackScrollDepth, 100);
+    });
+    
+    // تتبع الوقت كل 15 ثانية
+    setInterval(trackReadingTime, 15000);
+    
+    // تتبع مغادرة الصفحة
+    window.addEventListener('beforeunload', function() {
+      const timeSpent = Math.round((Date.now() - timeOnPage) / 1000);
+      const sessionDuration = Math.round((Date.now() - sessionStartTime) / 1000);
+      
+      gtag('event', 'page_view_complete', {
+        event_category: 'engagement',
+        value: timeSpent,
+        custom_parameter_1: userType,
+        custom_parameter_2: maxScrollDepth
+      });
+      
+      gtag('event', 'session_duration', {
+        event_category: 'engagement',
+        value: sessionDuration
+      });
+    });
+    
+    // تتبع الزيارة الأولى
+    if (!isReturningVisitor) {
+      gtag('event', 'first_visit', {
+        event_category: 'user_behavior',
+        event_label: 'new_user'
+      });
+    }
+    
+    // تتبع PWA
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      gtag('event', 'pwa_usage', {
+        event_category: 'app_behavior',
+        event_label: 'standalone_mode'
+      });
+    }
+    
+    // تتبع الوضع المظلم
+    if (document.documentElement.classList.contains('dark')) {
+      gtag('event', 'theme_preference', {
+        event_category: 'user_preference',
+        event_label: 'dark_mode'
+      });
+    }
+    
+    console.log('✅ Advanced Analytics: Initialized successfully');
+  });
+</script>

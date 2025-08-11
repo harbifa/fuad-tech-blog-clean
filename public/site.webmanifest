@@ -1,0 +1,27 @@
+{
+  "name": "مدونة عزيز",
+  "short_name": "مدونة عزيز",
+  "description": "مدونة متخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["security", "surveillance", "reviews", "technology"],
+  "lang": "ar",
+  "dir": "rtl"
+}

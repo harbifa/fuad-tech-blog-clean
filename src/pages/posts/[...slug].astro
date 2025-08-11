@@ -1,0 +1,388 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SocialShare from '../../components/SocialShare.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
+import StructuredData from '../../components/StructuredData.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+
+// Category configuration
+const categoryConfig = {
+  'surveillance-cameras': { name: 'كاميرات المراقبة', color: 'text-blue-600', bg: 'bg-blue-50' },
+  'security-systems': { name: 'الأنظمة الأمنية', color: 'text-red-600', bg: 'bg-red-50' },
+  'reviews': { name: 'المراجعات', color: 'text-green-600', bg: 'bg-green-50' }
+};
+
+const config = categoryConfig[post.data.category] || { name: post.data.category, color: 'text-gray-600', bg: 'bg-gray-50' };
+
+// SEO data
+const publishedTime = post.data.date.toISOString();
+const modifiedTime = publishedTime; // Using publish date as modified date for now
+const currentURL = Astro.url.toString();
+
+// Structured data for article
+const articleStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "image": post.data.image,
+  "datePublished": publishedTime,
+  "dateModified": modifiedTime,
+  "author": {
+    "@type": "Person",
+    "name": post.data.author,
+    "jobTitle": "خبير أمن سيبراني",
+    "knowsAbout": ["كاميرات المراقبة", "الأنظمة الأمنية", "الأمن السيبراني"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "مدونة عزيز",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fuad3ziz.com/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": currentURL
+  },
+  "wordCount": 2000,
+  "keywords": post.data.tags?.join(', '),
+  "articleSection": config.name,
+  "inLanguage": "ar"
+};
+---
+
+<Layout 
+  title={`${post.data.title} | مدونة عزيز`}
+  description={post.data.description}
+  image={post.data.image}
+  type="article"
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  author={post.data.author}
+  tags={post.data.tags}
+>
+  <ReadingProgress />
+  <Header />
+  
+  <main class="py-8">
+    <article class="container mx-auto px-4 max-w-4xl" itemscope itemtype="https://schema.org/BlogPosting">
+      <!-- Article Header -->
+      <header class="mb-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-4" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2 rtl:space-x-reverse text-sm text-gray-500 dark:text-gray-400">
+            <li>
+              <a href="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                الرئيسية
+              </a>
+            </li>
+            <li>
+              <i class="fas fa-chevron-left text-xs"></i>
+            </li>
+            <li>
+              <a href="/posts" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                المقالات
+              </a>
+            </li>
+            <li>
+              <i class="fas fa-chevron-left text-xs"></i>
+            </li>
+            <li class="text-gray-700 dark:text-gray-300" aria-current="page">
+              {post.data.title}
+            </li>
+          </ol>
+        </nav>
+        
+        <!-- Category Badge -->
+        <div class="mb-4">
+          <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${config.bg} ${config.color}`}>
+            {config.name}
+          </span>
+        </div>
+        
+        <!-- Title -->
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" itemprop="headline">
+          {post.data.title}
+        </h1>
+        
+        <!-- Meta Information -->
+        <div class="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400 mb-6">
+          <div class="flex items-center" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <i class="fas fa-user ml-2"></i>
+            <span itemprop="name">{post.data.author}</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-calendar-alt ml-2"></i>
+            <time datetime={publishedTime} itemprop="datePublished">
+              {post.data.date.toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-clock ml-2"></i>
+            <span>{post.data.readTime}</span>
+          </div>
+        </div>
+        
+        <!-- Featured Image -->
+        {post.data.image && (
+          <div class="mb-8" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+            <img 
+              src={post.data.image} 
+              alt={post.data.title}
+              class="w-full h-64 md:h-96 object-cover object-center rounded-2xl shadow-lg"
+              style="object-position: center center;"
+              loading="eager"
+              itemprop="url"
+            />
+            <meta itemprop="width" content="1200" />
+            <meta itemprop="height" content="630" />
+          </div>
+        )}
+        
+        <!-- Description -->
+        <div class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border-r-4 border-primary-600" itemprop="description">
+          {post.data.description}
+        </div>
+        
+        <!-- Tags -->
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-8">
+            {post.data.tags.map(tag => (
+              <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm rounded-full" itemprop="keywords">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+      
+
+      
+      <!-- Article Content -->
+      <div class="prose prose-lg prose-gray dark:prose-invert max-w-none" itemprop="articleBody">
+        <Content />
+      </div>
+      
+      <!-- Social Share -->
+      <SocialShare 
+        title={post.data.title}
+        url={currentURL}
+        description={post.data.description}
+      />
+      
+      <!-- Newsletter Signup -->
+      <NewsletterSignup />
+      
+      <!-- Article Footer -->
+      <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <!-- Author Info -->
+        <div class="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 mb-8" itemscope itemtype="https://schema.org/Person">
+          <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-full flex items-center justify-center">
+              <i class="fas fa-user text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" itemprop="name">
+                {post.data.author}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300" itemprop="description">
+                متخصص في كاميرات المراقبة والأنظمة الأمنية. أشارك خبراتي ومعرفتي لمساعدة المجتمع العربي في فهم هذه المجالات المهمة.
+              </p>
+              <div class="flex items-center mt-3 space-x-4 rtl:space-x-reverse">
+                <a href="https://twitter.com/aziz_tech_blog" class="text-blue-500 hover:text-blue-600">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://linkedin.com/in/fuad-aziz" class="text-blue-700 hover:text-blue-800">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+      <!-- Hidden metadata for SEO -->
+      <meta itemprop="dateModified" content={modifiedTime} />
+      <meta itemprop="wordCount" content="2000" />
+      <meta itemprop="inLanguage" content="ar" />
+    </article>
+    
+    <!-- Related Posts -->
+    <RelatedPosts 
+      currentSlug={post.slug}
+      category={post.data.category}
+      tags={post.data.tags || []}
+    />
+  </main>
+  
+  <!-- Structured Data -->
+  <StructuredData type="article" data={articleStructuredData} />
+  
+  <Footer />
+</Layout>
+
+<style>
+  /* Custom prose styles for Arabic content */
+  .prose {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    color: var(--tw-prose-headings);
+    margin-top: 2em;
+    margin-bottom: 1em;
+    line-height: 1.3;
+    scroll-margin-top: 100px; /* For TOC navigation */
+  }
+  
+  .prose h1 {
+    font-size: 2.25em;
+    margin-top: 0;
+    margin-bottom: 0.8888889em;
+  }
+  
+  .prose h2 {
+    font-size: 1.875em;
+    margin-top: 1.5555556em;
+    margin-bottom: 0.8888889em;
+  }
+  
+  .prose h3 {
+    font-size: 1.5em;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+  }
+  
+  .prose p {
+    color: red !important ;
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    line-height: 1.75;
+  }
+  
+  .prose ul,
+  .prose ol {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-right: 1.625em;
+    padding-left: 0;
+  }
+  
+  .prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  
+  .prose blockquote {
+    font-weight: 500;
+    font-style: italic;
+    color: var(--tw-prose-quotes);
+    border-right-width: 0.25rem;
+    border-right-color: var(--tw-prose-quote-borders);
+    border-left-width: 0;
+    quotes: "\201C""\201D""\2018""\2019";
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+    padding-right: 1em;
+    padding-left: 0;
+  }
+  
+  .prose code {
+    color: var(--tw-prose-code);
+    font-weight: 600;
+    font-size: 0.875em;
+    background-color: var(--tw-prose-pre-bg);
+    padding: 0.25em 0.375em;
+    border-radius: 0.375rem;
+  }
+  
+  .prose pre {
+    color: var(--tw-prose-pre-code);
+    background-color: var(--tw-prose-pre-bg);
+    overflow-x: auto;
+    font-weight: 400;
+    font-size: 0.875em;
+    line-height: 1.7142857;
+    margin-top: 1.7142857em;
+    margin-bottom: 1.7142857em;
+    border-radius: 0.375rem;
+    padding: 0.8571429em 1.1428571em;
+  }
+  
+  .prose pre code {
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    padding: 0;
+    font-weight: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+  }
+  
+  .prose strong {
+    color: var(--tw-prose-bold);
+    font-weight: 600;
+  }
+  
+  .prose a {
+    color: var(--tw-prose-links);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  
+  .prose a:hover {
+    color: var(--tw-prose-links);
+    text-decoration: none;
+  }
+  
+  /* Dark mode prose colors */
+  .dark .prose {
+    --tw-prose-body: rgb(209 213 219);
+    --tw-prose-headings: rgb(243 244 246);
+    --tw-prose-lead: rgb(156 163 175);
+    --tw-prose-links: rgb(147 197 253);
+    --tw-prose-bold: rgb(243 244 246);
+    --tw-prose-counters: rgb(156 163 175);
+    --tw-prose-bullets: rgb(75 85 99);
+    --tw-prose-hr: rgb(55 65 81);
+    --tw-prose-quotes: rgb(243 244 246);
+    --tw-prose-quote-borders: rgb(55 65 81);
+    --tw-prose-captions: rgb(156 163 175);
+    --tw-prose-code: rgb(243 244 246);
+    --tw-prose-pre-code: rgb(209 213 219);
+    --tw-prose-pre-bg: rgb(31 41 55);
+    --tw-prose-th-borders: rgb(55 65 81);
+    --tw-prose-td-borders: rgb(75 85 99);
+  }
+</style>

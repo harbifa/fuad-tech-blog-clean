@@ -1,0 +1,55 @@
+---
+export interface Props {
+  type: 'website' | 'article' | 'organization';
+  data: any;
+}
+
+const { type, data } = Astro.props;
+
+// Enhanced structured data for better SEO
+const generateStructuredData = () => {
+  const baseData = {
+    "@context": "https://schema.org",
+    "@type": type === 'website' ? 'WebSite' : type === 'article' ? 'BlogPosting' : 'Organization'
+  };
+
+  if (type === 'website') {
+    return {
+      ...baseData,
+      "name": "مدونة عزيز",
+      "description": "مدونة متخصصة في كاميرات المراقبة والأنظمة الأمنية",
+      "url": "https://fuad3ziz.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://fuad3ziz.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "عزيز",
+        "jobTitle": "خبير أمن سيبراني",
+        "knowsAbout": ["كاميرات المراقبة", "الأنظمة الأمنية", "الأمن السيبراني"]
+      }
+    };
+  }
+
+  if (type === 'article') {
+    return {
+      ...baseData,
+      ...data,
+      "publisher": {
+        "@type": "Organization",
+        "name": "مدونة عزيز",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://fuad3ziz.com/logo.png"
+        }
+      }
+    };
+  }
+
+  return baseData;
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(generateStructuredData())} />
