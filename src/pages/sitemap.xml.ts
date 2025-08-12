@@ -40,6 +40,7 @@ export const GET: APIRoute = async () => {
   const staticPages = [
     { url: '', priority: '1.0', changefreq: 'daily', lastmod: new Date().toISOString() },
     { url: '/about', priority: '0.8', changefreq: 'monthly', lastmod: new Date().toISOString() },
+    { url: '/contact', priority: '0.7', changefreq: 'monthly', lastmod: new Date().toISOString() },
     { url: '/posts', priority: '0.9', changefreq: 'daily', lastmod: new Date().toISOString() },
     { url: '/categories/surveillance-cameras', priority: '0.9', changefreq: 'weekly', lastmod: new Date().toISOString() },
     { url: '/categories/security-systems', priority: '0.9', changefreq: 'weekly', lastmod: new Date().toISOString() },

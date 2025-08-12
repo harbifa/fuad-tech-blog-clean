@@ -34,28 +34,79 @@ const publishedTime = post.data.date.toISOString();
 const modifiedTime = publishedTime; // Using publish date as modified date for now
 const currentURL = Astro.url.toString();
 
-// Structured data for article
+// Enhanced Structured data for article
 const articleStructuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": post.data.title,
   "description": post.data.description,
-  "image": post.data.image,
+  "image": {
+    "@type": "ImageObject",
+    "url": post.data.image ? `https://fuad3ziz.com${post.data.image}` : "https://fuad3ziz.com/blog-social-default.jpg",
+    "width": 1200,
+    "height": 630
+  },
   "datePublished": publishedTime,
   "dateModified": modifiedTime,
   "author": {
     "@type": "Person",
-    "name": post.data.author,
-    "jobTitle": "خبير أمن سيبراني",
-    "knowsAbout": ["كاميرات المراقبة", "الأنظمة الأمنية", "الأمن السيبراني"]
+    "name": post.data.author || "فؤاد عزيز",
+    "jobTitle": "خبير أمن سيبراني ومراجع تقني",
+    "knowsAbout": ["كاميرات المراقبة", "الأنظمة الأمنية", "الأمن السيبراني", "التقنية"],
+    "url": "https://fuad3ziz.com/about",
+    "sameAs": ["https://twitter.com/fuad3ziz"]
   },
   "publisher": {
     "@type": "Organization",
     "name": "مدونة عزيز",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://fuad3ziz.com/logo.png"
-    }
+      "url": "https://fuad3ziz.com/favicon.svg",
+      "width": 512,
+      "height": 512
+    },
+    "url": "https://fuad3ziz.com",
+    "sameAs": ["https://twitter.com/fuad3ziz"]
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": currentURL
+  },
+  "url": currentURL,
+  "keywords": post.data.tags?.join(", ") || "",
+  "articleSection": config.name,
+  "inLanguage": "ar-SA",
+  "isAccessibleForFree": true,
+  "wordCount": post.body?.split(' ').length || 0,
+  "timeRequired": `PT${post.data.readTime || '5M'}`,
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "الرئيسية",
+        "item": "https://fuad3ziz.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "المقالات",
+        "item": "https://fuad3ziz.com/posts"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": config.name,
+        "item": `https://fuad3ziz.com/categories/${post.data.category}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": post.data.title,
+        "item": currentURL
+      }
+    ]
   },
   "mainEntityOfPage": {
     "@type": "WebPage",

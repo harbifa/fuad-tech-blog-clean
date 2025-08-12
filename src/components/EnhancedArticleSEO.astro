@@ -1,0 +1,152 @@
+---
+export interface Props {
+  post: any;
+  currentURL: string;
+  config: any;
+}
+
+const { post, currentURL, config } = Astro.props;
+const publishedTime = post.data.date.toISOString();
+const modifiedTime = publishedTime;
+---
+
+<!-- Enhanced SEO for Articles -->
+<meta name="article:published_time" content={publishedTime} />
+<meta name="article:modified_time" content={modifiedTime} />
+<meta name="article:author" content={post.data.author || "فؤاد عزيز"} />
+<meta name="article:section" content={config.name} />
+{post.data.tags?.map((tag: string) => (
+  <meta name="article:tag" content={tag} />
+))}
+
+<!-- Enhanced Open Graph for Articles -->
+<meta property="og:type" content="article" />
+<meta property="og:article:published_time" content={publishedTime} />
+<meta property="og:article:modified_time" content={modifiedTime} />
+<meta property="og:article:author" content={post.data.author || "فؤاد عزيز"} />
+<meta property="og:article:section" content={config.name} />
+{post.data.tags?.map((tag: string) => (
+  <meta property="og:article:tag" content={tag} />
+))}
+
+<!-- Reading Time and Word Count -->
+<meta name="twitter:label1" content="وقت القراءة" />
+<meta name="twitter:data1" content={post.data.readTime || "5 دقائق"} />
+<meta name="twitter:label2" content="التصنيف" />
+<meta name="twitter:data2" content={config.name} />
+
+<!-- Enhanced Structured Data for Fast Indexing -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": `${currentURL}#article`,
+      "headline": post.data.title,
+      "description": post.data.description,
+      "image": {
+        "@type": "ImageObject",
+        "url": post.data.image ? `https://fuad3ziz.com${post.data.image}` : "https://fuad3ziz.com/blog-social-default.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "datePublished": publishedTime,
+      "dateModified": modifiedTime,
+      "author": {
+        "@type": "Person",
+        "@id": "https://fuad3ziz.com/about#person",
+        "name": post.data.author || "فؤاد عزيز",
+        "jobTitle": "خبير أمن سيبراني ومراجع تقني",
+        "knowsAbout": ["كاميرات المراقبة", "الأنظمة الأمنية", "الأمن السيبراني", "التقنية"],
+        "url": "https://fuad3ziz.com/about",
+        "sameAs": ["https://twitter.com/fuad3ziz"]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://fuad3ziz.com#organization",
+        "name": "مدونة عزيز",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://fuad3ziz.com/favicon.svg",
+          "width": 512,
+          "height": 512
+        },
+        "url": "https://fuad3ziz.com",
+        "sameAs": ["https://twitter.com/fuad3ziz"]
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": currentURL
+      },
+      "url": currentURL,
+      "keywords": post.data.tags?.join(", ") || "",
+      "articleSection": config.name,
+      "inLanguage": "ar-SA",
+      "isAccessibleForFree": true,
+      "wordCount": post.body?.split(' ').length || 2000,
+      "timeRequired": `PT${post.data.readTime?.replace(' دقائق', 'M').replace(' دقيقة', 'M') || '5M'}`,
+      "about": {
+        "@type": "Thing",
+        "name": config.name,
+        "description": `مقالات متخصصة في ${config.name}`
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${currentURL}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "الرئيسية",
+          "item": "https://fuad3ziz.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "المقالات",
+          "item": "https://fuad3ziz.com/posts"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": config.name,
+          "item": `https://fuad3ziz.com/categories/${post.data.category}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": post.data.title,
+          "item": currentURL
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": currentURL,
+      "url": currentURL,
+      "name": post.data.title,
+      "description": post.data.description,
+      "inLanguage": "ar-SA",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://fuad3ziz.com#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": post.data.image ? `https://fuad3ziz.com${post.data.image}` : "https://fuad3ziz.com/blog-social-default.jpg"
+      },
+      "datePublished": publishedTime,
+      "dateModified": modifiedTime
+    }
+  ]
+})} />
+
+<!-- Google-specific meta tags for faster indexing -->
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="bingbot" content="index, follow" />
+
+<!-- Mobile and accessibility -->
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
