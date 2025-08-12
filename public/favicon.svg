@@ -1,6 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <!-- Feather icon representing the blog's identity -->
-  <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
-  <line x1="16" y1="8" x2="2" y2="22"/>
-  <line x1="17.5" y1="15" x2="9" y2="15"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+        stroke: url(#linear-gradient-2);
+        stroke-miterlimit: 10;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="273.68" y1="290" x2="685.96" y2="685.96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#733fea"/>
+      <stop offset="1" stop-color="#0a7fc9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="17.94" y1="500" x2="982.06" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M980.89,98.34c6.37-46.66-33.62-86.44-80.29-80.07C684.24,47.8,193.65,158.62,153.24,555.69c-3.78,32.68-6.5,65.45-8.55,98.26-1.19,19.12,21.98,29.51,35.52,15.96l301.21-301.44c11.86-11.89,31.13-11.89,43,0,11.86,11.89,11.86,31.15,0,43.03L31.8,904.5c-17.81,17.82-17.81,46.72,0,64.54,17.81,17.82,46.68,17.82,64.51,0l102.43-102.5c3.86-3.86,9.3-7.57,14.55-6.07,77.7,22.22,132.61,33.82,209.16,24.96,76.94-7.84,178.01-52.04,221.37-108.1,12.69-16.41,9.35-38.34-11.4-38.34h0c-23.67,0-29.05-33.17-6.6-40.66l103.24-34.44c36.95-12.33,86.54-44.11,107.19-77.14,1.2-1.92,2.4-3.86,3.58-5.79,8.49-13.86-1.58-31.68-17.84-31.68l-47.33,7.15c-22.01,0-29.02-29.67-9.33-39.52l116.21-58.14c4.55-2.28,8.14-6.14,10.04-10.86,52.08-129.5,77.35-262.05,89.31-349.59Z"/>
 </svg>
