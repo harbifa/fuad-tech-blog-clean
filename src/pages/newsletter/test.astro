@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TestNewsletterForm from '../../components/TestNewsletterForm.astro';
+---
+
+<Layout 
+  title="اختبار النشرة البريدية - مدونة عزيز"
+  description="صفحة اختبار النشرة البريدية لمدونة عزيز - جرب الاشتراك بإيميلك الخاص"
+  type="website"
+>
+  <Header />
+  
+  <main class="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+          <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-flask text-3xl text-blue-600 dark:text-blue-400"></i>
+          </div>
+          
+          <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            🧪 اختبار النشرة البريدية
+          </h1>
+          
+          <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">
+            جرب النشرة البريدية بإيميلك الخاص وتأكد من عملها
+          </p>
+          
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-8">
+            <div class="flex items-center justify-center space-x-2 space-x-reverse">
+              <i class="fas fa-info-circle text-yellow-600 dark:text-yellow-400"></i>
+              <p class="text-yellow-800 dark:text-yellow-200 text-sm">
+                هذا نموذج اختبار آمن - ستحصل على رسالة تأكيد في بريدك الإلكتروني
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Test Form -->
+        <TestNewsletterForm 
+          variant="default"
+          source="test_page"
+        />
+        
+        <!-- Instructions -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 mt-12">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+            📋 تعليمات الاختبار
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <span class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mr-3">
+                  <span class="text-blue-600 dark:text-blue-400 font-bold text-sm">1</span>
+                </span>
+                كيفية الاختبار
+              </h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                  أدخل إيميلك الحقيقي في النموذج أعلاه
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                  اضغط "اختبار الاشتراك"
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                  تحقق من بريدك الإلكتروني (ومجلد السبام)
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check text-green-500 mt-1 ml-2 flex-shrink-0"></i>
+                  ستصلك رسالة تأكيد خلال دقائق
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <span class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mr-3">
+                  <span class="text-green-600 dark:text-green-400 font-bold text-sm">2</span>
+                </span>
+                ما تتوقعه
+              </h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                <li class="flex items-start">
+                  <i class="fas fa-envelope text-blue-500 mt-1 ml-2 flex-shrink-0"></i>
+                  رسالة تأكيد فورية
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-user-plus text-purple-500 mt-1 ml-2 flex-shrink-0"></i>
+                  إضافة إلى قائمة المشتركين
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-newspaper text-orange-500 mt-1 ml-2 flex-shrink-0"></i>
+                  استلام النشرة الأسبوعية
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-cog text-gray-500 mt-1 ml-2 flex-shrink-0"></i>
+                  إمكانية إلغاء الاشتراك بسهولة
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Test Results -->
+        <div class="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-8 mt-12 text-white">
+          <h2 class="text-2xl font-bold mb-4 text-center">
+            ✅ نتائج الاختبار
+          </h2>
+          
+          <div class="grid md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-rocket text-2xl"></i>
+              </div>
+              <h3 class="font-semibold mb-2">سرعة التسليم</h3>
+              <p class="text-sm opacity-90">الرسائل تصل خلال 1-5 دقائق</p>
+            </div>
+            
+            <div>
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shield-alt text-2xl"></i>
+              </div>
+              <h3 class="font-semibold mb-2">الأمان</h3>
+              <p class="text-sm opacity-90">حماية متقدمة من السبام</p>
+            </div>
+            
+            <div>
+              <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-chart-line text-2xl"></i>
+              </div>
+              <h3 class="font-semibold mb-2">التتبع</h3>
+              <p class="text-sm opacity-90">تحليلات مفصلة للأداء</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="text-center mt-12">
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/" 
+              class="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              <i class="fas fa-home ml-2"></i>
+              العودة للرئيسية
+            </a>
+            
+            <a 
+              href="/posts" 
+              class="inline-flex items-center px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white font-semibold rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              <i class="fas fa-newspaper ml-2"></i>
+              تصفح المقالات
+            </a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  // Track test page visit
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'newsletter_test_page_visit', {
+      event_category: 'newsletter',
+      event_label: 'test_page_view'
+    });
+  }
+</script>

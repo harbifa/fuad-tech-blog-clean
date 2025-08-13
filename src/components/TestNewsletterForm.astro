@@ -1,0 +1,215 @@
+---
+export interface Props {
+  variant?: 'default' | 'compact';
+  source?: string;
+}
+
+const { variant = 'default', source = 'test' } = Astro.props;
+---
+
+<div class="test-newsletter-wrapper">
+  {variant === 'default' && (
+    <div class="newsletter-signup bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 text-white my-12">
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-envelope text-2xl"></i>
+        </div>
+        
+        <h3 class="text-2xl font-bold mb-4">
+          🧪 اختبار النشرة البريدية
+        </h3>
+        
+        <p class="text-white/90 mb-6">
+          نموذج اختبار لتجربة النشرة البريدية
+          <br>
+          <span class="text-sm opacity-75">سيتم إرسال رسالة تأكيد لإيميلك</span>
+        </p>
+        
+        <!-- Test Form using FormSpree -->
+        <form 
+          class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto test-newsletter-form" 
+          action="https://formspree.io/f/xpznqjqp"
+          method="POST"
+        >
+          <!-- Anti-spam -->
+          <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          
+          <!-- Form data -->
+          <input type="hidden" name="_subject" value="اشتراك جديد في النشرة البريدية - مدونة عزيز" />
+          <input type="hidden" name="source" value={source} />
+          <input type="hidden" name="website" value="fuad3ziz.com" />
+          <input type="hidden" name="_next" value="https://fuad3ziz.com/newsletter/confirmed" />
+          
+          <input 
+            type="email" 
+            name="email"
+            placeholder="بريدك الإلكتروني"
+            class="flex-1 px-4 py-3 rounded-lg border-0 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white/50"
+            required
+          />
+          
+          <button 
+            type="submit"
+            class="px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-md hover:shadow-lg test-submit-btn"
+          >
+            اختبار الاشتراك
+          </button>
+        </form>
+        
+        <div class="test-message mt-4 text-center text-sm" style="display: none;"></div>
+        
+        <div class="flex items-center justify-center mt-4 text-sm text-white/70">
+          <i class="fas fa-flask ml-2"></i>
+          هذا نموذج اختبار - ستصلك رسالة تأكيد
+        </div>
+      </div>
+    </div>
+  )}
+
+  {variant === 'compact' && (
+    <div class="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-2xl p-8 md:p-12 text-white text-center">
+      <div class="max-w-3xl mx-auto">
+        <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-flask text-2xl"></i>
+        </div>
+        <h3 class="text-3xl font-bold mb-4">
+          اختبار النشرة البريدية
+        </h3>
+        <p class="text-xl text-white/90 mb-8">
+          جرب النشرة البريدية بإيميلك الخاص
+        </p>
+        
+        <!-- Test Form Compact -->
+        <form 
+          class="max-w-md mx-auto flex gap-4 test-newsletter-form" 
+          action="https://formspree.io/f/xpznqjqp"
+          method="POST"
+        >
+          <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="hidden" name="_subject" value="اشتراك جديد في النشرة البريدية - مدونة عزيز" />
+          <input type="hidden" name="source" value={source} />
+          <input type="hidden" name="_next" value="https://fuad3ziz.com/newsletter/confirmed" />
+          
+          <input 
+            type="email" 
+            name="email"
+            placeholder="بريدك الإلكتروني"
+            class="flex-1 px-4 py-3 rounded-lg border-0 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white/50"
+            required
+          />
+          <button 
+            type="submit"
+            class="px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-md hover:shadow-lg test-submit-btn"
+          >
+            اختبار
+          </button>
+        </form>
+        <div class="test-message mt-4 text-center text-sm" style="display: none;"></div>
+        
+        <p class="text-sm text-white/70 mt-4">
+          <i class="fas fa-shield-alt ml-2"></i>
+          نموذج اختبار آمن - لن نرسل لك سبام
+        </p>
+      </div>
+    </div>
+  )}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.test-newsletter-form');
+    
+    forms.forEach(form => {
+      const message = form.parentElement.querySelector('.test-message');
+      const button = form.querySelector('.test-submit-btn');
+      
+      if (!form || !button) return;
+      
+      const originalButtonText = button.innerHTML;
+      
+      form.addEventListener('submit', function(e) {
+        // Show loading state
+        button.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i>جاري الإرسال...';
+        button.disabled = true;
+        
+        if (message) {
+          message.style.display = 'none';
+        }
+        
+        // Track the test submission
+        const email = form.querySelector('input[name="email"]')?.value;
+        const source = form.querySelector('input[name="source"]')?.value || 'test';
+        
+        if (typeof gtag !== 'undefined' && email) {
+          gtag('event', 'newsletter_test_submission', {
+            email: email,
+            source: source,
+            method: 'formspree_test'
+          });
+        }
+        
+        // FormSpree will handle the actual submission
+        // Show success message after a delay
+        setTimeout(() => {
+          if (message) {
+            message.innerHTML = '<span class="text-green-200"><i class="fas fa-check ml-2"></i>تم إرسال طلب الاشتراك! تحقق من بريدك الإلكتروني.</span>';
+            message.style.display = 'block';
+          }
+          
+          button.innerHTML = '<i class="fas fa-check ml-2"></i>تم الإرسال';
+          button.classList.add('bg-green-500', 'hover:bg-green-600');
+          
+          // Reset after 5 seconds
+          setTimeout(() => {
+            button.innerHTML = originalButtonText;
+            button.disabled = false;
+            button.classList.remove('bg-green-500', 'hover:bg-green-600');
+            
+            if (message) {
+              message.style.display = 'none';
+            }
+          }, 5000);
+          
+        }, 2000);
+      });
+    });
+  });
+</script>
+
+<style>
+  .test-newsletter-wrapper {
+    position: relative;
+  }
+  
+  .test-newsletter-form input[type="email"] {
+    transition: all 0.3s ease;
+  }
+  
+  .test-newsletter-form input[type="email"]:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .test-submit-btn {
+    transition: all 0.3s ease;
+  }
+  
+  .test-submit-btn:hover {
+    transform: translateY(-1px);
+  }
+  
+  .test-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .test-message {
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
