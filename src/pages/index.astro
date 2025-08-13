@@ -6,7 +6,7 @@ import Hero from '../components/Hero.astro';
 import CategorySection from '../components/CategorySection.astro';
 import BlogCard from '../components/BlogCard.astro';
 import Footer from '../components/Footer.astro';
-import BrevoNewsletterForm from '../components/BrevoNewsletterForm.astro';
+import EmbeddedNewsletterForm from '../components/EmbeddedNewsletterForm.astro';
 
 // Get all posts and sort by date
 const allPosts = await getCollection('posts');
@@ -114,7 +114,7 @@ const recentPosts = sortedPosts
   <!-- Newsletter -->
   <section class="py-16">
     <div class="container mx-auto px-4">
-      <BrevoNewsletterForm 
+      <EmbeddedNewsletterForm 
         variant="compact"
         source="homepage"
         title="اشترك في النشرة البريدية"

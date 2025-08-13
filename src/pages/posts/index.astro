@@ -4,7 +4,7 @@ import { calculateSiteStatistics, formatNumberArabic } from '../../utils/statist
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import BrevoNewsletterForm from '../../components/BrevoNewsletterForm.astro';
+import EmbeddedNewsletterForm from '../../components/EmbeddedNewsletterForm.astro';
 import BlogCard from '../../components/BlogCard.astro';
 
 // Get all posts and sort by date
@@ -261,7 +261,7 @@ const popularTags = allTags.slice(0, 8); // Show top 8 tags
     <!-- Newsletter Section -->
     <section class="py-16">
       <div class="container mx-auto px-4">
-        <BrevoNewsletterForm 
+        <EmbeddedNewsletterForm 
           variant="compact"
           source="posts_page"
           title="لا تفوت أي جديد"

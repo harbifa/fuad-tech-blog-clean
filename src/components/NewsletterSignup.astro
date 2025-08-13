@@ -1,14 +1,14 @@
 ---
-// Import the new Brevo component
-import BrevoNewsletterForm from './BrevoNewsletterForm.astro';
+// Import the embedded newsletter component
+import EmbeddedNewsletterForm from './EmbeddedNewsletterForm.astro';
 ---
 
-<!-- Use the new Brevo component with default variant -->
-<BrevoNewsletterForm 
+<!-- Use the embedded newsletter form that doesn't leave the site -->
+<EmbeddedNewsletterForm 
   variant="default"
   source="article"
   title="🎯 لا تفوت أي جديد في عالم الأمان"
   description="احصل على أحدث المراجعات والنصائح الأمنية مباشرة في بريدك الإلكتروني"
 />
 
-<!-- Newsletter component now uses Brevo integration -->
+<!-- Newsletter component now uses embedded Brevo integration -->
