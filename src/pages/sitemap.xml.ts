@@ -7,8 +7,8 @@ const siteURL = 'https://fuad3ziz.com';
 const EXCLUDED_POSTS = [
   'test-blog-header',
   'smart-security-systems', 
-  'security-system-review',
-  'surveillance-camera-guide'
+  'security-system-review'
+  // Removed: 'surveillance-camera-guide' - doesn't exist
 ];
 
 export const GET: APIRoute = async () => {
@@ -64,7 +64,9 @@ ${staticPages.map(page => `  <url>
 ${sortedPosts.map((post, index) => {
     const isRecent = index < 10; // First 10 posts are considered recent
     const isFeatured = post.data.featured;
-    const priority = isFeatured ? '1.0' : isRecent ? '0.9' : '0.8';
+    // Give extra priority to the home security cameras article
+    const isHomeSecurityArticle = post.slug === 'best-home-security-cameras-saudi-2025';
+    const priority = isHomeSecurityArticle ? '1.0' : isFeatured ? '1.0' : isRecent ? '0.9' : '0.8';
     const changefreq = isRecent ? 'weekly' : 'monthly';
     
     return `  <url>

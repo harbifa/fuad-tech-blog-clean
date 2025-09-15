@@ -22,7 +22,6 @@ Disallow: /api/
 Disallow: /posts/test-blog-header/
 Disallow: /posts/smart-security-systems/
 Disallow: /posts/security-system-review/
-Disallow: /posts/surveillance-camera-guide/
 Disallow: /posts/test-*
 Disallow: /posts/*test*
 Disallow: /posts/*demo*
@@ -47,13 +46,11 @@ User-agent: Googlebot
 Disallow: /posts/test-blog-header/
 Disallow: /posts/smart-security-systems/
 Disallow: /posts/security-system-review/
-Disallow: /posts/surveillance-camera-guide/
 
 User-agent: Bingbot
 Disallow: /posts/test-blog-header/
 Disallow: /posts/smart-security-systems/
 Disallow: /posts/security-system-review/
-Disallow: /posts/surveillance-camera-guide/
 `.trim();
 
   return new Response(robotsTxt, {
