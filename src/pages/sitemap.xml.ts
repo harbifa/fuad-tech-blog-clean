@@ -54,16 +54,12 @@ export const GET: APIRoute = async () => {
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${staticPages.map(page => `  <url>
     <loc>${siteURL}${page.url}</loc>
     <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
-    <mobile:mobile/>
   </url>`).join('\n')}
 ${sortedPosts.map((post, index) => {
     const isRecent = index < 10; // First 10 posts are considered recent
@@ -76,21 +72,11 @@ ${sortedPosts.map((post, index) => {
     <lastmod>${post.data.date.toISOString()}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
-    <mobile:mobile/>${post.data.image ? `
+${post.data.image ? `
     <image:image>
-      <image:loc>${escapeXml(post.data.image)}</image:loc>
+      <image:loc>${siteURL}${post.data.image.startsWith('/') ? post.data.image : '/' + post.data.image}</image:loc>
       <image:title>${escapeXml(post.data.title)}</image:title>
-      <image:caption>${escapeXml(post.data.description)}</image:caption>
-    </image:image>` : ''}${isRecent ? `
-    <news:news>
-      <news:publication>
-        <news:name>مدونة عزيز</news:name>
-        <news:language>ar</news:language>
-      </news:publication>
-      <news:publication_date>${post.data.date.toISOString()}</news:publication_date>
-      <news:title>${escapeXml(post.data.title)}</news:title>
-      <news:keywords>${escapeXml(post.data.tags?.join(', ') || '')}</news:keywords>
-    </news:news>` : ''}
+    </image:image>` : ''}
   </url>`;
   }).join('\n')}
 </urlset>`;
