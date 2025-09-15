@@ -1,0 +1,9 @@
+Contact: https://fuad3ziz.com/contact
+Expires: 2025-12-31T23:59:59.000Z
+Encryption: https://fuad3ziz.com/pgp-key.txt
+Preferred-Languages: ar, en
+Canonical: https://fuad3ziz.com/.well-known/security.txt
+
+# مدونة عزيز - كاميرات المراقبة والأنظمة الأمنية
+# Fuad Aziz Tech Blog - Security and Surveillance Systems
+

@@ -1,0 +1,78 @@
+---
+// مكون مخصص لتحسين SEO للشعار في محركات البحث
+const siteURL = 'https://fuad3ziz.com';
+---
+
+<!-- Schema.org للشعار -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "مدونة عزيز",
+  "alternateName": "Fuad Aziz Blog",
+  "url": siteURL,
+  "logo": `${siteURL}/favicon.svg`,
+  "image": `${siteURL}/favicon.svg`,
+  "description": "مدونة متخصصة في كاميرات المراقبة والأنظمة الأمنية والمراجعات التقنية",
+  "founder": {
+    "@type": "Person",
+    "name": "فؤاد عزيز",
+    "alternateName": "Fuad Aziz"
+  },
+  "foundingDate": "2024",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["Arabic", "English"]
+  },
+  "sameAs": [
+    "https://twitter.com/fuad3ziz",
+    "https://linkedin.com/in/fuadaziz"
+  ],
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteURL}/search?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+})} />
+
+<!-- Meta tags إضافية للشعار -->
+<meta property="og:logo" content={`${siteURL}/favicon.svg`} />
+<meta name="msapplication-square150x150logo" content={`${siteURL}/favicon.svg`} />
+<meta name="msapplication-wide310x150logo" content={`${siteURL}/favicon.svg`} />
+<meta name="msapplication-square310x310logo" content={`${siteURL}/favicon.svg`} />
+
+<!-- Google Knowledge Graph -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "مدونة عزيز",
+  "alternateName": "Fuad Aziz Tech Blog",
+  "url": siteURL,
+  "logo": `${siteURL}/favicon.svg`,
+  "image": `${siteURL}/favicon.svg`,
+  "description": "مدونة عربية متخصصة في كاميرات المراقبة والأنظمة الأمنية مع مراجعات شاملة ونصائح عملية",
+  "inLanguage": "ar-SA",
+  "isAccessibleForFree": true,
+  "publisher": {
+    "@type": "Organization",
+    "name": "مدونة عزيز",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteURL}/favicon.svg`,
+      "width": 1000,
+      "height": 1000
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteURL}/?s={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+})} />
+

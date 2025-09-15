@@ -8,6 +8,7 @@ import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import AdvancedAnalytics from '../components/AdvancedAnalytics.astro';
 import ConversionTracking from '../components/ConversionTracking.astro';
 import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+import LogoSEO from '../components/LogoSEO.astro';
 import BackToTop from '../components/BackToTop.astro';
 import "../../src/styles/prose.css";
 import "../styles/blog.css";
@@ -60,11 +61,13 @@ const GA_TRACKING_ID = 'G-FJHH1S3PRE';
   <meta name="msapplication-TileColor" content="#7c3aed" />
   <meta name="msapplication-tap-highlight" content="no" />
   
-  <!-- Favicon -->
+  <!-- Favicon - شعار الموقع الرئيسي -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.svg" />
-  <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
-  <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.svg" />
   
   <!-- Fallback for older browsers -->
   <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
@@ -80,12 +83,15 @@ const GA_TRACKING_ID = 'G-FJHH1S3PRE';
     modifiedTime={modifiedTime}
     author={author}
     tags={tags}
-    canonicalURL={canonicalURL}
+    canonical={canonicalURL}
     noindex={noindex}
   />
   
   <!-- Local Business Schema -->
   <LocalBusinessSchema />
+  
+  <!-- Logo SEO Schema -->
+  <LogoSEO />
   
   <!-- Performance Optimizer -->
   <PerformanceOptimizer />
